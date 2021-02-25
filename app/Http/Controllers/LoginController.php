@@ -19,26 +19,21 @@ class LoginController extends Controller
 
             $user = User::where('email','=',$request->email)->first();
 
-            if (!$user) {
-                return back()->with('error','email is not recorded');
-            } else {
-                if ($user->type == 'Superadmin') {
-                    $request->session()->put('loggedUser',$user->id);
-                    return \redirect('dashboard/superadmin');
-                } elseif($user->type == 'Admin') {
-                    $request->session()->put('loggedUser',$user->id);
-                    return \redirect('dashboard/admin');
-                }elseif($user->type == 'Author'){
-                    $request->session()->put('loggedUser',$user->id);
-                    return \redirect('dashboard/author');
-                }else{
-                    $request->session()->put('loggedUser',$user->id);
-                    return \redirect('dashboard/user');
-                }
+            if ($user->type == 'Superadmin') {
+                $request->session()->put('loggedUser',$user->id);
+                return \redirect('dashboard/superadmin');
+            } elseif($user->type == 'Admin') {
+                $request->session()->put('loggedUser',$user->id);
+                return \redirect('dashboard/admin');
+            }elseif($user->type == 'Author'){
+                $request->session()->put('loggedUser',$user->id);
+                return \redirect('dashboard/author');
+            }else{
+                $request->session()->put('loggedUser',$user->id);
+                return \redirect('dashboard/user');
             }
-
         }else{
-            return back()->with('error','Password is incorrect');
+            return back()->with('error','Email or password is incorrect');
         }
 
     }
