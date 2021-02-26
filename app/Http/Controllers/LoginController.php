@@ -41,21 +41,21 @@ class LoginController extends Controller
     public function superAdminDashboard()
     {
         $data = ['loggedUserInfo'=>User::where('id','=',session('loggedUser'))->first()];
-        return view('users.superadmin',$data);
+        return view('superadmin.include.home',$data);
     }
     public function adminDashboard()
     {
         $data = ['loggedUserInfo'=>User::where('id','=',session('loggedUser'))->first()];
-        return view('users.admin',$data);
+        return view('admin.admin',$data);
     }
     public function authorDashboard()
     {
         $data = ['loggedUserInfo'=>User::where('id','=',session('loggedUser'))->first()];
-        return view('users.author',$data);
+        return view('author.author',$data);
     }
     public function userDashboard()
     {
         $data = ['loggedUserInfo'=>User::where('id','=',session('loggedUser'))->first()];
-        return view('users.user',$data);
+        return view('user.user',$data);
     }
 }
