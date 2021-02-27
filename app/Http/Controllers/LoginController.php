@@ -40,22 +40,22 @@ class LoginController extends Controller
 
     public function superAdminDashboard()
     {
-        $data = ['loggedUserInfo'=>User::where('id','=',session('loggedUser'))->first()];
-        return view('superadmin.include.home',$data);
+        $data = User::find(session('loggedUser'));
+        return view('superadmin.include.home')->with('data',$data);
     }
     public function adminDashboard()
     {
-        $data = ['loggedUserInfo'=>User::where('id','=',session('loggedUser'))->first()];
-        return view('admin.admin',$data);
+        $data = User::find(session('loggedUser'));
+        return view('admin.admin')->with('data',$data);
     }
     public function authorDashboard()
     {
-        $data = ['loggedUserInfo'=>User::where('id','=',session('loggedUser'))->first()];
-        return view('author.author',$data);
+        $data = User::find(session('loggedUser'));
+        return view('author.author')->with('data',$data);
     }
     public function userDashboard()
     {
-        $data = ['loggedUserInfo'=>User::where('id','=',session('loggedUser'))->first()];
-        return view('user.user',$data);
+        $data = User::find(session('loggedUser'));
+        return view('user.user')->with('data',$data);
     }
 }
