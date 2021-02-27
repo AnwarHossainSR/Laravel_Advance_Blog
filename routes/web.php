@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,13 +22,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::post('auth/login', [LoginController::class,'login'])->name('login.custom');
 
-//Authentication to redirect dashboard
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'dashboard'], function () {
         Route::get('/superadmin',[LoginController::class,'superAdminDashboard'])->name('superadmin.dashboard');
-        Route::get('/admin',[LoginController::class,'adminDashboard']);
-        Route::get('/author',[LoginController::class,'authorDashboard']);
-        Route::get('/user',[LoginController::class,'userDashboard']);
+        Route::get('/admin',[LoginController::class,'adminDashboard'])->name('admin.dashboard');
+        Route::get('/author',[LoginController::class,'authorDashboard'])->name('author.dashboard');
+        Route::get('/user',[LoginController::class,'userDashboard'])->name('user.dashboard');
     });
 });
