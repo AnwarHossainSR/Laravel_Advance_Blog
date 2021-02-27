@@ -50,7 +50,7 @@
         </div>
         <span class="text-danger">@error('email'){{ $message }}@enderror</span>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" name="password" placeholder="Password">
+          <input type="password" class="form-control" name="password" autocomplete="new-password" placeholder="Password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -58,6 +58,15 @@
           </div>
         </div>
         <span class="text-danger">@error('password'){{ $message }}@enderror</span>
+        <div class="input-group mb-3">
+            <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" autocomplete="new-password">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <span class="text-danger">@error('password'){{ $message }}@enderror</span>
         <div class="row">
           <div class="col-8">
             <div class="icheck-primary">
