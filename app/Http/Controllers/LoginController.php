@@ -51,7 +51,7 @@ class LoginController extends Controller
     public function authorDashboard(Request $req)
     {
         $data = User::find(session('loggedUser'));
-        return view('author.author')->with('data',$data);
+        return view('author.include.home')->with('data',$data);
     }
     public function userDashboard()
     {

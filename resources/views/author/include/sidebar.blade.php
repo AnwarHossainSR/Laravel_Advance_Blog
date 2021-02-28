@@ -31,10 +31,10 @@
                 </p>
                 </a>
             </li>
-        
         <li class="nav-item has-treeview {{-- menu-open --}}">
-            <a href="#" class="nav-link">
-            <i class="nav-icon text-primary fab fa-usps text-primary"></i>
+            <a href="#" class="nav-link ">
+
+            <i class="nav-icon text-primary fab fa-affiliatetheme"></i>
                 <p>
                     Post management
                     <i class="right fas fa-angle-left"></i>
@@ -42,36 +42,38 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{{-- {{ route('post.index') }} --}}" class="nav-link {{-- active --}}">
+                    <a href="{{-- {{ route('category.manage') }} --}}" class="nav-link {{-- active --}}">
                     <i class="far fa-circle nav-icon text-primary"></i>
-                    <p>Add Post</p>
+                    <p>Add new post</p>
                     </a>
                 </li>
             </ul>
 
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{{-- {{ route('post.index') }} --}}" class="nav-link {{-- active --}}">
+                    <a href="{{-- {{ route('category.manage') }} --}}" class="nav-link {{-- active --}}">
                     <i class="far fa-circle nav-icon text-primary"></i>
-                    <p>Track Post Status</p>
+                    <p>Track post Status</p>
                     </a>
                 </li>
             </ul>
 
+
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{{-- {{ route('post.index') }} --}}" class="nav-link {{-- active --}}">
+                    <a href="{{-- {{ route('category.manage') }} --}}" class="nav-link {{-- active --}}">
                     <i class="far fa-circle nav-icon text-primary"></i>
-                    <p>Show All Post</p>
+                    <p>Show all post</p>
                     </a>
                 </li>
             </ul>
         </li>
+        
         <li class="nav-item has-treeview {{-- menu-open --}}">
             <a href="#" class="nav-link">
             <i class="nav-icon text-primary fas fa-users"></i>
                 <p>
-                    Comment Management
+                    User management
                     <i class="right fas fa-angle-left"></i>
                 </p>
             </a>
