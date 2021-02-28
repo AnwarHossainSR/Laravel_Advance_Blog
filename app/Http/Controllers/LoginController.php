@@ -57,7 +57,7 @@ class LoginController extends Controller
     {
         $data = ['loggedUserInfo'=>User::where('id','=',session('loggedUser'))->first()];
 
-        return view('users.author',$data);
+        return view('author.author',$data);
     }
     public function userDashboard()
     {

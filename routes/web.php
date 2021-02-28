@@ -18,7 +18,7 @@ use App\Http\Controllers\LoginController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('homepage');
 
 Auth::routes();
 
@@ -27,9 +27,9 @@ Route::post('auth/login', [LoginController::class,'login'])->name('login.custom'
 
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'dashboard'], function () {
-        Route::get('/superadmin',[LoginController::class,'superAdminDashboard']);
-        Route::get('/admin',[LoginController::class,'adminDashboard']);
-        Route::get('/author',[LoginController::class,'authorDashboard']);
-        Route::get('/user',[LoginController::class,'userDashboard']);
+        Route::get('/superadmin',[LoginController::class,'superAdminDashboard'])->name('superadmin.dashboard');
+        Route::get('/admin',[LoginController::class,'adminDashboard'])->name('admin.dashboard');
+        Route::get('/author',[LoginController::class,'authorDashboard'])->name('author.dashboard');
+        Route::get('/user',[LoginController::class,'userDashboard'])->name('user.dashboard');
     });
 });
