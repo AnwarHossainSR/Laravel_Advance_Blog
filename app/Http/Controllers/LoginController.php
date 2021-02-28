@@ -19,49 +19,43 @@ class LoginController extends Controller
 
             $user = User::where('email','=',$request->email)->first();
 
-            if (!$user) {
-                return back()->with('error','email is not recorded');
-            } else {
-                if ($user->type == 'Superadmin') {
-                    $request->session()->put('loggedUser',$user->id);
-                    return \redirect('dashboard/superadmin');
-                } elseif($user->type == 'Admin') {
-                    $request->session()->put('loggedUser',$user->id);
-                    return \redirect('dashboard/admin');
-                }elseif($user->type == 'Author'){
-                    $request->session()->put('loggedUser',$user->id);
-                    return \redirect('dashboard/author');
-                }else{
-                    $request->session()->put('loggedUser',$user->id);
-                    return \redirect('dashboard/user');
-                }
+            if ($user->type == 'Superadmin') {
+                $request->session()->put('loggedUser',$user->id);
+                return \redirect('dashboard/superadmin');
+            } elseif($user->type == 'Admin') {
+                $request->session()->put('loggedUser',$user->id);
+                return \redirect('dashboard/admin');
+            }elseif($user->type == 'Author'){
+                $request->session()->put('loggedUser',$user->id);
+                return \redirect('dashboard/author');
+            }else{
+                $request->session()->put('loggedUser',$user->id);
+                return \redirect('dashboard/user');
             }
-
         }else{
-            return back()->with('error','Password is incorrect');
+            return back()->with('error','Email or password is incorrect');
         }
 
     }
 
     public function superAdminDashboard()
     {
-        $data = ['loggedUserInfo'=>User::where('id','=',session('loggedUser'))->first()];
-        return view('users.superadmin',$data);
+        $data = User::find(session('loggedUser'));
+        return view('superadmin.include.home')->with('data',$data);
     }
     public function adminDashboard()
     {
-        $data = ['loggedUserInfo'=>User::where('id','=',session('loggedUser'))->first()];
-        return view('users.admin',$data);
+        $data = User::find(session('loggedUser'));
+        return view('admin.admin')->with('data',$data);
     }
     public function authorDashboard(Request $req)
     {
-        $data = ['loggedUserInfo'=>User::where('id','=',session('loggedUser'))->first()];
-
-        return view('author.author',$data);
+        $data = User::find(session('loggedUser'));
+        return view('author.author')->with('data',$data);
     }
     public function userDashboard()
     {
-        $data = ['loggedUserInfo'=>User::where('id','=',session('loggedUser'))->first()];
-        return view('users.user',$data);
+        $data = User::find(session('loggedUser'));
+        return view('user.user')->with('data',$data);
     }
 }
