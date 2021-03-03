@@ -35,3 +35,4 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 Route::get('/user-home', [UserController::class, 'index'])->name('user.home');
+Route::get('/single-blog', [UserController::class, 'singleBlog'])->name('user.single-blog');

@@ -10,4 +10,8 @@ class UserController extends Controller
     {
         return view('user.home');
     }
+    public function singleBlog()
+    {
+        return view('user.single-blog');
+    }
 }
