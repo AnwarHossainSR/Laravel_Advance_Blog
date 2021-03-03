@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
-
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,3 +33,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/user',[LoginController::class,'userDashboard'])->name('user.dashboard');
     });
 });
+
+Route::get('/user-home', [UserController::class, 'index'])->name('user.home');
+Route::get('/single-blog', [UserController::class, 'singleBlog'])->name('user.single-blog');
