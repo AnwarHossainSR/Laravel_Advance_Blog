@@ -21,6 +21,7 @@ class CreatePostsTable extends Migration
             $table->longText('content')->nullable();
             $table->foreignId('category_id')->constrained();
             $table->foreignId('user_id')->constrained();
+            $table->string('postImage');
             $table->enum('status',['Publish','Unpublish'])->default('Publish');
             $table->timestamps();
             $table->softDeletes();

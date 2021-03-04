@@ -42,7 +42,7 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{{-- {{ route('category.manage') }} --}}" class="nav-link {{-- active --}}">
+                    <a href="{{ route('category.index') }}" class="nav-link {{-- active --}}">
                     <i class="far fa-circle nav-icon text-primary"></i>
                     <p>Manage</p>
                     </a>
@@ -59,7 +59,7 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{{-- {{ route('post.index') }} --}}" class="nav-link {{-- active --}}">
+                    <a href="{{ route('post.index') }}" class="nav-link {{-- active --}}">
                     <i class="far fa-circle nav-icon text-primary"></i>
                     <p>Manage</p>
                     </a>
@@ -128,7 +128,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('user.index') }}" class="nav-link">
             <i class="nav-icon text-primary fas fa-user-circle"></i>
             <p>
                 Accounts

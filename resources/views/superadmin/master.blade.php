@@ -78,10 +78,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     @yield('script')
     <script>
         $(function () {
+
           $("#example1").DataTable({
             "responsive": true,
             "autoWidth": false,
-          });
+          });/*
           $('#example2').DataTable({
             "paging": true,
             "lengthChange": false,
@@ -90,7 +91,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             "info": true,
             "autoWidth": false,
             "responsive": true,
-          });
+          }); */
         });
       </script>
     </body>
