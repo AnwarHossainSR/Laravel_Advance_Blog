@@ -66,7 +66,7 @@
               <div class="p-1 px-3 d-flex justify-content-between">
                   <h3 class="">Profile Edit</h3>
                   <h5>
-                    <a href="{{ route('profile.passChange') }}" class=" ">
+                    <a href="{{ url('profile/superadmin/password/change/'. Auth::user()->id) }}" class=" ">
                       <i class="fas fa-unlock "></i>
                       Change Password
                     </a>
@@ -76,49 +76,41 @@
                 @include('superadmin.include.alert')
               </div>
               <!-- form start -->
-              <form role="form" action="{{ route('user.update',[Auth::user()->id]) }}" method="POST" enctype="multipart/form-data">
+              <form role="form" action="{{ route('password.update') }}" method="POST">
               @csrf
-              @method('put')
                 <div class="card-body">
                   <input class="form-control" type="text" name="user_id" value="{{ Auth::user()->id }}" hidden>
                     <div class="form-group">
-                        <label for="exampleInputName">Full Name</label>
-                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="exampleInputName" placeholder="full name" name="name" value="{{ Auth::user()->name }}">
+                        <label for="exampleInputName">Previous Password</label>
+                        <input type="password" name="previousPassword" class="form-control @error('previousPassword') is-invalid @enderror" id="exampleInputName" placeholder="Previous Password">
                       </div>
-                    @error('name')
+                    @error('previousPassword')
                       <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
                       </span>
                     @enderror
 
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="exampleInputEmail1" name="email" placeholder="Enter email" value="{{ Auth::user()->email }}">
-                  </div>
-                   @error('email')
+                    <div class="form-group">
+                        <label for="exampleInputName">New Password</label>
+                        <input type="password" name="password" class="form-control @error('newPassword') is-invalid @enderror" id="exampleInputName" placeholder="New password">
+                      </div>
+                    @error('newPassword')
                       <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
                       </span>
                     @enderror
 
-                    <label >Image Upload</label>
-                  <div class="form-group-file">
-                    
-                    {{-- <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" name="feature_image" accept="image/*" class="custom-file-input" name="file" >
-                        <label class="custom-file-label">Profile Image</label>
+                    <div class="form-group">
+                        <label for="exampleInputName">Confirm Password</label>
+                        <input type="password" name="password_confirmation" class="form-control" id="exampleInputName" placeholder="Confirm password" >
                       </div>
-                    </div> --}}
-                      <input type="file" name="feature_image" accept="image/*" id="file-upload" class="form-control" name="file" style="display: none;" onchange="previewFile(this)">
-                      <p onclick="document.querySelector('#file-upload').click()">
-                          Drag & drop to upload image
-                      </p>
-                  </div>
-                  <div id="previewBox" style="display: none;">
-                    <img src="" id="previewImg" alt="" width="40%" height="50%">
-                    <i class="fas fa-trash-alt nav-icon" style="cursor: pointer;" onclick="previewRemove()">Delete</i>
-                </div>
+                    @error('password')
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                    @enderror
+
+                      
                 </div>
                 <!-- /.card-body -->
 
@@ -138,47 +130,4 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-@endsection
-
-@section('style')
-  <style>
-      .form-group-file{
-          width: 100%;
-          height: 50px;
-          border: 1px dashed !important;
-          margin-bottom: 5px;
-      }
-      .form-group-file{
-          width: 100%;
-          height: 100%;
-          text-align: center;
-          line-height: 100px;
-      }
-
-  </style>
-@endsection
-
-@section('script')
-    <script>
-        function previewFile(input)
-        {
-            let file = $("input[type=file]").get(0).files[0];
-            if (file) {
-                let reader = new FileReader();
-                reader.onload = function(){
-                    $('#previewImg').attr('src',reader.result);
-                    $('#previewBox').css('display','block');
-                }
-                $('.form-group-file').css('display','none');
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function previewRemove(input)
-        {
-            $('#previewImg').attr('src','');
-            $('#previewBox').css('display','none');
-            $('.form-group-file').css('display','block');
-        }
-    </script>
 @endsection
