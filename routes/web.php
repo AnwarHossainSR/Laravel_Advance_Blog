@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SuperAdminController;
 
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -53,3 +54,5 @@ Route::group(['middleware' => ['auth']], function () {
     });
 });
 
+Route::get('/user-home', [UserController::class, 'index'])->name('user.home');
+Route::get('/single-blog', [UserController::class, 'singleBlog'])->name('user.single-blog');
