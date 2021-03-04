@@ -7,9 +7,9 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SuperAdminController;
-
 use App\Http\Controllers\UserController;
 
+//Useing Route
 Route::get('/', function () {
     return view('welcome');
 })->name('homepage');
@@ -21,6 +21,7 @@ Route::post('auth/login', [LoginController::class,'login'])->name('login.custom'
 
 Route::group(['middleware' => ['auth']], function () {
 
+    //Redirect Dashboard
     Route::group(['prefix' => 'dashboard'], function () {
         Route::get('/superadmin',[LoginController::class,'superAdminDashboard'])->name('superadmin.dashboard');
         Route::get('/admin',[LoginController::class,'adminDashboard'])->name('admin.dashboard');
@@ -28,6 +29,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/user',[LoginController::class,'userDashboard'])->name('user.dashboard');
     });
 
+
+    //Super Admin
     Route::prefix('superadmin')->group(function () {
 
         //Categories
@@ -54,5 +57,8 @@ Route::group(['middleware' => ['auth']], function () {
     });
 });
 
+
+
+//User
 Route::get('/user-home', [UserController::class, 'index'])->name('user.home');
 Route::get('/single-blog', [UserController::class, 'singleBlog'])->name('user.single-blog');
