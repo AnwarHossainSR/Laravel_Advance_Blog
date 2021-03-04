@@ -48,10 +48,9 @@ Route::group(['middleware' => ['auth']], function () {
         //Profile
         Route::prefix('profile')->group(function () {
             Route::resource('user', SuperAdminController::class);
-           // Route::post('/profile/{id}', [SuperAdminController::class,'updateProfile'])->name('user.updateProfile');
             Route::post('/profile', [SuperAdminController::class,'updateProfile']);
-            Route::get('/password/change',[SuperAdminController::class,'getPassword'])->name('profile.passChange');
-            Route::post('/password/change',[SuperAdminController::class,'postPassword']);
+            Route::get('/superadmin/password/change',[SuperAdminController::class,'getPassword'])->name('profile.passChange');
+            Route::post('/superadmin/password/change',[SuperAdminController::class,'updatePassword'])->name('password.update');
         });
 
     });
