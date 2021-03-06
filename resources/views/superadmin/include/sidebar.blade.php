@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{-- {{ route('admin.dashboard') }} --}}" class="brand-link">
+    <a href="{{ route('superadmin.dashboard') }}" class="brand-link">
     <img src="{{ asset('source/back') }}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
         style="opacity: .8">
     <span class="brand-text font-weight-light">Super Admin</span>
@@ -14,7 +14,7 @@
         <img src="{{ asset('source/back/profile') }}/{{ Auth::user()->profileImage }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+        <a href="{{ route('user.index') }}" class="d-block">{{ Auth::user()->name }}</a>
         </div>
     </div>
 
@@ -76,9 +76,27 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{{-- {{ route('post.index') }} --}}" class="nav-link {{-- active --}}">
+                    <a href="{{ route('manage.index') }}" class="nav-link {{-- active --}}">
                     <i class="far fa-circle nav-icon text-primary"></i>
-                    <p>Manage</p>
+                    <p>Active Users</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('user.deactive') }}" class="nav-link {{-- active --}}">
+                    <i class="far fa-circle nav-icon text-primary"></i>
+                    <p>Deactive Users</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('role.manage') }}" class="nav-link {{-- active --}}">
+                    <i class="far fa-circle nav-icon text-primary"></i>
+                    <p>Manage Roles</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('request.user') }}" class="nav-link {{-- active --}}">
+                    <i class="far fa-circle nav-icon text-primary"></i>
+                    <p>User Request</p>
                     </a>
                 </li>
             </ul>

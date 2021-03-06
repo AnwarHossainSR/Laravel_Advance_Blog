@@ -100,6 +100,8 @@ class SuperAdminController extends Controller
         
         //return \redirect()->route('user.index')->with('success','Password changed successfully');
     }
+
+   
  
 }
 

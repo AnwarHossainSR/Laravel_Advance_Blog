@@ -56,9 +56,6 @@
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                                 @empty
                                 @endforelse
-                              @foreach($categories as $key => $category)
-
-                              @endforeach
                             </select>
                           </div>
                           <div class="md-form">
