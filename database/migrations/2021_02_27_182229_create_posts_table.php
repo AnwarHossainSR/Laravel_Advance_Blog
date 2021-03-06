@@ -16,13 +16,16 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->mediumText('excerpt')->nullable();
             $table->longText('content')->nullable();
             $table->foreignId('category_id')->constrained();
-            $table->foreignId('user_id')->constrained();
-            $table->string('postImage');
+            $table->integer('user_id')->unsigned();
+            $table->string('view_count')->default(0);
+            $table->string('postImage')->default('postDefault.jpg');
             $table->enum('status',['Publish','Unpublish'])->default('Publish');
+            $table->boolean('is_approve')->default(false);
+            //$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

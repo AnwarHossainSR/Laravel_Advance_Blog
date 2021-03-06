@@ -7,7 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SuperAdminController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserManageController;
 
 //Useing Route
 Route::get('/', function () {
@@ -53,9 +53,23 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/superadmin/password/change',[SuperAdminController::class,'updatePassword'])->name('password.update');
         });
 
+        //User Manage
+        Route::prefix('user')->group(function () {
+            Route::resource('manage', UserManageController::class);
+            Route::get('/role/manage',[UserManageController::class,'getAllRoles'])->name('role.manage');
+            Route::get('/deactive',[UserManageController::class,'getAllDeactiveUsers'])->name('user.deactive');
+            Route::get('/change/deactive/{id}',[UserManageController::class,'activeToDeactive'])->name('activeuser.deactive');
+            Route::get('/change/active/{id}',[UserManageController::class,'deactiveToActive'])->name('deactiveuser.active');
+
+            //request
+            Route::get('/request',[UserManageController::class,'requestUserHandle'])->name('request.user');
+            Route::get('/request/show/{id}',[UserManageController::class,'requestDetailsShow'])->name('user.request.show');
+            Route::get('/request/accept/{id}',[UserManageController::class,'requestUserAccept'])->name('user.request.accept');
+            
+                
+        });
     });
 });
-
 
 
 //User
