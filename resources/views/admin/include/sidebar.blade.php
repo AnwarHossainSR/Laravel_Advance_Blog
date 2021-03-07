@@ -49,6 +49,15 @@
                 </p>
             </a>
         </li>
+        <li class="nav-item has-treeview {{-- menu-open --}}">
+            <a href="{{ route('admin.posts.all') }}" class="nav-link ">
+
+            <i class="nav-icon text-primary fas fa-clipboard"></i>
+                <p>
+                    Post Management
+                </p>
+            </a>
+        </li>
 
 
 
