@@ -2,8 +2,13 @@
 @section('title')
     Super Admin || Post
 @endsection
+@push('css')
+  <link href="{{ asset('source/back') }}/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+  <script src="https://cdn.tiny.cloud/1/qbghu4tnq16uzuojk6all9lci25ogff0uz85m2o6933y2ryk/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+@endpush
 
 @section('content')
+
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -24,20 +29,22 @@
         </div>
       </div>
     </div><!-- /.container-fluid -->
+    
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
+              <form action="{{ route('post.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
               <div class="row">
+                @include('superadmin.include.alert')
                 <!-- left column -->
-                <div class="col-md-12">
+                <div class="col-md-8">
                   <!-- general form elements -->
-                  @include('superadmin.include.alert')
                   <div class="card">
-
+                    
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form action="{{ route('post.store') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
+                    
                       <div class="card-body">
                         <input type="text" name="user_id" class="form-control" value="{{ Auth::user()->id }}" name="id" hidden>
                         <div class="form-group">
@@ -46,50 +53,86 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputName">Excerpt</label>
-                            <input type="text" class="form-control" name="excerpt" id="exampleInputName" placeholder="Write an excerpt">
+                            <input type="text" class="form-control" name="excerpt" id="exampleInputName" placeholder="Write an excerpt" >
                           </div>
-                          <div class="form-group">
-                            <label class="mr-sm-2" for="inlineFormCustomSelect">Category</label>
-                            <select class="custom-select " name="category_id">
-                                <option value="0" selected>Select a category</option>
-                                @forelse($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @empty
-                                @endforelse
-                            </select>
-                          </div>
-                          <div class="md-form">
-                            <label >Content</label>
-                            <textarea type="text" name="content" class="md-textarea form-control" rows="3" ></textarea>
-                          </div><br>
-                          <div class="form-group-file">
-                            <input type="file" name="feature_image" accept="image/*" id="file-upload" class="form-control" name="file" style="display: none;" onchange="previewFile(this)">
-                            <p onclick="document.querySelector('#file-upload').click()">
-                                Drag & drop to upload image
-                            </p>
-
-                          </div>
-                        <div id="previewBox" style="display: none;">
-                            <img src="" id="previewImg" alt="" width="40%" height="50%">
-                            <i class="fas fa-trash-alt nav-icon" style="cursor: pointer;" onclick="previewRemove()">Delete</i>
-                        </div>
-                        <div class="card-footer">
-                            <button type="submit" name="status" class="btn btn-primary" value="unpublish">Save Post</button>
-                            <button type="submit" name="status" class="btn btn-success" value="publish">Publish Post</button>
-                          </div>
-                      </form>
                     </div>
                     <!-- /.card-body -->
                   </div>
                   <!-- /.card -->
                 </div>
-                <!--/.col (right) -->
+                <!--/.col (left) -->
+                 <!--.col (right) -->
+                <div class="col-md-4">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="form-group">
+                        <div class="form-line {{ $errors->has('categories') ? 'focused error' : '' }}">
+                            <label for="category">Select Categories</label>
+                            <select name="categories[]" id="category" class="form-control selectpicker " data-live-search="true" data-max-options="3" multiple>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="form-line {{ $errors->has('tags') ? 'focused error' : '' }}">
+                            <label for="tag">Select Tags</label>
+                            <select name="tags[]" id="category" class="form-control selectpicker " data-live-search="true" data-max-options="3" multiple>
+                                @foreach($tags as $tag)
+                                    <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                 <!--/.col (right) -->
               </div>
               <!-- /.row -->
+
+              <!--row-->
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="card">
+
+                      <!-- /.card-header -->
+                      <!-- form start -->
+                      
+                        <div class="card-body">
+                          <div class="md-form">
+                            <label >Content</label>
+                            <textarea id="tinymce" name="content" class="md-textarea form-control" rows="3"></textarea>
+                          </div><br>
+                            <div class="form-group-file">
+                              <input type="file" name="feature_image" accept="image/*" id="file-upload" class="form-control" name="file" style="display: none;" onchange="previewFile(this)">
+                              <p onclick="document.querySelector('#file-upload').click()">
+                                  Drag & drop to upload image
+                              </p>
+  
+                            </div>
+                          <div id="previewBox" style="display: none;">
+                              <img src="" id="previewImg" alt="" width="40%" height="50%">
+                              <i class="fas fa-trash-alt nav-icon" style="cursor: pointer;" onclick="previewRemove()">Delete</i>
+                          </div>
+                          <div class="card-footer">
+                              <button type="submit" name="status" class="btn btn-primary" value="Unpublish">Save Post</button>
+                              <button type="submit" name="status" class="btn btn-success" value="Publish">Publish Post</button>
+                            </div>
+                        
+                      </div>
+                      <!-- /.card-body -->
+                    </div>
+                  </div>
+                </div>
+              <!--/row-->
+            </form>
             </div><!-- /.container-fluid -->
           </section>
           <!-- /.content -->
-  </section>
+      </section>
+
 
 @endsection
 
@@ -112,12 +155,30 @@
 @endsection
 
 @section('script')
-    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
-    <script>
-         CKEDITOR.replace('content',{
-            filebrowserUploadUrl:'{{ route('post.content_file',['_token'=>csrf_token()]) }}',
-            filebrowserUploadMethod:'form',
-        });
+    <!-- Select Plugin Js -->
+    <script src="{{ asset('source/back') }}/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+    <!-- TinyMCE -->
+    {{-- <script src="{{ asset('source/back') }}/plugins/tinymce/tinymce.js"></script> --}}
+
+<script>
+
+tinymce.init({
+  selector: 'textarea#tinymce',
+  height: 500,
+  menubar: false,
+  plugins: [
+    'advlist autolink lists link image charmap print preview anchor',
+    'searchreplace visualblocks code fullscreen',
+    'insertdatetime media table paste code help wordcount'
+  ],
+  toolbar: 'undo redo | formatselect | ' +
+  'bold italic backcolor | alignleft aligncenter ' +
+  'alignright alignjustify | bullist numlist outdent indent | ' +
+  'removeformat | help',
+  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+});
+
+
 
         function previewFile(input)
         {
