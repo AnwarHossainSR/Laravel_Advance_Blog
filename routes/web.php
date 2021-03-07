@@ -9,6 +9,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\UserManageController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\admin\AdminCategoryController;
 //Useing Route
 Route::get('/', function () {
     return view('welcome');
@@ -17,16 +18,27 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::post('auth/login', [LoginController::class,'login'])->name('login.custom');
+Route::post('auth/login', [LoginController::class, 'login'])->name('login.custom');
 
 Route::group(['middleware' => ['auth']], function () {
 
     //Redirect Dashboard
     Route::group(['prefix' => 'dashboard'], function () {
-        Route::get('/superadmin',[LoginController::class,'superAdminDashboard'])->name('superadmin.dashboard');
-        Route::get('/admin',[LoginController::class,'adminDashboard'])->name('admin.dashboard');
-        Route::get('/author',[LoginController::class,'authorDashboard'])->name('author.dashboard');
-        Route::get('/user',[LoginController::class,'userDashboard'])->name('user.dashboard');
+        Route::get('/superadmin', [LoginController::class, 'superAdminDashboard'])->name('superadmin.dashboard');
+        Route::get('/admin', [LoginController::class, 'adminDashboard'])->name('admin.dashboard');
+        Route::get('/author', [LoginController::class, 'authorDashboard'])->name('author.dashboard');
+        Route::get('/user', [LoginController::class, 'userDashboard'])->name('user.dashboard');
+    });
+    //admin
+    Route::prefix('admin')->group(function () {
+        //admin category
+        Route::get('/category', [AdminCategoryController::class, 'index1'])->name('admin.category.all');
+        Route::get('/category/create', [AdminCategoryController::class, 'create'])->name('admin.category.create');
+        Route::post('/category/create', [AdminCategoryController::class, 'createPost'])->name('admin.category.create');
+        Route::get('/category/edit/{id}', [AdminCategoryController::class, 'edit'])->name('admin.category.edit');
+        Route::post('/category/edit/{id}', [AdminCategoryController::class, 'editPost'])->name('admin.category.edit');
+        Route::post('/category/delete/{id}', [AdminCategoryController::class, 'delete'])->name('admin.category.delete');
+        Route::get('/category/details/{id}', [AdminCategoryController::class, 'details'])->name('admin.category.details');
     });
 
 
@@ -35,38 +47,36 @@ Route::group(['middleware' => ['auth']], function () {
 
         //Categories
         Route::resource('category', CategoryController::class);
-        Route::get('/category/publish/{id}',[CategoryController::class,'publish'])->name('category.publish');
-        Route::get('/category/hide/{id}',[CategoryController::class,'hide'])->name('category.hide');
+        Route::get('/category/publish/{id}', [CategoryController::class, 'publish'])->name('category.publish');
+        Route::get('/category/hide/{id}', [CategoryController::class, 'hide'])->name('category.hide');
 
         //Posts
         Route::resource('post', PostController::class);
-        Route::get('/destroy/{id}',[PostController::class,'destroy'])->name('post.delete');
-        Route::get('/publish/{id}',[PostController::class,'publish'])->name('post.publish');
-        Route::get('/hide/{id}',[PostController::class,'hide'])->name('post.hide');
-        Route::post('/content/file',[PostController::class,'fileUpload'])->name('post.content_file');
+        Route::get('/destroy/{id}', [PostController::class, 'destroy'])->name('post.delete');
+        Route::get('/publish/{id}', [PostController::class, 'publish'])->name('post.publish');
+        Route::get('/hide/{id}', [PostController::class, 'hide'])->name('post.hide');
+        Route::post('/content/file', [PostController::class, 'fileUpload'])->name('post.content_file');
 
         //Profile
         Route::prefix('profile')->group(function () {
             Route::resource('user', SuperAdminController::class);
-            Route::post('/profile', [SuperAdminController::class,'updateProfile']);
-            Route::get('/superadmin/password/change',[SuperAdminController::class,'getPassword'])->name('profile.passChange');
-            Route::post('/superadmin/password/change',[SuperAdminController::class,'updatePassword'])->name('password.update');
+            Route::post('/profile', [SuperAdminController::class, 'updateProfile']);
+            Route::get('/superadmin/password/change', [SuperAdminController::class, 'getPassword'])->name('profile.passChange');
+            Route::post('/superadmin/password/change', [SuperAdminController::class, 'updatePassword'])->name('password.update');
         });
 
         //User Manage
         Route::prefix('user')->group(function () {
             Route::resource('manage', UserManageController::class);
-            Route::get('/role/manage',[UserManageController::class,'getAllRoles'])->name('role.manage');
-            Route::get('/deactive',[UserManageController::class,'getAllDeactiveUsers'])->name('user.deactive');
-            Route::get('/change/deactive/{id}',[UserManageController::class,'activeToDeactive'])->name('activeuser.deactive');
-            Route::get('/change/active/{id}',[UserManageController::class,'deactiveToActive'])->name('deactiveuser.active');
+            Route::get('/role/manage', [UserManageController::class, 'getAllRoles'])->name('role.manage');
+            Route::get('/deactive', [UserManageController::class, 'getAllDeactiveUsers'])->name('user.deactive');
+            Route::get('/change/deactive/{id}', [UserManageController::class, 'activeToDeactive'])->name('activeuser.deactive');
+            Route::get('/change/active/{id}', [UserManageController::class, 'deactiveToActive'])->name('deactiveuser.active');
 
             //request
-            Route::get('/request',[UserManageController::class,'requestUserHandle'])->name('request.user');
-            Route::get('/request/show/{id}',[UserManageController::class,'requestDetailsShow'])->name('user.request.show');
-            Route::get('/request/accept/{id}',[UserManageController::class,'requestUserAccept'])->name('user.request.accept');
-            
-                
+            Route::get('/request', [UserManageController::class, 'requestUserHandle'])->name('request.user');
+            Route::get('/request/show/{id}', [UserManageController::class, 'requestDetailsShow'])->name('user.request.show');
+            Route::get('/request/accept/{id}', [UserManageController::class, 'requestUserAccept'])->name('user.request.accept');
         });
     });
 });
