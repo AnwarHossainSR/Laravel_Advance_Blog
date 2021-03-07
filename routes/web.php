@@ -10,6 +10,7 @@ use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\UserManageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\admin\AdminCategoryController;
+use App\Http\Controllers\admin\AdminTagController;
 //Useing Route
 Route::get('/', function () {
     return view('welcome');
@@ -39,6 +40,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/category/edit/{id}', [AdminCategoryController::class, 'editPost'])->name('admin.category.edit');
         Route::post('/category/delete/{id}', [AdminCategoryController::class, 'delete'])->name('admin.category.delete');
         Route::get('/category/details/{id}', [AdminCategoryController::class, 'details'])->name('admin.category.details');
+        //admin Tag
+        Route::get('/tag', [AdminTagController::class, 'index'])->name('admin.tags.all');
+        Route::get('/tag/create', [AdminTagController::class, 'create'])->name('admin.tag.create');
+        Route::post('/tag/create', [AdminTagController::class, 'createPost'])->name('admin.tag.create');
+        Route::get('/tag/edit/{id}', [AdminTagController::class, 'edit'])->name('admin.tag.edit');
+        Route::post('/tag/edit/{id}', [AdminTagController::class, 'editPost'])->name('admin.tag.edit');
+        Route::post('/tag/delete/{id}', [AdminTagController::class, 'delete'])->name('admin.tag.delete');
+        Route::get('/tag/details/{id}', [AdminTagController::class, 'details'])->name('admin.tag.details');
     });
 
 

@@ -40,6 +40,15 @@
                 </p>
             </a>
         </li>
+        <li class="nav-item has-treeview {{-- menu-open --}}">
+            <a href="{{ route('admin.tags.all') }}" class="nav-link ">
+
+            <i class="nav-icon text-primary fas fa-tags"></i>
+                <p>
+                    Tag Management
+                </p>
+            </a>
+        </li>
 
 
 
