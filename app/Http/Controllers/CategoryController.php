@@ -12,10 +12,11 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //fhrhgyueht
     public function index()
     {
         $categories = Category::latest()->get();
-        return view('superadmin.category.manage',compact('categories',$categories));
+        return view('superadmin.category.manage', compact('categories', $categories));
     }
 
     /**
@@ -39,21 +40,21 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|unique:categories|max:20',
         ]);
-        
-        if ($request->hasFile('feature_image')){
+
+        if ($request->hasFile('feature_image')) {
             $image = $request->file('feature_image');
-            $imageName = time().'.'.$image->extension();
-            $image->move(public_path('source/back/category'),$imageName);
-        }else{
+            $imageName = time() . '.' . $image->extension();
+            $image->move(public_path('source/back/category'), $imageName);
+        } else {
             $imageName = "catDefault.jpg";
         }
-        
+
         $category = new Category();
         $category->name = $request->name;
-        $category->slug = strtolower(str_replace('','_',$request->name));
+        $category->slug = strtolower(str_replace('', '_', $request->name));
         $category->image = $imageName;
         $category->save();
-        return redirect()->route('category.index')->with('success','Category created successfully');
+        return redirect()->route('category.index')->with('success', 'Category created successfully');
     }
 
     /**
@@ -76,7 +77,7 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         //$category = Category::find($id);
-        return view('superadmin.category.edit_form',compact('category'));
+        return view('superadmin.category.edit_form', compact('category'));
     }
 
     /**
@@ -94,28 +95,27 @@ class CategoryController extends Controller
 
         $cate = Category::find($request->id);
 
-        if ($request->hasFile('feature_image')){
+        if ($request->hasFile('feature_image')) {
 
-            $existPhoto = '/source/back/category/'.$cate->image;
-            $path = str_replace('\\','/',public_path());
-            if (file_exists($path.$existPhoto)) {
-                \unlink($path.$existPhoto);
+            $existPhoto = '/source/back/category/' . $cate->image;
+            $path = str_replace('\\', '/', public_path());
+            if (file_exists($path . $existPhoto)) {
+                \unlink($path . $existPhoto);
             }
             $image = $request->file('feature_image');
-            $imageName = time().'.'.$image->extension();
-            $image->move(public_path('source/back/category'),$imageName);
-            
+            $imageName = time() . '.' . $image->extension();
+            $image->move(public_path('source/back/category'), $imageName);
+
             $cate->name = $request->name;
-            $category->slug = strtolower(str_replace('','_',$request->name));
+            $category->slug = strtolower(str_replace('', '_', $request->name));
             $cate->image = $imageName;
             $cate->update();
-        }else{
+        } else {
             $cate->name = $request->name;
-            $category->slug = strtolower(str_replace('','_',$request->name));
+            $category->slug = strtolower(str_replace('', '_', $request->name));
             $cate->update();
         }
-        return redirect()->route('category.index')->with('success','Category updated successfully');
-
+        return redirect()->route('category.index')->with('success', 'Category updated successfully');
     }
 
     /**
@@ -127,7 +127,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         Category::destroy($id);
-       return back()->with('success','Category deleted successfully');
+        return back()->with('success', 'Category deleted successfully');
     }
 
     public function hide($id)
@@ -135,13 +135,13 @@ class CategoryController extends Controller
         $category = Category::find($id);
         $category->status = 0;
         $category->save();
-        return back()->with('success','Category hide successfully');
+        return back()->with('success', 'Category hide successfully');
     }
     public function publish($id)
     {
         $category = Category::find($id);
         $category->status = 1;
         $category->save();
-        return back()->with('success','Category publish successfully');
+        return back()->with('success', 'Category publish successfully');
     }
 }
