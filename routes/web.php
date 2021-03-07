@@ -8,7 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\UserManageController;
-
+use App\Http\Controllers\UserController;
 //Useing Route
 Route::get('/', function () {
     return view('welcome');
