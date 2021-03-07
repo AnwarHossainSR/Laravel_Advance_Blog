@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Category;
-
+use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -28,7 +29,8 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::where('status',1)->get();
-        return view('superadmin.post.post_add_form',compact('categories',$categories));
+        $tags = Tag::all();
+        return view('superadmin.post.post_add_form',compact('categories','tags'));
     }
 
     /**
@@ -43,6 +45,8 @@ class PostController extends Controller
             'title' => 'required|unique:posts|min:5|max:255',
             'excerpt' => 'required|unique:posts|min:5|max:255',
             'content' => 'required|min:10|unique:posts',
+            'categories'=>'required',
+            'tags'=>'required',
         ]);
 
         if ($request->hasFile('feature_image')){
@@ -53,16 +57,20 @@ class PostController extends Controller
             $imageName = "postDefault.jpg";
         }
 
+
         $post = Post::create([
             'title'=>$request->title,
             'slug'=>strtolower(str_replace('','_',$request->title)),
             'excerpt'=>$request->excerpt,
             'content'=>$request->content,
-            'status'=>$request->status,
-            'category_id'=>$request->category_id,
-            'user_id'=>$request->user_id,
+            'user_id'=>Auth::id(),
             'postImage'=>$imageName,
+            'status'=>$request->status,
+            'is_approve'=>true,
         ]);
+
+        $post->categories()->attach($request->categories);
+        $post->tags()->attach($request->tags);
 
         return redirect()->route('post.index')->with('success','Post created successfully');
     }

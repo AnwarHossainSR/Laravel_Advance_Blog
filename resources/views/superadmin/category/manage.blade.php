@@ -43,6 +43,7 @@
                 <tr>
                   <th>#</th>
                   <th>Name</th>
+                  <th>Posts</th>
                   <th>Status</th>
                   <th>Image</th>
                   <th>Action</th>
@@ -54,6 +55,7 @@
                         <tr>
                             <td>{{ $i++ }}</td>
                             <td>{{ $cate->name }}</td>
+                            <td>{{ $cate->posts->count() }}</td>
                             <td>
                                 @if ($cate->status == 1)
                                     <li class="text-success">Publish</li>
@@ -66,7 +68,7 @@
                                 <a href="{{ route('category.destroy',$cate->id) }}" title="Delete" class="btn text-danger">
                                     <i class="fas fa-trash nav-icon"></i>
                                 </a>
-                                <a href="{{ route('category.edit',$cate->id) }}" title="Edit" class="btn text-success">
+                                <a href="{{ route('category.edit',$cate->id) }}" title="Edit" class="btn text-primary">
                                     <i class="fas fa-edit nav-icon"></i>
                                 </a>
                                 @if($cate->status == 1)

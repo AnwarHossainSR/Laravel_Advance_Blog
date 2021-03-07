@@ -46,8 +46,9 @@
                 <tr>
                   <th>#</th>
                   <th>Title</th>
-                  <th>Slug</th>
-                  <th>Excerpt</th>
+                  <th>Author</th>
+                  <th><i class="far fa-eye text-primary"></i></th>
+                  <th>isApprove</th>
                   <th>Status</th>
                   <th>Image</th>
                   <th>Action</th>
@@ -58,14 +59,21 @@
                     @foreach($posts as $key => $post)
                         <tr>
                             <td>{{ $i++ }}</td>
-                            <td>{{ $post->title }}</td>
-                            <td>{{ $post->slug }}</td>
-                            <td>{{ $post->excerpt }}</td>
+                            <td>{{ \Illuminate\Support\Str::limit($post->title, 10) }}</td>
+                            <td>{{ $post->user->name }}</td>
+                            <td>{{ $post->view_count }}</td>
+                            <td>
+                              @if ($post->is_approve == true)
+                                    <li class="badge bg-blue">Approved</li>
+                                @else
+                                    <li class="badge bg-pink">Pending</li>
+                                @endif
+                            </td>
                             <td>
                                 @if ($post->status == 'Publish')
-                                    <li class="text-success">Publish</li>
+                                    <li class="text-success">Published</li>
                                 @else
-                                <li class="text-danger">Unpublish</li>
+                                <li class="text-danger">Unpublished</li>
                                 @endif
                             </td>
                             <td><img src="{{ asset('source/back/post') }}/{{ $post->postImage }}" class="rounded-circle" alt="post image" width="120px" height="120px"></td>
