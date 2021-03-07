@@ -74,4 +74,4 @@ Route::group(['middleware' => ['auth']], function () {
 
 //User
 Route::get('/user-home', [UserController::class, 'index'])->name('user.home');
-Route::get('/single-blog', [UserController::class, 'singleBlog'])->name('user.single-blog');
+Route::get('/single-blog/{id}', [UserController::class, 'singleBlog'])->name('user.single-blog');
