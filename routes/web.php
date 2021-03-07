@@ -11,6 +11,7 @@ use App\Http\Controllers\UserManageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\admin\AdminCategoryController;
 use App\Http\Controllers\admin\AdminTagController;
+use App\Http\Controllers\admin\AdminPostController;
 //Useing Route
 Route::get('/', function () {
     return view('welcome');
@@ -48,6 +49,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/tag/edit/{id}', [AdminTagController::class, 'editPost'])->name('admin.tag.edit');
         Route::post('/tag/delete/{id}', [AdminTagController::class, 'delete'])->name('admin.tag.delete');
         Route::get('/tag/details/{id}', [AdminTagController::class, 'details'])->name('admin.tag.details');
+        //admin post
+        Route::get('/posts', [AdminPostController::class, 'index'])->name('admin.posts.all');
     });
 
 
