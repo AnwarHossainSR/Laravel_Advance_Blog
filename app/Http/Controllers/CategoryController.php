@@ -13,6 +13,7 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     //fhrhgyueht
+    //hdfhufdshfhjfhjd
     public function index()
     {
         $categories = Category::latest()->get();
