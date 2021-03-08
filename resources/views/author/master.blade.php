@@ -20,8 +20,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{ asset('source/back') }}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('source/back') }}/dist/css/adminlte.min.css">
+
+    <!-- summernote -->
+   
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+   <!-- Toster CSS -->
+   <link rel="stylesheet" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
   @yield('style')
 </head>
     <body class="hold-transition sidebar-mini">
@@ -76,22 +81,32 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{ asset('source/back') }}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
     <!-- page script -->
     @yield('script')
-    <script>
-        $(function () {
-          $("#example1").DataTable({
-            "responsive": true,
-            "autoWidth": false,
-          });
-          $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-          });
-        });
-      </script>
-    </body>
+
+
+    
+<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+{!! Toastr::message() !!}
+
+          {{--Global Tostar error using laravel error--}}
+ <script>
+
+            @if($errors->any())
+ 
+                   @foreach ($errors->all() as $error)
+ 
+                        toastr.error('{{$error}}','Error.!',{
+                        
+                        closeButton:true,
+                        progressBar:true,
+                        
+                        }); //It requires optional parameter value
+ 
+                    @endforeach
+ 
+             @endif
+ 
+ 
+ </script>
+
+</body>
 </html>

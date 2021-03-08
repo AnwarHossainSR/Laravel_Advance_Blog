@@ -1,6 +1,6 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-green-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{-- {{ route('admin.dashboard') }} --}}" class="brand-link">
+    <a href="{{ route('author.dashboard') }}" class="brand-link">
     <img src="{{ asset('source/back') }}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
         style="opacity: .8">
     <span class="brand-text font-weight-light">Author Portal</span>
@@ -11,10 +11,10 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-        <img src="{{ asset('source/back/default.jpg') }}" class="img-circle elevation-2" alt="User Image">
+        <img src="{{ asset('/storage/author_img') }}/{{ Auth::user()->profileImage }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+        <a href="{{route('AuthorProfileController.view_profile')}}" class="d-block">{{ Auth::user()->name }}</a>
         </div>
     </div>
 
@@ -25,7 +25,7 @@
             with font-awesome or any other icon font library -->
             <li class="nav-item">
                 <a href="{{ route('author.dashboard') }}" class="nav-link">
-                <i class="nav-icon text-primary fas fa-th"></i>
+                    <i class="fas fa-tachometer-alt"></i>
                 <p>
                     Dashboard
                 </p>
@@ -34,7 +34,7 @@
         <li class="nav-item has-treeview {{-- menu-open --}}">
             <a href="#" class="nav-link ">
 
-            <i class="nav-icon text-primary fab fa-affiliatetheme"></i>
+                <i class="fas fa-cogs fa-spin"></i>
                 <p>
                     Post management
                     <i class="right fas fa-angle-left"></i>
@@ -42,18 +42,18 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{{-- {{ route('category.manage') }} --}}" class="nav-link {{-- active --}}">
-                    <i class="far fa-circle nav-icon text-primary"></i>
-                    <p>Add new post</p>
+                    <a href="{{ route('AuthorPostController.add_post') }}" class="nav-link {{-- active --}}">
+                        <i class="fas fa-pen-nib"></i>
+                    <p> Add new post</p>
                     </a>
                 </li>
             </ul>
 
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{{-- {{ route('category.manage') }} --}}" class="nav-link {{-- active --}}">
-                    <i class="far fa-circle nav-icon text-primary"></i>
-                    <p>Track post Status</p>
+                    <a href="{{route('AuthorPostController.view_all_unpublished_post')}}" class="nav-link {{-- active --}}">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    <p> Pending Posts</p>
                     </a>
                 </li>
             </ul>
@@ -61,9 +61,10 @@
 
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{{-- {{ route('category.manage') }} --}}" class="nav-link {{-- active --}}">
-                    <i class="far fa-circle nav-icon text-primary"></i>
-                    <p>Show all post</p>
+                    <a href="{{route('AuthorPostController.all_post_show')}}" class="nav-link {{-- active --}}">
+                        <i class="fas fa-file-alt"></i>
+                    <p> Show all post</p>
+                    <i class="fas fa-info-circle"></i>
                     </a>
                 </li>
             </ul>
@@ -71,9 +72,9 @@
         
         <li class="nav-item has-treeview {{-- menu-open --}}">
             <a href="#" class="nav-link">
-            <i class="nav-icon text-primary fas fa-users"></i>
+                <i class="fas fa-comment-dots"></i>
                 <p>
-                    User management
+                    Comment Management
                     <i class="right fas fa-angle-left"></i>
                 </p>
             </a>
@@ -86,53 +87,19 @@
                 </li>
             </ul>
         </li>
-        <li class="nav-item has-treeview {{-- menu-open --}}">
-            <a href="#" class="nav-link">
-            <i class="nav-icon text-primary fas fa-address-book"></i>
-                <p>
-                    Contact
-                    <i class="right fas fa-angle-left"></i>
-                </p>
-            </a>
-            <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a href="{{-- {{ route('post.index') }} --}}" class="nav-link {{-- active --}}">
-                    <i class="far fa-circle nav-icon text-primary"></i>
-                    <p>Manage</p>
-                    </a>
-                </li>
-            </ul>
-        </li>
+
         <li class="nav-item">
             <a href="#" class="nav-link">
-            <i class="nav-icon text-primary fas fa-phone-volume"></i>
+                <i class="fas fa-envelope"></i>
             <p>
-                Video Call
+                Support
                {{--  <span class="right badge badge-danger">New</span> --}}
             </p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link">
-            <i class="nav-icon text-primary fas fa-comments"></i>
-            <p>
-               Chat Box
-               {{--  <span class="right badge badge-danger">New</span> --}}
-            </p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-            <i class="nav-icon text-primary fas fa-envelope"></i>
-            <p>
-                Emailing
-               {{--  <span class="right badge badge-danger">New</span> --}}
-            </p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-            <i class="nav-icon text-primary fas fa-user-circle"></i>
+            <a href="{{route('AuthorProfileController.view_profile')}}" class="nav-link">
+                <i class="fas fa-user-circle"></i>
             <p>
                 Accounts
                {{--  <span class="right badge badge-danger">New</span> --}}
