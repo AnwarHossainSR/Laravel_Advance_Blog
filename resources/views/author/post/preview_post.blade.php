@@ -88,7 +88,7 @@
                                     
                                     <div style="max-width:70px; max-height:70px; overflow:hidden">
                    
-                                        <img src="{{asset('/source/back/post')}}/{{$post_info->postImage}}" class="img-fluid" alt="">
+                                        <img src="{{asset('/source/back/post/author')}}/{{$post_info->postImage}}" class="img-fluid" alt="">
                          
                                     </div>
 

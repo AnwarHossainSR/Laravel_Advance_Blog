@@ -77,7 +77,7 @@ class AuthorPostController extends Controller
     if ($request->hasFile('feature_image')){
         $image = $request->file('feature_image');
         $imageName = time().'.'.$image->extension();
-        $image->move(public_path('source/back/post'),$imageName);
+        $image->move(public_path('source/back/post/author'),$imageName);
     }else{
         $imageName = "postDefault.jpg";
     }
@@ -130,7 +130,7 @@ class AuthorPostController extends Controller
         if ($request->hasFile('feature_image')){
             $image = $request->file('feature_image');
             $imageName = time().'.'.$image->extension();
-            $image->move(public_path('source/back/post'),$imageName);
+            $image->move(public_path('source/back/post/author'),$imageName);
         }else{
             $imageName = "postDefault.jpg";
         }
