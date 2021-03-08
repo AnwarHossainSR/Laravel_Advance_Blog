@@ -15,14 +15,14 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Post Generate</h1>
+          <h1>Post Edit</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item">
-                <a href="{{ route('post.index') }}" class="card-title">
+                <a href="{{ route('superadmin.post.singleuser') }}" class="card-title">
                     <i class="fas fa-list nav-icon"></i>
-                    Post List
+                   Post List
                 </a>
             </li>
           </ol>
@@ -33,8 +33,9 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-              <form action="{{ route('post.store') }}" method="POST" enctype="multipart/form-data">
+              <form action="{{ route('post.update',$post->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('put')
               <div class="row">
                 @include('superadmin.include.alert')
                 <!-- left column -->
@@ -49,11 +50,11 @@
                         <input type="text" name="is_approve" class="form-control" value="1" hidden>
                         <div class="form-group">
                           <label for="exampleInputName">Title</label>
-                          <input type="text" class="form-control" name="title" id="exampleInputName" placeholder="Write a title ">
+                          <input type="text" class="form-control" name="title" id="exampleInputName" value="{{ $post->title }}" placeholder="Write a title ">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputName">Excerpt</label>
-                            <input type="text" class="form-control" name="excerpt" id="exampleInputName" placeholder="Write an excerpt" >
+                            <input type="text" class="form-control" name="excerpt" id="exampleInputName" value="{{ $post->excerpt }}" placeholder="Write an excerpt" >
                           </div>
                     </div>
                     <!-- /.card-body -->
@@ -68,9 +69,14 @@
                       <div class="form-group">
                         <div class="form-line {{ $errors->has('categories') ? 'focused error' : '' }}">
                             <label for="category">Select Categories</label>
-                            <select name="categories[]" id="category" class="form-control selectpicker " data-live-search="true" data-max-options="3" multiple>
+                            <select name="categories[]" id="category" class="form-control selectpicker show-tick " data-live-search="true" data-max-options="3" multiple>
                                 @foreach($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    <option 
+                                        @foreach($post->categories as $postCategory)
+                                            {{ $postCategory->id == $category->id ? 'selected':'' }}
+                                        @endforeach
+                                        value="{{ $category->id }}">{{ $category->name }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -78,9 +84,14 @@
                       <div class="form-group">
                         <div class="form-line {{ $errors->has('tags') ? 'focused error' : '' }}">
                             <label for="tag">Select Tags</label>
-                            <select name="tags[]" id="category" class="form-control selectpicker " data-live-search="true" data-max-options="3" multiple>
+                            <select name="tags[]" id="tag" class="form-control selectpicker show-tick"  data-live-search="true" data-max-options="3" multiple>
                                 @foreach($tags as $tag)
-                                    <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                    <option
+                                        @foreach($post->tags as $postTag)
+                                            {{ $postTag->id == $tag->id ? 'selected':'' }}
+                                        @endforeach
+                                        value="{{ $tag->id }}">{{ $tag->name }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -103,7 +114,7 @@
                         <div class="card-body">
                           <div class="md-form">
                             <label >Content</label>
-                            <textarea id="tinymce" name="content" class="md-textarea form-control" rows="3"></textarea>
+                            <textarea id=""  name="content" class="md-textarea form-control" rows="3">{{ $post->content }}</textarea>
                           </div><br>
                             <div class="form-group-file">
                               <input type="file" name="feature_image" accept="image/*" id="file-upload" class="form-control" name="file" style="display: none;" onchange="previewFile(this)">
@@ -117,10 +128,12 @@
                               <i class="fas fa-trash-alt nav-icon" style="cursor: pointer;" onclick="previewRemove()">Delete</i>
                           </div>
                           <div class="card-footer">
-                              <button type="submit" name="status" class="btn btn-primary" value="Unpublish">Save Post</button>
-                              <button type="submit" name="status" class="btn btn-success" value="Publish">Publish Post</button>
+                              @if($post->status == 'Publish')
+                                <button type="submit" name="status" class="btn btn-success" value="Publish">Publish Post</button>
+                              @else
+                                <button type="submit" name="status" class="btn btn-primary" value="Unpublish">Save Post</button>
+                              @endif
                             </div>
-                        
                       </div>
                       <!-- /.card-body -->
                     </div>
@@ -163,7 +176,7 @@
 <script>
 
 tinymce.init({
-  selector: 'textarea#tinymce',
+  selector: 'textarea',
   height: 500,
   menubar: false,
   plugins: [

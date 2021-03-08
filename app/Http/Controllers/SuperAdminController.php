@@ -17,7 +17,8 @@ class SuperAdminController extends Controller
      */
     public function index()
     {
-        return \view('superadmin.profile.manage');
+        $user = User::find(Auth::id());
+        return \view('superadmin.profile.manage',\compact('user'));
     }
 
     /**
