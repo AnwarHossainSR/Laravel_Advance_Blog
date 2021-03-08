@@ -1,7 +1,7 @@
 @extends('author.master')
 
 @section('title')
-    Admin || Dashboard
+    Author || Dashboard
 @endsection
 
 @section('content')

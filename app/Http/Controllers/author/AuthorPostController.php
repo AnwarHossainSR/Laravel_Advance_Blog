@@ -1,0 +1,108 @@
+<?php
+
+namespace App\Http\Controllers\author;
+
+use App\Models\Post;
+use App\Models\User;
+use App\Models\Category;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\DB;
+
+class AuthorPostController extends Controller
+{
+    public function add_post()
+    {
+       
+       // $categories = Category::where('status',1)->get();
+        $categories = Category::all();
+        return view('author.post.add_post')->with('categories', $categories);
+    }  
+
+
+
+    public function all_post_show()
+    {
+       
+        $author = User::find(session('loggedUser'));
+       // return dd($author->id);
+        $post_info = Post ::orderBy('created_at','DESC')->get()->where('user_id',$author->id);
+       // $post_info = Category :: latest()->get()->where('user_id',$author->id);
+          //return dd($post_info->categories);
+       return view('author.post.all_post_show',compact('post_info'));
+
+      
+    } 
+        public function get_edit_post( Request $request,$id )
+    {
+       
+     $post = post:: find($id);
+     $categories = category::all();
+      return view('author.post.edit_post')->with('post',$post)->with('categories',$categories);
+         // dd($request->all());
+      
+    } 
+    
+    
+        public function view_all_unpublished_post()
+    {
+       
+        $author = User::find(session('loggedUser'));
+        
+       // return dd($author->id);
+        $post_info = Post ::all()->where('user_id',$author->id)->where('status','Unpublish');
+        //$post_info = Post ::all()->where('user_id',$author->id);
+       // $post_info = Category :: latest()->get()->where('user_id',$author->id);
+        return view('author.post.unpublished_post_show',compact('post_info'));
+
+      
+    }    
+    public function store_new_post(Request $request)
+    {
+       
+       $request->validate([
+        'title' => 'required|unique:posts|min:5|max:255',
+        'excerpt' => 'required|unique:posts|min:5|max:255',
+        'content' => 'required|min:10|unique:posts',
+    ]);
+
+    if ($request->hasFile('feature_image')){
+        $image = $request->file('feature_image');
+        $imageName = time().'.'.$image->extension();
+        $image->move(public_path('source/back/post'),$imageName);
+    }else{
+        $imageName = "postDefault.jpg";
+    }
+
+    $post = Post::create([                      // or we can also perform this using Model instance(object)->attribute/property/table_column_name = $request->(form html fiel name)
+        'title'=>$request->title,
+        'slug'=>strtolower(str_replace('','_',$request->title)),
+        'excerpt'=>$request->excerpt,
+        'content'=>$request->content,
+        'status'=>$request->status,
+        'category_id'=>$request->category_id,
+        'user_id'=>$request->user_id,
+        'postImage'=>$imageName,
+    ]);
+        
+       
+       DB::table('category_post')->insert([
+        'post_id' => $post->max('id'),
+        'category_id' => $request->category_id
+    ]);
+              
+     return redirect()->back();
+     
+     $msg='Profile Updated Successfully';
+      Toastr::success($msg, 'Success.!');
+      
+    }
+
+    public function preview($id)
+    {
+        $post_info = Post :: find($id);
+         
+        return view('author.post.preview_post',compact('post_info'));
+    }
+}
