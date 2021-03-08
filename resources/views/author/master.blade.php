@@ -25,8 +25,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
    
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-<!--Toster: CSS -->
-  <link rel="stylesheet" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+   <!-- Toster CSS -->
+   <link rel="stylesheet" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
   @yield('style')
 </head>
     <body class="hold-transition sidebar-mini">
@@ -83,8 +83,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     @yield('script')
 
 
-
-
+    
 <script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 {!! Toastr::message() !!}
 
@@ -108,6 +107,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
  
  
  </script>
-   
+
 </body>
 </html>

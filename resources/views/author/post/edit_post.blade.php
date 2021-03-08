@@ -28,23 +28,32 @@
               <div class="row">
                 <!-- left column -->
                 <div class="col-md-12">
-                  <!-- general form elements -->
-                  @include('author.include.alert')
+         
                   <div class="card">
 
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('AuthorPostController.update_post',$post->id)}}" method="POST" enctype="multipart/form-data">
                         @csrf
                       <div class="card-body">
                         <input type="text" name="user_id" class="form-control" value="{{ Auth::user()->id }}" name="id" hidden>
                         <div class="form-group">
                           <label for="exampleInputName">Title</label>
                           <input type="text" class="form-control" name="title"  value="{{$post->title}}" id="exampleInputName" placeholder="Post Title ">
+                        
+                          @if ($errors->has('title'))
+                          <span class="text-danger">{{ $errors->first('title') }}</span>
+                    @endif
+                        
                         </div>
                         <div class="form-group">
                             <label for="exampleInputName">Excerpt</label>
                             <input type="text" class="form-control" name="excerpt" value="{{$post->excerpt}}" id="exampleInputName" placeholder="Excerpt or quote">
+                         
+                            @if ($errors->has('excerpt'))
+                            <span class="text-danger">{{ $errors->first('excerpt') }}</span>
+                            @endif
+                         
                           </div>
                           <div class="form-group">
                             <label class="mr-sm-2" for="inlineFormCustomSelect">Category</label>
@@ -71,7 +80,31 @@
 
                           <div class="form-group-file">
                             <label >Feature Image</label>
-                            <input type="file" name="feature_image"   value="{{$post->feature_image}} " selected id="file-upload" class="form-control">
+                            <input type="file" name="feature_image"   value="{{$post->postImage}} " selected id="file-upload" class="form-control">
+
+    
+                            
+                            <div style="max-width:70px; max-height:70px">
+                                        
+                              <img src="{{asset('/source/back/post')}}/{{$post->postImage}}" class="img-fluid" alt="">
+                        
+               
+                             </div>
+
+
+                          </div>
+
+
+                          <div class="form-group-file">
+                            {{-- <label >Feature Image</label> --}}
+    
+                            
+                                  <div style="max-width:70px; max-height:70px">
+                                  
+                              
+                     
+                                   </div>
+                          
 
                           </div>
 
@@ -82,14 +115,19 @@
                                 <label >Writhing Area</label>
                                
                                 <textarea name="content" id="content"  rows="4" class="form-control" placeholder="Write Someting Amaizing....."> {{$post->content}} </textarea>
-                            </div>
+                            
+                                @if ($errors->has('content'))
+                                <span class="text-danger">{{ $errors->first('content') }}</span>
+                                @endif
+                            
+                              </div>
                         </div>
                         </div>
 
 
 
                         <div class="card-footer">
-                            <button type="submit" name="status" class="btn btn-primary" value="unpublish">Submit Post</button>
+                            <button type="Update" name="status" class="btn btn-primary" value="Unpublish">Submit Post</button>
                           </div>
                       </form>
                     </div>

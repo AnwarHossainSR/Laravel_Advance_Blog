@@ -64,7 +64,7 @@ class AuthorPostController extends Controller
        $request->validate([
         'title' => 'required|unique:posts|min:5|max:255',
         'excerpt' => 'required|unique:posts|min:5|max:255',
-        'content' => 'required|min:10|unique:posts',
+        'content' => 'required|min:5|unique:posts',
     ]);
 
     if ($request->hasFile('feature_image')){
@@ -91,11 +91,13 @@ class AuthorPostController extends Controller
         'post_id' => $post->max('id'),
         'category_id' => $request->category_id
     ]);
+
+    $msg='New Post added Successfully';
+    Toastr::success($msg, 'Success.!');
               
      return redirect()->back();
      
-     $msg='Profile Updated Successfully';
-      Toastr::success($msg, 'Success.!');
+ 
       
     }
 
@@ -104,5 +106,41 @@ class AuthorPostController extends Controller
         $post_info = Post :: find($id);
          
         return view('author.post.preview_post',compact('post_info'));
+    }    
+    public function update_post(Request $request,$id)
+    {
+        
+
+        $request->validate([
+            'title' => 'required|min:5|max:255',
+            'excerpt' => 'required|min:5|max:255',
+            'content' => 'required|min:5',
+        ]);
+
+
+        if ($request->hasFile('feature_image')){
+            $image = $request->file('feature_image');
+            $imageName = time().'.'.$image->extension();
+            $image->move(public_path('source/back/post'),$imageName);
+        }else{
+            $imageName = "postDefault.jpg";
+        }
+
+        $post_info = Post :: find($id);
+
+        $post_info->user_id=$request->user_id;
+        $post_info->title=$request->title;
+        $post_info->excerpt=$request->excerpt;
+        $post_info->category_id=$request->category_id;
+        $post_info->postImage=$imageName;
+        $post_info->content=$request->content;
+        
+        $post_info->save();
+        $msg='Post Updated Successfully';
+        Toastr::success($msg, 'Success.!'); 
+
+        return redirect()->route('AuthorPostController.all_post_show');
+         
+       // return view('author.post.preview_post',compact('post_info'));
     }
 }

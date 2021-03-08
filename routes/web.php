@@ -84,6 +84,7 @@ Route::group(['middleware' => ['auth']], function () {
                 
                //Author Post
                Route::get('/edit_post/{id}',[AuthorPostController::class,'get_edit_post'])->name('AuthorPostController.get_edit_post');
+               Route::post('/update_post/{id}',[AuthorPostController::class,'update_post'])->name('AuthorPostController.update_post');
                Route::post('/store_new_post',[AuthorPostController::class,'store_new_post'])->name('AuthorPostController.store_new_post');
                Route::get('/view_all_post',[AuthorPostController::class,'all_post_show'])->name('AuthorPostController.all_post_show');
                Route::get('/view_all_unpublished_post',[AuthorPostController::class,'view_all_unpublished_post'])->name('AuthorPostController.view_all_unpublished_post');

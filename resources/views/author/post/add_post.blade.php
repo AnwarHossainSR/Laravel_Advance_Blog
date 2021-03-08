@@ -29,7 +29,7 @@
                 <!-- left column -->
                 <div class="col-md-12">
                   <!-- general form elements -->
-                  @include('author.include.alert')
+                  {{-- @include('author.include.alert') --}}
                   <div class="card">
 
                     <!-- /.card-header -->
@@ -41,10 +41,21 @@
                         <div class="form-group">
                           <label for="exampleInputName">Title</label>
                           <input type="text" class="form-control" name="title"  value="{{old('title')}}" id="exampleInputName" placeholder="Post Title ">
+                            
+                          @if ($errors->has('title'))
+                                 <span class="text-danger">{{ $errors->first('title') }}</span>
+                           @endif
+                        
                         </div>
                         <div class="form-group">
                             <label for="exampleInputName">Excerpt</label>
                             <input type="text" class="form-control" name="excerpt" value="{{old('excerpt')}}" id="exampleInputName" placeholder="Excerpt or quote">
+                          
+                                                      
+                            @if ($errors->has('excerpt'))
+                            <span class="text-danger">{{ $errors->first('excerpt') }}</span>
+                            @endif
+
                           </div>
                           <div class="form-group">
                             <label class="mr-sm-2" for="inlineFormCustomSelect">Category</label>
@@ -69,6 +80,11 @@
                                 <label >Writhing Area</label>
                                
                                 <textarea name="content" id="content"  rows="4" class="form-control" placeholder="Write Someting Amaizing.....">  </textarea>
+
+                                                            
+                          @if ($errors->has('content'))
+                          <span class="text-danger">{{ $errors->first('content') }}</span>
+                          @endif
                             </div>
                         </div>
                         </div>
@@ -98,4 +114,5 @@
         height: 200
       });
     </script>
+
 @endsection
