@@ -68,6 +68,20 @@
                             </select>
                           </div>
 
+                          
+                            <div class="form-group">
+                              <label class="mr-sm-2">Tags</label>
+                              {{-- tags[] name must be at first position --}}
+                              <select name="tags[]" value="{{old('tags[]')}}" class="select2"   multiple="multiple" data-placeholder="Select a tag" style="width: 100%;">
+                                @forelse($tags as $tg)
+                                <option value="{{ $tg->id }}"> {{ $tg->name }}</option>
+                                @empty
+                                @endforelse
+  
+                              </select>
+                            </div>
+
+
                           <div class="form-group-file">
                             <label >Feature Image</label>
                             <input type="file" name="feature_image"   value="{{old('feature_image')}}" id="file-upload" class="form-control">
@@ -103,16 +117,34 @@
 
 @section('style')
     <link rel="stylesheet" href="{{asset('/author/css/summernote-bs4.min.css')}}">
-@endsection
+    
+
+      <!-- Select2 -->
+  <link rel="stylesheet" href="{{asset('/source/back/plugins/select2/css/select2.min.css')}}">
+  <link rel="stylesheet" href="{{asset('/source/back/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
+
+  @endsection
 
 @section('script')
     <script src="{{asset('/author/js/summernote-bs4.min.js')}}"></script>
     <script>
       $('#content').summernote({
-        placeholder: 'Hello Bootstrap 4',
+        placeholder: 'Write Someting Amaizing.....',
         tabsize: 2,
         height: 200
       });
     </script>
+
+
+
+<script>
+  $(function () {
+     //Initialize Select2 Elements
+     $('.select2').select2()
+
+  })
+</script>
+
+<script src="{{ asset('source/back/plugins/select2/js/select2.full.min.js') }}"></script> 
 
 @endsection

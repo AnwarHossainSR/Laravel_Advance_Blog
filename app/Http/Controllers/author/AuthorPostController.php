@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Tag;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\DB;
 
@@ -17,7 +18,9 @@ class AuthorPostController extends Controller
        
        // $categories = Category::where('status',1)->get();
         $categories = Category::all();
-        return view('author.post.add_post')->with('categories', $categories);
+        $tags= Tag::all();
+        return view('author.post.add_post')->with('categories', $categories)
+                                            ->with('tags',$tags);
     }  
 
 
@@ -39,7 +42,10 @@ class AuthorPostController extends Controller
        
      $post = post:: find($id);
      $categories = category::all();
-      return view('author.post.edit_post')->with('post',$post)->with('categories',$categories);
+     $tags= Tag::all();
+      return view('author.post.edit_post')->with('post',$post)
+                                          ->with('categories',$categories)
+                                          ->with('tags',$tags);
          // dd($request->all());
       
     } 
@@ -60,7 +66,8 @@ class AuthorPostController extends Controller
     }    
     public function store_new_post(Request $request)
     {
-       
+       //dd($request->all());
+
        $request->validate([
         'title' => 'required|unique:posts|min:5|max:255',
         'excerpt' => 'required|unique:posts|min:5|max:255',
@@ -85,7 +92,7 @@ class AuthorPostController extends Controller
         'user_id'=>$request->user_id,
         'postImage'=>$imageName,
     ]);
-        
+        $post->tags()->attach($request->tags);
        
        DB::table('category_post')->insert([
         'post_id' => $post->max('id'),
@@ -104,8 +111,10 @@ class AuthorPostController extends Controller
     public function preview($id)
     {
         $post_info = Post :: find($id);
+        $categories = category::all();
+        $tags= Tag::all();
          
-        return view('author.post.preview_post',compact('post_info'));
+        return view('author.post.preview_post',compact('post_info','categories','tags'));
     }    
     public function update_post(Request $request,$id)
     {

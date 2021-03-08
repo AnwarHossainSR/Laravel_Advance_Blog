@@ -34,8 +34,8 @@
                             <tr>
                                 <th style="width: 100px" >Category</th>
                                 <td>
-                                    
-                                    {{-- @foreach ($post_info as $value)
+{{--                                     
+                                     @foreach ($post_info as $value)
                                       
                                                   @foreach ($value->categories as $item)
            
@@ -45,24 +45,24 @@
                                         
                                     @endforeach  --}}
 
-
-                                                                        
-                                 @foreach ($post_info->categories as $value)
-                                      
-                                                
-                                 
-                                        $value->
-                                               
-                                        
-                                    @endforeach  
-
-
-                                   {{-- {{$post_info->categories}}  --}}
+                                   {{$post_info->categories}} 
                                 </td>
                             </tr>
                             <tr>
                                 <th style="width: 100px" >Status</th>
-                                <td>{{$post_info->status}}</td>
+                                {{-- <td>{{$post_info->status}}</td> --}}
+
+                                <td>
+                                    @if ($post_info->status=='Unpublish')
+        
+                                    <span class="badge bg-red">Pending</span>
+                                        
+                                    @else
+                                        
+                                    <span class="badge bg-green">Approved</span> 
+                            
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <th style="width: 100px" >Author</th>

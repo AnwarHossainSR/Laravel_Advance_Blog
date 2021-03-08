@@ -1,6 +1,6 @@
 @extends('author.master')
 @section('title')
-    Author || Post Section
+    Author || Edit Post Section
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>New Post Area</h1>
+          <h1>Edit Post Area</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -78,6 +78,32 @@
                             </select>
                           </div>
 
+                      
+                                                    
+                          <div class="form-group">
+                            <label class="mr-sm-2">Tags</label>
+                            {{-- tags[] name must be at first position --}}
+                            <select name="tags[]"  class="select2"   multiple="multiple" data-placeholder="Select a tag" style="width: 100%;">
+                              @foreach($tags as $tg)
+                              <option
+                              
+                              @foreach ($post->tags as $ptag)
+                              
+                                   {{$ptag->id == $tg->id? 'selected': ' '}}
+                          
+                              @endforeach
+                              
+                              
+                              value="{{ $tg->id }}"> {{ $tg->name }}</option>
+    
+                              @endforeach
+
+                            </select>
+                          </div>
+
+
+
+
                           <div class="form-group-file">
                             <label >Feature Image</label>
                             <input type="file" name="feature_image"   value="{{$post->postImage}} " selected id="file-upload" class="form-control">
@@ -141,7 +167,14 @@
 
               
  @section('style')
+
 <link rel="stylesheet" href="{{asset('/author/css/summernote-bs4.min.css')}}">
+
+
+<link rel="stylesheet" href="{{asset('/source/back/plugins/select2/css/select2.min.css')}}">
+  <link rel="stylesheet" href="{{asset('/source/back/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
+
+
 @endsection
 
 @section('script')
@@ -154,5 +187,13 @@
   });
 </script>
 
+<script>
+  $(function () {
+     //Initialize Select2 Elements
+     $('.select2').select2()
 
+  })
+</script>
+
+<script src="{{ asset('source/back/plugins/select2/js/select2.full.min.js') }}"></script> 
 @endsection 
