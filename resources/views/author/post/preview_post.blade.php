@@ -34,18 +34,27 @@
                             <tr>
                                 <th style="width: 100px" >Category</th>
                                 <td>
-{{--                                     
-                                     @foreach ($post_info as $value)
-                                      
-                                                  @foreach ($value->categories as $item)
-           
-                                                   {{$item->name}}
                                     
-                                                @endforeach 
-                                        
-                                    @endforeach  --}}
+                                     @foreach ($post_info->categories as $value)
+                                      
+                                     {{$value->name}} 
 
-                                   {{$post_info->categories}} 
+                                    @endforeach 
+
+                                  
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="width: 100px" >Tags</th>
+                                <td>
+
+                                  
+                                   @foreach ($post_info->tags as $item)
+
+                                   <span class="badge bg-yellow">{{ $item->name}} </span> 
+
+                                   @endforeach
+                                
                                 </td>
                             </tr>
                             <tr>
@@ -66,8 +75,9 @@
                             </tr>
                             <tr>
                                 <th style="width: 100px" >Author</th>
-                                <td>{{$post_info->user_id}}</td>
+                                <td>{{ Auth::user()->name }}</td>
                             </tr>
+                            <tr>
                             <tr>
                                 <th style="width: 100px" >Post Added</th>
                                 <td>{{$post_info->created_at}}</td>

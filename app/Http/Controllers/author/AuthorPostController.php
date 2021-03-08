@@ -31,7 +31,7 @@ class AuthorPostController extends Controller
         $author = User::find(session('loggedUser'));
        // return dd($author->id);
         $post_info = Post ::orderBy('created_at','DESC')->get()->where('user_id',$author->id);
-		return dd($post_info);
+		//return dd($post_info);
        // $post_info = Category :: latest()->get()->where('user_id',$author->id);
           //return dd($post_info->categories);
        return view('author.post.all_post_show',compact('post_info'));
