@@ -17,45 +17,44 @@ class LoginController extends Controller
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
 
-            $user = User::where('email','=',$request->email)->first();
+            $user = User::where('email', '=', $request->email)->first();
 
             if ($user->type == 'Superadmin') {
-                $request->session()->put('loggedUser',$user->id);
+                $request->session()->put('loggedUser', $user->id);
                 return \redirect('dashboard/superadmin');
-            } elseif($user->type == 'Admin') {
-                $request->session()->put('loggedUser',$user->id);
+            } elseif ($user->type == 'Admin') {
+                $request->session()->put('loggedUser', $user->id);
                 return \redirect('dashboard/admin');
-            }elseif($user->type == 'Author'){
-                $request->session()->put('loggedUser',$user->id);
+            } elseif ($user->type == 'Author') {
+                $request->session()->put('loggedUser', $user->id);
                 return \redirect('dashboard/author');
-            }else{
-                $request->session()->put('loggedUser',$user->id);
+            } else {
+                $request->session()->put('loggedUser', $user->id);
                 return \redirect('dashboard/user');
             }
-        }else{
-            return back()->with('error','Email or password is incorrect');
+        } else {
+            return back()->with('error', 'Email or password is incorrect');
         }
-
     }
 
     public function superAdminDashboard()
     {
         $data = User::find(session('loggedUser'));
-        return view('superadmin.include.home')->with('data',$data);
+        return view('superadmin.include.home')->with('data', $data);
     }
     public function adminDashboard()
     {
         $data = User::find(session('loggedUser'));
-        return view('admin.admin')->with('data',$data);
+        return view('admin.include.home')->with('data', $data);
     }
     public function authorDashboard(Request $req)
     {
         $data = User::find(session('loggedUser'));
-        return view('author.include.home')->with('data',$data);
+        return view('author.include.home')->with('data', $data);
     }
     public function userDashboard()
     {
         $data = User::find(session('loggedUser'));
-        return view('user.user')->with('data',$data);
+        return view('user.user')->with('data', $data);
     }
 }
