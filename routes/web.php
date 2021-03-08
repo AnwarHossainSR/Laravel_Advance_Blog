@@ -68,6 +68,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/publish/{id}', [PostController::class, 'publish'])->name('post.publish');
         Route::get('/hide/{id}', [PostController::class, 'hide'])->name('post.hide');
         Route::post('/content/file', [PostController::class, 'fileUpload'])->name('post.content_file');
+        Route::get('/posts/singleuser', [PostController::class, 'getAllPostBySuperAdmin'])->name('superadmin.post.singleuser');
 
         //Profile
         Route::prefix('profile')->group(function () {

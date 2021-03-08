@@ -22,6 +22,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{ asset('source/back') }}/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+   <!-- Sweet Alart -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <!-- Sweet alert animate Css -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
   @stack('css')
   @yield('style')
 </head>
@@ -76,6 +80,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{ asset('source/back') }}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="{{ asset('source/back') }}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
     <!-- page script -->
+    
+   
     @yield('script')
     <script>
         $(function () {
@@ -83,17 +89,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $("#example1").DataTable({
             "responsive": true,
             "autoWidth": false,
-          });/*
-          $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-          }); */
+          });
         });
+      
       </script>
     </body>
 </html>

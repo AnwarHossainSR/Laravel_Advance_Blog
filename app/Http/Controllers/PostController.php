@@ -66,13 +66,13 @@ class PostController extends Controller
             'user_id'=>Auth::id(),
             'postImage'=>$imageName,
             'status'=>$request->status,
-            'is_approve'=>true,
+            'is_approve'=>$request->is_approve,
         ]);
 
         $post->categories()->attach($request->categories);
         $post->tags()->attach($request->tags);
 
-        return redirect()->route('post.index')->with('success','Post created successfully');
+        return redirect()->route('superadmin.post.singleuser')->with('success','Post created successfully');
     }
 
     /**
@@ -83,7 +83,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return \view('superadmin.post.detailsPost',\compact('post'));
     }
 
     /**
@@ -94,7 +94,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $categories = Category::where('status',1)->get();
+        $tags = Tag::all();
+        return view('superadmin.post.editPost',compact('post','categories','tags'));
     }
 
     /**
@@ -106,7 +108,51 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+            'title' => 'required|min:5|max:255',
+            'excerpt' => 'required|min:5|max:255',
+            'content' => 'required|unique:posts',
+            'categories'=>'required',
+            'tags'=>'required',
+        ]);
+
+        //$cate = Category::find($request->id);
+
+        if ($request->hasFile('feature_image')) {
+
+            $existPhoto = '/source/back/post/' . $post->postImage;
+            $path = str_replace('\\', '/', public_path());
+            if (file_exists($path . $existPhoto)) {
+                \unlink($path . $existPhoto);
+            }
+            $image = $request->file('feature_image');
+            $imageName = time() . '.' . $image->extension();
+            $image->move(public_path('source/back/post'), $imageName);
+
+            $post->title = $request->title;
+            $post->slug = strtolower(str_replace('', '_', $request->title));
+            $post->excerpt = $request->excerpt;
+            $post->content = $request->excerpt;
+            $post->user_id = Auth::id();
+            $post->postImage = $imageName;
+            $post->status = $request->status;
+            $post->is_approve = $request->is_approve;
+            $post->update();
+            $post->categories()->sync($request->categories);
+            $post->tags()->sync($request->tags);
+        } else {
+            $post->title = $request->title;
+            $post->slug = strtolower(str_replace('', '_', $request->title));
+            $post->excerpt = $request->excerpt;
+            $post->content = $request->excerpt;
+            $post->user_id = Auth::id();
+            $post->status = $request->status;
+            $post->is_approve = $request->is_approve;
+            $post->update();
+            $post->categories()->sync($request->categories);
+            $post->tags()->sync($request->tags);
+        }
+        return redirect()->route('superadmin.post.singleuser')->with('success', 'Post updated successfully');
     }
 
     /**
@@ -116,10 +162,17 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-       Post::destroy($id);
-       return back()->with('success','Post deleted successfully');
+        $existPhoto = '/source/back/post/' . $post->postImage;
+        $path = str_replace('\\', '/', public_path());
+        if (file_exists($path . $existPhoto)) {
+            \unlink($path . $existPhoto);
+        }
+        $post->categories()->detach();
+        $post->tags()->detach();
+        $post->delete();
+      // return back()->with('success','Post deleted successfully');
     }
 
     public function hide($id)
@@ -135,5 +188,11 @@ class PostController extends Controller
         $post->status =  'Publish';
         $post->save();
         return back()->with('success','Post publish successfully');
+    }
+
+    public function getAllPostBySuperAdmin()
+    {
+        $posts = Post::where('user_id','=',Auth::id())->get();
+        return \view('superadmin.post.singleUserManage',\compact('posts'));
     }
 }
