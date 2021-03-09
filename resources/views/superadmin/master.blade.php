@@ -26,6 +26,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <!-- Sweet alert animate Css -->
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+ <!-- Toster CSS -->
+ <link rel="stylesheet" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
   @stack('css')
   @yield('style')
 </head>
@@ -80,10 +82,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{ asset('source/back') }}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="{{ asset('source/back') }}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
     <!-- page script -->
-    
+    <script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+    {!! Toastr::message() !!}
+
+          {{--Global Tostar error using laravel error--}}
    
     @yield('script')
     <script>
+      @if($errors->any())
+ 
+        @foreach ($errors->all() as $error)
+
+              toastr.error('{{$error}}','Error.!',{
+              
+              closeButton:true,
+              progressBar:true,
+              
+              }); //It requires optional parameter value
+
+          @endforeach
+
+      @endif
         $(function () {
 
           $("#example1").DataTable({
@@ -91,6 +110,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             "autoWidth": false,
           });
         });
+
+        
       
       </script>
     </body>
