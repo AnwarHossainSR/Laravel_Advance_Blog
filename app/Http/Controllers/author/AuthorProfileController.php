@@ -39,7 +39,7 @@ class AuthorProfileController extends Controller
 
         $img=  $request->file('image');
 
-        if(isset($img))
+        if(isset($img))        // if image data inserted
         {
             $currentDate= Carbon ::now()->toDateString();
 

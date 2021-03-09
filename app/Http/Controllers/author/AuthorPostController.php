@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers\author;
 
+use Carbon\Carbon;
+use App\Models\Tag;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\Tag;
-use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 class AuthorPostController extends Controller
 {
@@ -65,6 +68,10 @@ class AuthorPostController extends Controller
 
       
     }    
+
+    //------------Insert-----------
+
+
     public function store_new_post(Request $request)
     {
        //dd($request->all());
@@ -75,13 +82,32 @@ class AuthorPostController extends Controller
         'content' => 'required|min:5|unique:posts',
     ]);
 
-    if ($request->hasFile('feature_image')){
-        $image = $request->file('feature_image');
-        $imageName = time().'.'.$image->extension();
-        $image->move(public_path('source/back/post/author'),$imageName);
-    }else{
-        $imageName = "postDefault.jpg";
+    $img=  $request->file('feature_image');
+
+    if(isset($img))        // if image data inserted
+    {
+        $currentDate= Carbon ::now()->toDateString();
+
+        $imgName='author_post'.'_'.$currentDate.'_'.uniqid().'.'.$img->getClientOriginalExtension();
+
+
+        //Checking directory existance
+        if(!Storage::disk('public')->exists('post_img'))
+        {
+            Storage::disk('public')->makeDirectory('post_img');
+        }
+           
+        $resized_img= Image::make($img)->resize(1640,856)->stream();//->save()
+
+         Storage::disk('public')->put('post_img/'.$imgName,$resized_img);
+
     }
+
+    else
+    {
+        $imgName= 'default.jpg';          // 'default.jpg';
+    }
+
 
     $post = Post::create([                      // or we can also perform this using Model instance(object)->attribute/property/table_column_name = $request->(form html fiel name)
         'title'=>$request->title,
@@ -91,14 +117,16 @@ class AuthorPostController extends Controller
         'status'=>$request->status,
         'category_id'=>$request->category_id,
         'user_id'=>$request->user_id,
-        'postImage'=>$imageName,
+        'postImage'=>$imgName,
     ]);
-        $post->tags()->attach($request->tags);
        
-       DB::table('category_post')->insert([
-        'post_id' => $post->max('id'),
-        'category_id' => $request->category_id
-    ]);
+        $post->tags()->attach($request->tags);
+        //$post->categories()->attach($request->categories);
+       
+        DB::table('category_post')->insert([
+         'post_id' => $post->max('id'),
+         'category_id' => $request->category_id
+     ]);
 
     $msg='New Post added Successfully';
     Toastr::success($msg, 'Success.!');
@@ -117,7 +145,12 @@ class AuthorPostController extends Controller
          
         return view('author.post.preview_post',compact('post_info','categories','tags'));
     }    
-    public function update_post(Request $request,$id)
+   
+  
+    //------------Update-----------
+
+    
+   public function update_post(Request $request,$id)
     {
         
 
@@ -126,23 +159,47 @@ class AuthorPostController extends Controller
             'excerpt' => 'required|min:5|max:255',
             'content' => 'required|min:5',
         ]);
+       
+        $post_info = Post :: find($id);
+
+        $img=  $request->file('feature_image');
+
+        if(isset($img))        // if image data inserted
+        {
+            $currentDate= Carbon ::now()->toDateString();
+
+            $imgName='author_post'.'_'.$currentDate.'_'.uniqid().'.'.$img->getClientOriginalExtension();
 
 
-        if ($request->hasFile('feature_image')){
-            $image = $request->file('feature_image');
-            $imageName = time().'.'.$image->extension();
-            $image->move(public_path('source/back/post/author'),$imageName);
-        }else{
-            $imageName = "postDefault.jpg";
+            //Checking directory existance
+            if(!Storage::disk('public')->exists('post_img'))
+            {
+                Storage::disk('public')->makeDirectory('post_img');
+            }
+            //Checking Duplicate filename existance
+
+            if(Storage::disk('public')->exists('post_img/'.$post_info->postImage))
+            {
+                Storage::disk('public')->delete('post_img/'.$post_info->postImage);
+            }
+
+               
+            $resized_img= Image::make($img)->resize(128,128)->stream();//->save()
+
+             Storage::disk('public')->put('post_img/'.$imgName,$resized_img);
+
         }
 
-        $post_info = Post :: find($id);
+        else
+        {
+            $imgName= $post_info->postImage;          // 'default.jpg';
+        }
 
         $post_info->user_id=$request->user_id;
         $post_info->title=$request->title;
         $post_info->excerpt=$request->excerpt;
         $post_info->category_id=$request->category_id;
-        $post_info->postImage=$imageName;
+        $post_info->postImage=$imgName;
         $post_info->content=$request->content;
         
         $post_info->save();
@@ -152,5 +209,29 @@ class AuthorPostController extends Controller
         return redirect()->route('AuthorPostController.all_post_show');
          
        // return view('author.post.preview_post',compact('post_info'));
+    }
+
+
+
+    public function destroy(Post $id)
+    {
+      
+        //dd($id);
+       // return $id;
+
+       if(Storage::disk('public')->exists('post_img/'.$id->postImage))
+       {
+           Storage::disk('public')->delete('post_img/'.$id->postImage);
+       }
+
+       $id->delete();
+       //$id->tags()->detach();
+      // $id->categories()->detach();
+
+       $msg='Successfully Deleted';
+       Toastr::success($msg, 'Success.!'); 
+       return redirect()->back();
+
+
     }
 }

@@ -89,6 +89,7 @@ Route::group(['middleware' => ['auth']], function () {
                Route::get('/view_all_post',[AuthorPostController::class,'all_post_show'])->name('AuthorPostController.all_post_show');
                Route::get('/view_all_unpublished_post',[AuthorPostController::class,'view_all_unpublished_post'])->name('AuthorPostController.view_all_unpublished_post');
                Route::get('/preview/post/{id}',[AuthorPostController::class,'preview'])->name('AuthorPostController.preview');
+               Route::delete('/delete/post/{id}',[AuthorPostController::class,'destroy'])->name('AuthorPostController.destroy');
             
             
             });

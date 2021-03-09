@@ -67,7 +67,7 @@
       {{-- Image --}}
       <td>
         <div style="max-width:70px; max-height:70px; overflow:hidden">
-         <img src="{{asset('/source/back/post/author')}}/{{$value->postImage}}" class="img-fluid" alt="">
+         <img src="{{asset('/storage/post_img')}}/{{$value->postImage}}" class="img-fluid" alt="">
          
         {{--{{asset('/storage/author_img')}}/{{$author['profileImage']}}--}} 
 
@@ -86,7 +86,7 @@
         
       </button>
 
-      <form method="post" id="delete-form-{{$value->id}}" action="{{--{{route('ProductController.destroy_all',[$value['id']])}}--}}" 
+      <form method="post" id="delete-form-{{$value->id}}" action="{{route('AuthorPostController.destroy',$value->id)}}" 
       
       style="display: none;">
       
@@ -113,6 +113,8 @@
 @endsection
 
 @section('script')
+
+
 <script>
   $(function () {
     $("#example1").DataTable({
@@ -130,6 +132,57 @@
     });
   });
 </script>  
+
+{{-- Sweet Alert --}}
+
+<script type="text/javascript">
+
+  function deleteFunc(id){
+   //alert('Hi');
+                             
+   const swalWithBootstrapButtons = Swal.mixin({
+customClass: {
+confirmButton: 'btn btn-success',
+cancelButton: 'btn btn-danger'
+},
+buttonsStyling: false
+})
+
+swalWithBootstrapButtons.fire({
+title: 'Are you sure?',
+text: "You won't be able to revert this!",
+icon: 'warning',
+showCancelButton: true,
+confirmButtonText: 'Yes, delete it!',
+cancelButtonText: 'No, cancel!',
+reverseButtons: true
+}).then((result) => {
+if (result.isConfirmed) {
+
+event.preventDefault();
+
+document.getElementById('delete-form-'+id).submit();
+
+} else if (
+/* Read more about handling dismissals below */
+result.dismiss === Swal.DismissReason.cancel
+) {
+swalWithBootstrapButtons.fire(
+ 'Cancelled',
+ 'Your Data is safe :)',
+ 'error'
+)
+}
+})
+  
+
+  }
+
+</script>
+
+
+
+
 @endsection
 
 
