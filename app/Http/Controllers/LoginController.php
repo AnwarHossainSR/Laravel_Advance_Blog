@@ -23,15 +23,23 @@ class LoginController extends Controller
 
             if ($user->type == 'Superadmin') {
                 $request->session()->put('loggedUser', $user->id);
+                $msg='Authorized!';
+                Toastr::success($msg, 'Authorization successfull.!');
                 return \redirect('dashboard/superadmin');
             } elseif ($user->type == 'Admin') {
                 $request->session()->put('loggedUser', $user->id);
+                $msg='Authorized!';
+                Toastr::success($msg, 'Authorization successfull.!');
                 return \redirect('dashboard/admin');
             } elseif ($user->type == 'Author') {
                 $request->session()->put('loggedUser', $user->id);
+                $msg='Authorized!';
+                Toastr::success($msg, 'Authorization successfull.!');
                 return \redirect('dashboard/author');
             } else {
                 $request->session()->put('loggedUser', $user->id);
+                $msg='Email or password wrong!';
+                Toastr::success($msg, 'Authorization successfull.!');
                 return \redirect('dashboard/user');
             }
         } else {
@@ -44,29 +52,21 @@ class LoginController extends Controller
     public function superAdminDashboard()
     {
         $data = User::find(session('loggedUser'));
-        $msg='Authorize Successfull';
-        Toastr::success($msg, 'Success.!');
         return view('superadmin.include.home')->with('data', $data);
     }
     public function adminDashboard()
     {
         $data = User::find(session('loggedUser'));
-        $msg='Authorize Successfull';
-        Toastr::success($msg, 'Success.!');
         return view('admin.include.home')->with('data', $data);
     }
     public function authorDashboard(Request $req)
     {
         $data = User::find(session('loggedUser'));
-        $msg='Authorize Successfull';
-        Toastr::success($msg, 'Success.!');
         return view('author.include.home')->with('data', $data);
     }
     public function userDashboard()
     {
         $data = User::find(session('loggedUser'));
-        $msg='Authorize Successfull';
-        Toastr::success($msg, 'Success.!');
         return view('user.user')->with('data', $data);
     }
 }

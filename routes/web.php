@@ -14,10 +14,16 @@ use App\Http\Controllers\admin\AdminTagController;
 use App\Http\Controllers\admin\AdminPostController;
 use App\Http\Controllers\author\AuthorPostController;
 use App\Http\Controllers\author\AuthorProfileController;
+use App\Http\Controllers\SubscriberController;
+
 //Useing Route
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('welcome');
-})->name('homepage');
+})->name('homepage'); */
+
+//User
+Route::get('/', [UserController::class, 'index'])->name('homepage');
+Route::get('/single-blog/{id}', [UserController::class, 'singleBlog'])->name('user.single-blog');
 
 Auth::routes();
 
@@ -101,6 +107,11 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/request/show/{id}', [UserManageController::class, 'requestDetailsShow'])->name('user.request.show');
             Route::get('/request/accept/{id}', [UserManageController::class, 'requestUserAccept'])->name('user.request.accept');
         });
+
+        //Subscriber
+        Route::prefix('manage')->group(function(){ 
+            Route::resource('subscriber', SubscriberController::class);
+        });
     });
 	
 	  
@@ -129,6 +140,4 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 
-//User
-Route::get('/user-home', [UserController::class, 'index'])->name('user.home');
-Route::get('/single-blog/{id}', [UserController::class, 'singleBlog'])->name('user.single-blog');
+

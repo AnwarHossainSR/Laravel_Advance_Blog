@@ -37,6 +37,25 @@
 				<li><a href="#">Home</a></li>
 				<li><a href="#">Categories</a></li>
 				<li><a href="#">Features</a></li>
+				@if (Route::has('login'))
+					@auth
+						@if (Auth::user()->type == 'Superadmin')
+								<li><a href="{{ url('dashboard/superadmin') }}">Dashboard</a></li>
+							@elseif(Auth::user()->type == 'Admin')
+								<li><a href="{{ url('dashboard/admin') }}">Dashboard</a></li>
+							@elseif(Auth::user()->type == 'Author')
+								<li><a href="{{ url('dashboard/author') }}">Dashboard</a></li>
+							@else
+								<li><a href="{{ url('dashboard/user') }}">Dashboard</a></li>
+							@endif
+						@else
+							<li><a href="{{ route('login') }}">Login</a></li>
+
+							@if (Route::has('register'))
+								<li><a href="{{ route('register') }}">Registrater</a></li>
+							@endif
+					@endauth
+                @endif
 			</ul><!-- main-menu -->
 
 			<div class="src-area">
