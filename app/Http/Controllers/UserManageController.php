@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Userrequest;
+use Brian2694\Toastr\Facades\Toastr;
+
 
 class UserManageController extends Controller
 {
@@ -53,6 +55,8 @@ class UserManageController extends Controller
         $role = new Role();
         $role->roleName = $request->roleName;
         $role->save();
+        $msg='Role Created Successfully';
+        Toastr::success($msg, 'Success.!');
         return redirect()->route('role.manage')->with('success','User role created successfully');
     }
 
@@ -76,8 +80,9 @@ class UserManageController extends Controller
      */
     public function edit($id)
     {
+        $user = User::find($id);
         $roles = Role::all();
-        return \view('superadmin.usermanage.editRole',['roles'=>$roles]);
+        return \view('superadmin.usermanage.editRole',['roles'=>$roles,'user'=>$user]);
     }
 
     /**
@@ -92,7 +97,9 @@ class UserManageController extends Controller
         $user = User::find($id);
         $user->type = $req->type;
         $user->update();
-        return \redirect()->route('user.manage')->with('success','User role updated successfully');
+        $msg='Role Updated Successfully';
+        Toastr::success($msg, 'Success.!');
+        return \redirect()->route('manage.index')->with('success','User role updated successfully');
     }
 
     /**
@@ -117,6 +124,8 @@ class UserManageController extends Controller
         $user = User::find($id);
         $user->active = 0;
         $user->update();
+        $msg='User deactivated';
+        Toastr::success($msg, 'Success.!');
         return \back()->with('success','User status is changed to deactive successfull');
     }
     public function deactiveToActive($id)
@@ -124,6 +133,8 @@ class UserManageController extends Controller
         $user = User::find($id);
         $user->active = 1;
         $user->update();
+        $msg='User Active Successfully';
+        Toastr::success($msg, 'Success.!');
         return \back()->with('success','User restored successfully done');
     }
 
@@ -140,12 +151,22 @@ class UserManageController extends Controller
     }
     public function requestUserAccept($id)
     {
-        $reqUser = Userrequest::where('userId','=',$id)->get();
-        $user = User::find($id);
+        $reqUser = Userrequest::find($id);
         $reqUser->status = 'Accept';
-        $user->type = 'Author';
-        $user->update();
-        $reqUser->update();
+        if($reqUser->save())
+        {
+            $user = User::find($reqUser->userId);
+            $user->type = 'Author';
+            $user->save();
+        }
+        else
+        {
+            $msg='Something wrong !';
+            Toastr::error($msg, 'Error.!');
+            return \back()->with('error','Something is wrong !');
+        }
+        $msg='Role Changed Successfully';
+        Toastr::success($msg, 'Success.!');
         return \redirect()->route('request.user')->with('success','User role has been changed successfully'); 
     }
     

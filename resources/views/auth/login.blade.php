@@ -17,6 +17,8 @@
   <link rel="stylesheet" href="{{ asset('source/back/dist/css/adminlte.min.css') }}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!-- Toster CSS -->
+ <link rel="stylesheet" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -94,6 +96,24 @@
 <script src="{{ asset('source/back/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('source/back/dist/js/adminlte.min.js') }}"></script>
+<!-- page script -->
+<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+{!! Toastr::message() !!}
+<script>
+  @if($errors->any())
 
+    @foreach ($errors->all() as $error)
+
+          toastr.error('{{$error}}','Error.!',{
+          
+          closeButton:true,
+          progressBar:true,
+          
+          }); //It requires optional parameter value
+
+      @endforeach
+
+  @endif
+  </script>
 </body>
 </html>

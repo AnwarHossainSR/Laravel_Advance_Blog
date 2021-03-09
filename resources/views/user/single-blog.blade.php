@@ -52,7 +52,7 @@
 
 	<div class="slider">
 		<div class="display-table  center-text">
-			<h1 class="title display-table-cell"><b>DESIGN</b></h1>
+			<h1 class="title display-table-cell"><b>Design</b></h1>
 		</div>
 	</div><!-- slider -->
 
@@ -70,18 +70,19 @@
 							<div class="post-info">
 
 								<div class="left-area">
-									<a class="avatar" href="#"><img src="{{asset('user/images/avatar-1-120x120.jpg')}}" alt="Profile Image"></a>
+									<a class="avatar" href="#"><img src="{{asset('source/back/profile')}}/{{ $post->user->profileImage }}" alt="Profile Image"></a>
 								</div>
 
 								<div class="middle-area">
-									<a class="name" href="#"><b>Katy Liu</b></a>
-									<h6 class="date">on Sep 29, 2017 at 9:48 am</h6>
+									<a class="name" href="#"><b>{{ $post->user->name }}</b></a>
+									<h6 class="date">{{ $post->created_at }}</h6>
 								</div>
 
 							</div><!-- post-info -->
 
 							<h3 class="title"><a href="#"><b>How Did Van Gogh's Turbulent Mind Depict One of the Most Complex Concepts in Physics?</b></a></h3>
 
+<<<<<<< HEAD
 							<p class="para">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
 							dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
 							ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
@@ -95,6 +96,11 @@
 							ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
 							nulla pariatur. Excepteur sint
 							occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+=======
+							<div class="post-image"><img src="{{asset('source/back/post')}}/{{ $post->postImage }}" alt="Blog Image" height=350 width=250></div>
+
+							<p class="para">{!! $post->content !!}</p>
+>>>>>>> 7c60a22496e414c41c301686c59dc80ea5dfb219
 
 							<ul class="tags">
 								<li><a href="#">Mnual</a></li>
@@ -122,12 +128,12 @@
 						<div class="post-footer post-info">
 
 							<div class="left-area">
-								<a class="avatar" href="#"><img src="{{asset('user/images/avatar-1-120x120.jpg')}}" alt="Profile Image"></a>
+								<a class="avatar" href="#"><img src="{{asset('source/back/profile')}}/{{ $post->user->profileImage }}" alt="Profile Image"></a>
 							</div>
 
 							<div class="middle-area">
-								<a class="name" href="#"><b>Katy Liu</b></a>
-								<h6 class="date">on Sep 29, 2017 at 9:48 am</h6>
+								<a class="name" href="#"><b>{{ $post->user->name }}</b></a>
+								<h6 class="date">{{ $post->created_at }}</h6>
 							</div>
 
 						</div><!-- post-info -->
@@ -151,12 +157,11 @@
 
 							<h4 class="title"><b>SUBSCRIBE</b></h4>
 							<div class="input-area">
-								<form>
-									<input class="email-input" type="text" placeholder="Enter your email">
+								<form action="{{ route('user.subscriber') }}" method="POST">
+									<input class="email-input" type="text" name="email" placeholder="Enter your email">
 									<button class="submit-btn" type="submit"><i class="icon ion-ios-email-outline"></i></button>
 								</form>
 							</div>
-
 						</div><!-- subscribe-area -->
 
 						<div class="tag-area">

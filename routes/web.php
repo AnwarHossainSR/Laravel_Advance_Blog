@@ -3,21 +3,34 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\UserController;
+//superAdmin
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\UserManageController;
+use App\Http\Controllers\SubscriberController;
+//admin
+use App\Http\Controllers\admin\AdminCategoryController;
+use App\Http\Controllers\admin\AdminTagController;
+use App\Http\Controllers\admin\AdminPostController;
 use App\Http\Controllers\author\AuthorPostController;
 use App\Http\Controllers\author\AuthorProfileController;
-//Useing Route
-Route::get('/', function () {
-    return view('welcome');
-})->name('homepage');
+//user
+use App\Http\Controllers\user\UserHomeController;
+use App\Http\Controllers\user\UserSubscriberController;
+
+
+
+//User
+Route::get('/', [UserHomeController::class, 'index'])->name('homepage');
+Route::prefix('home')->group(function () {
+    Route::get('/single-blog/{id}', [UserHomeController::class, 'singleBlog'])->name('user.single-blog');
+    Route::post('/subscriber', [UserSubscriberController::class, 'subscriberStore'])->name('user.subscriber');
+});
+
+
 
 Auth::routes();
-
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('auth/login', [LoginController::class,'login'])->name('login.custom');
 
@@ -25,10 +38,38 @@ Route::group(['middleware' => ['auth']], function () {
 
     //Redirect Dashboard
     Route::group(['prefix' => 'dashboard'], function () {
-        Route::get('/superadmin',[LoginController::class,'superAdminDashboard'])->name('superadmin.dashboard');
-        Route::get('/admin',[LoginController::class,'adminDashboard'])->name('admin.dashboard');
-        Route::get('/author',[LoginController::class,'authorDashboard'])->name('author.dashboard');
-        Route::get('/user',[LoginController::class,'userDashboard'])->name('user.dashboard');
+        Route::get('/superadmin', [LoginController::class, 'superAdminDashboard'])->name('superadmin.dashboard');
+        Route::get('/admin', [LoginController::class, 'adminDashboard'])->name('admin.dashboard');
+        Route::get('/author', [LoginController::class, 'authorDashboard'])->name('author.dashboard');
+        Route::get('/user', [LoginController::class, 'userDashboard'])->name('user.dashboard');
+    });
+
+    //admin
+    Route::prefix('admin')->group(function () {
+        //admin category
+        Route::get('/category', [AdminCategoryController::class, 'index1'])->name('admin.category.all');
+        Route::get('/category/create', [AdminCategoryController::class, 'create'])->name('admin.category.create');
+        Route::post('/category/create', [AdminCategoryController::class, 'createPost'])->name('admin.category.create');
+        Route::get('/category/edit/{id}', [AdminCategoryController::class, 'edit'])->name('admin.category.edit');
+        Route::post('/category/edit/{id}', [AdminCategoryController::class, 'editPost'])->name('admin.category.edit');
+        Route::post('/category/delete/{id}', [AdminCategoryController::class, 'delete'])->name('admin.category.delete');
+        Route::get('/category/details/{id}', [AdminCategoryController::class, 'details'])->name('admin.category.details');
+        //admin Tag
+        Route::get('/tag', [AdminTagController::class, 'index'])->name('admin.tags.all');
+        Route::get('/tag/create', [AdminTagController::class, 'create'])->name('admin.tag.create');
+        Route::post('/tag/create', [AdminTagController::class, 'createPost'])->name('admin.tag.create');
+        Route::get('/tag/edit/{id}', [AdminTagController::class, 'edit'])->name('admin.tag.edit');
+        Route::post('/tag/edit/{id}', [AdminTagController::class, 'editPost'])->name('admin.tag.edit');
+        Route::post('/tag/delete/{id}', [AdminTagController::class, 'delete'])->name('admin.tag.delete');
+        Route::get('/tag/details/{id}', [AdminTagController::class, 'details'])->name('admin.tag.details');
+        //admin post
+        Route::get('/posts', [AdminPostController::class, 'index'])->name('admin.posts.all');
+        Route::get('/post/create', [AdminPostController::class, 'create'])->name('admin.post.create');
+        Route::post('/post/create', [AdminPostController::class, 'createPost'])->name('admin.post.create');
+        Route::get('/post/edit/{id}', [AdminPostController::class, 'edit'])->name('admin.post.edit');
+        Route::post('/post/edit/{id}', [AdminPostController::class, 'editPost'])->name('admin.post.edit');
+        Route::post('/post/delete/{id}', [AdminPostController::class, 'delete'])->name('admin.post.delete');
+        Route::get('/post/details/{id}', [AdminPostController::class, 'details'])->name('admin.post.details');
     });
 
 
@@ -37,9 +78,10 @@ Route::group(['middleware' => ['auth']], function () {
 
         //Categories
         Route::resource('category', CategoryController::class);
-        Route::get('/category/publish/{id}',[CategoryController::class,'publish'])->name('category.publish');
-        Route::get('/category/hide/{id}',[CategoryController::class,'hide'])->name('category.hide');
-
+        Route::get('/categories/unpublished', [CategoryController::class, 'unpublishedCategory'])->name('category.unpublished');
+        Route::get('/category/publish/{id}', [CategoryController::class, 'publish'])->name('category.publish');
+        Route::get('/category/hide/{id}', [CategoryController::class, 'hide'])->name('category.hide');
+        
         //Posts
         Route::resource('post', PostController::class);
         Route::get('/destroy/{id}',[PostController::class,'destroy'])->name('post.delete');
@@ -70,6 +112,11 @@ Route::group(['middleware' => ['auth']], function () {
             
                 
         });
+
+        //Subscriber
+        Route::prefix('manage')->group(function(){ 
+            Route::resource('subscriber', SubscriberController::class);
+        });
     });
 
 
@@ -97,6 +144,4 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 
-//User
-Route::get('/user-home', [UserController::class, 'index'])->name('user.home');
-Route::get('/single-blog/{id}', [UserController::class, 'singleBlog'])->name('user.single-blog');
+
