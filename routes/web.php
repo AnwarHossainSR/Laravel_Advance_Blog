@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/author', [LoginController::class, 'authorDashboard'])->name('author.dashboard');
         Route::get('/user', [LoginController::class, 'userDashboard'])->name('user.dashboard');
     });
+
     //admin
     Route::prefix('admin')->group(function () {
         //admin category
@@ -61,9 +62,10 @@ Route::group(['middleware' => ['auth']], function () {
 
         //Categories
         Route::resource('category', CategoryController::class);
+        Route::get('/categories/unpublished', [CategoryController::class, 'unpublishedCategory'])->name('category.unpublished');
         Route::get('/category/publish/{id}', [CategoryController::class, 'publish'])->name('category.publish');
         Route::get('/category/hide/{id}', [CategoryController::class, 'hide'])->name('category.hide');
-
+        
         //Posts
         Route::resource('post', PostController::class);
         Route::get('/destroy/{id}', [PostController::class, 'destroy'])->name('post.delete');
@@ -98,23 +100,23 @@ Route::group(['middleware' => ['auth']], function () {
 	  
 	  
 	   //Author Area
-               Route :: prefix('author')->group( function () {
+    Route::prefix('author')->group( function () {
 
-                //Author Profile
-               Route::get('/profile',[AuthorProfileController::class,'view_profile'])->name('AuthorProfileController.view_profile');
-               Route::post('/profile',[AuthorProfileController::class,'save_profile'])->name('AuthorProfileController.save_profile');
-               Route::get('/add_post',[AuthorPostController::class,'add_post'])->name('AuthorPostController.add_post');
-                
-               //Author Post
-               Route::get('/edit_post/{id}',[AuthorPostController::class,'get_edit_post'])->name('AuthorPostController.get_edit_post');
-               Route::post('/update_post/{id}',[AuthorPostController::class,'update_post'])->name('AuthorPostController.update_post');
-               Route::post('/store_new_post',[AuthorPostController::class,'store_new_post'])->name('AuthorPostController.store_new_post');
-               Route::get('/view_all_post',[AuthorPostController::class,'all_post_show'])->name('AuthorPostController.all_post_show');
-               Route::get('/view_all_unpublished_post',[AuthorPostController::class,'view_all_unpublished_post'])->name('AuthorPostController.view_all_unpublished_post');
-               Route::get('/preview/post/{id}',[AuthorPostController::class,'preview'])->name('AuthorPostController.preview');
-            
-            
-            });
+        //Author Profile
+        Route::get('/profile',[AuthorProfileController::class,'view_profile'])->name('AuthorProfileController.view_profile');
+        Route::post('/profile',[AuthorProfileController::class,'save_profile'])->name('AuthorProfileController.save_profile');
+        Route::get('/add_post',[AuthorPostController::class,'add_post'])->name('AuthorPostController.add_post');
+        
+        //Author Post
+        Route::get('/edit_post/{id}',[AuthorPostController::class,'get_edit_post'])->name('AuthorPostController.get_edit_post');
+        Route::post('/update_post/{id}',[AuthorPostController::class,'update_post'])->name('AuthorPostController.update_post');
+        Route::post('/store_new_post',[AuthorPostController::class,'store_new_post'])->name('AuthorPostController.store_new_post');
+        Route::get('/view_all_post',[AuthorPostController::class,'all_post_show'])->name('AuthorPostController.all_post_show');
+        Route::get('/view_all_unpublished_post',[AuthorPostController::class,'view_all_unpublished_post'])->name('AuthorPostController.view_all_unpublished_post');
+        Route::get('/preview/post/{id}',[AuthorPostController::class,'preview'])->name('AuthorPostController.preview');
+    
+    
+    });
 	
 	
 	      

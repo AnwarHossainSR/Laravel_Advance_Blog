@@ -47,6 +47,12 @@
                     <p>Manage</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('category.unpublished') }}" class="nav-link {{-- active --}}">
+                    <i class="far fa-circle nav-icon text-primary"></i>
+                    <p>Unpublished Category</p>
+                    </a>
+                </li>
             </ul>
         </li>
         <li class="nav-item has-treeview {{-- menu-open --}}">

@@ -1,6 +1,6 @@
 @extends('superadmin.master')
 @section('title')
-    Super Admin || Users
+    Super Admin || Category
 @endsection
 
 @section('content')
@@ -9,11 +9,11 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Active Users Page</h1>
+                <h1 class="m-0">Category Page</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item "><a href="{{ route('manage.index') }}">Users</a></li>
+                    <li class="breadcrumb-item "><a href="{{ route('category.index') }}">Category</a></li>
                     <li class="breadcrumb-item active">Manage</li>
                 </ol>
             </div>
@@ -30,10 +30,10 @@
             @include('superadmin.include.alert')
 
             <div class="card-header">
-              <h3 class="card-title">Total Active Users : <span class="text-primary text-bold">{{ count($users) }}</span></h3>
-              <a href="{{ route('manage.create') }}" class="card-title float-right">
+              <h3 class="card-title">Categories</h3>
+              <a href="{{ route('category.create') }}" class="card-title float-right">
                 <i class="fas fa-plus-circle nav-icon"></i>
-                Add Roles
+                Add Category
               </a>
             </div>
             <!-- /.card-header -->
@@ -43,38 +43,42 @@
                 <tr>
                   <th>#</th>
                   <th>Name</th>
-                  <th>Email</th>
+                  <th>Posts</th>
                   <th>Status</th>
-                  <th>Type</th>
                   <th>Image</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
                     @php($i=1)
-                    @foreach($users as $key => $user)
+                    @foreach($categories as $key => $cate)
                         <tr>
                             <td>{{ $i++ }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
+                            <td>{{ $cate->name }}</td>
+                            <td>{{ $cate->posts->count() }}</td>
                             <td>
-                                @if ($user->active == 1)
-                                    <li class="text-success">Active</li>
+                                @if ($cate->status == 1)
+                                    <li class="text-success">Publish</li>
+                                @else
+                                <li class="text-danger">Unpublish</li>
                                 @endif
                             </td>
-                            <td>{{ $user->type }}</td>
-                            <td><img src="{{ asset('source/back/profile') }}/{{ $user->profileImage }}" class="rounded-circle" alt="User Image" width="100px" height="100px"></td>
+                            <td><img src="{{ asset('source/back/category') }}/{{ $cate->image }}" class="rounded-circle" alt="Category Image" width="100px" height="100px"></td>
                             <td>
-                                <a href="{{ route('manage.show',$user->id) }}" title="Click to show Details" class="btn text-primary">
-                                  <i class="fas fa-info-circle nav-icon"></i>
+                                <a href="{{ route('category.destroy',$cate->id) }}" title="Delete" class="btn text-danger">
+                                    <i class="fas fa-trash nav-icon"></i>
                                 </a>
-                                <a href="{{ route('manage.edit',$user->id) }}" title="Change user role" class="btn text-success">
+                                <a href="{{ route('category.edit',$cate->id) }}" title="Edit" class="btn text-primary">
                                     <i class="fas fa-edit nav-icon"></i>
                                 </a>
-                                @if($user->active == 1)
-                                    <a href="{{ route('activeuser.deactive',$user->id) }}" title="Click to Deactive" class="btn text-danger">
-                                        <i class="fas fa-user-slash nav-icon"></i>
+                                @if($cate->status == 1)
+                                    <a href="{{ route('category.hide',$cate->id) }}" title="Click to Unpublish" class="btn text-success">
+                                        <i class="fas fa-arrow-up nav-icon"></i>
                                     </a>
+                                @else
+                                <a href="{{ route('category.publish',$cate->id) }}" title="Click to Publish" class="btn text-danger">
+                                    <i class="fas fa-arrow-down nav-icon"></i>
+                                </a>
                                 @endif
                             </td>
                         </tr>
@@ -94,4 +98,3 @@
   </section>
 
 @endsection
-
