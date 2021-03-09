@@ -76,8 +76,9 @@ class UserManageController extends Controller
      */
     public function edit($id)
     {
+        $user = User::find($id);
         $roles = Role::all();
-        return \view('superadmin.usermanage.editRole',['roles'=>$roles]);
+        return \view('superadmin.usermanage.editRole',['roles'=>$roles,'user'=>$user]);
     }
 
     /**
@@ -92,7 +93,7 @@ class UserManageController extends Controller
         $user = User::find($id);
         $user->type = $req->type;
         $user->update();
-        return \redirect()->route('user.manage')->with('success','User role updated successfully');
+        return \redirect()->route('manage.index')->with('success','User role updated successfully');
     }
 
     /**
@@ -140,12 +141,19 @@ class UserManageController extends Controller
     }
     public function requestUserAccept($id)
     {
-        $reqUser = Userrequest::where('userId','=',$id)->get();
-        $user = User::find($id);
+        $reqUser = Userrequest::find($id);
         $reqUser->status = 'Accept';
-        $user->type = 'Author';
-        $user->update();
-        $reqUser->update();
+        if($reqUser->save())
+        {
+            $user = User::find($reqUser->userId);
+            $user->type = 'Author';
+            $user->save();
+        }
+        else
+        {
+            return \back()->with('error','Something is wrong !');
+        }
+        
         return \redirect()->route('request.user')->with('success','User role has been changed successfully'); 
     }
     

@@ -15,7 +15,7 @@
                     <div class="mt-3">
                       <h4>{{ $user->name }}</h4>
                       <a href="" class="btn btn-outline-primary">Message</a>
-                      <a href="{{ route('user.request.accept',$user->userId) }}" class="btn btn-outline-success">Accept</a>
+                      <a href="{{ route('user.request.accept',$user->id) }}" class="btn btn-outline-success">Accept</a>
                     </div>
                   </div>
                 </div>
@@ -23,6 +23,7 @@
               
             </div>
             <div class="col-md-8">
+              @include('superadmin.include.alert')
               <div class="card mb-3">
                 <div class="card-body">
                   <div class="row">

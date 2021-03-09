@@ -14,7 +14,7 @@
                     <img src="{{ asset('source/back/profile') }}/{{ $user->profileImage }}" alt="Admin" class="rounded-circle" width="150">
                     <div class="mt-3">
                       <h4>{{ $user->name }}</h4>
-                      <p class="text-dark mb-1">Total Post : 23</p>
+                      <p class="text-dark mb-1">Total Post : {{ $user->posts->count() }}</p>
                       <p class="text-muted font-size-sm">
                             @if ($user->active == 1)
                                 <li class="text-success text-bold">Active</li>

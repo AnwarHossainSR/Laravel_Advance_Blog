@@ -12,12 +12,16 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    //fhrhgyueht
-    //hdfhufdshfhjfhjd
+
     public function index()
     {
-        $categories = Category::latest()->get();
+        $categories = Category::where('status','=',1)->latest()->get();
         return view('superadmin.category.manage', compact('categories', $categories));
+    }
+    public function unpublishedCategory()
+    {
+        $categories = Category::where('status','=',0)->latest()->get();
+        return view('superadmin.category.unpublishedCategory', compact('categories', $categories));
     }
 
     /**

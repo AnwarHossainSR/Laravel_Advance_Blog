@@ -37,7 +37,7 @@
 
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form action="{{ route('manage.update',[Auth::user()->id]) }}" method="POST">
+                    <form action="{{ route('manage.update',[$user->id]) }}" method="POST">
                         @csrf
                         @method('put')
                       <div class="card-body">
