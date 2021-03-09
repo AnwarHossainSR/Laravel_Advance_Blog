@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Post;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -51,7 +52,12 @@ class LoginController extends Controller
     public function authorDashboard(Request $req)
     {
         $data = User::find(session('loggedUser'));
-        return view('author.include.home')->with('data',$data);
+ //---------------------Viewing Trash--------------------------
+         $ct_trash = Post ::onlyTrashed()->get()->where('user_id',$data->id);
+         $trash=$ct_trash->count();
+ //---------------------Viewing Trash---------------------------
+        return view('author.include.home')->with('data',$data)
+                                          ->with('trash',$trash);
     }
     public function userDashboard()
     {

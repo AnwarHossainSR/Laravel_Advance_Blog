@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
@@ -19,44 +20,85 @@ class AuthorPostController extends Controller
     public function add_post()
     {
        
-       // $categories = Category::where('status',1)->get();
+       
+     //------------------------------Viewing Trash--------------------------
+         $authr= User::find(session('loggedUser'));
+         $ct_trash = Post ::onlyTrashed()->get()->where('user_id',$authr->id);
+         $trash=$ct_trash->count();
+     //------------------------------Viewing Trash---------------------------
+       
+       
+        // $categories = Category::where('status',1)->get();
         $categories = Category::all();
         $tags= Tag::all();
         return view('author.post.add_post')->with('categories', $categories)
-                                            ->with('tags',$tags);
+                                            ->with('tags',$tags)
+                                            ->with('trash',$trash);
     }  
 
+    
+    //------------All Type Post View-----------
 
 
     public function all_post_show()
     {
        
-        $author = User::find(session('loggedUser'));
+           
+           $author = User::find(session('loggedUser'));
+        //------------------------------Viewing Trash------------------------
+             $ct_trash = Post ::onlyTrashed()->get()->where('user_id',$author->id);
+             $trash=$ct_trash->count();
+         //------------------------------Viewing Trash------------------------
+
        // return dd($author->id);
         $post_info = Post ::orderBy('created_at','DESC')->get()->where('user_id',$author->id);
+       // $post_info = Post ::onlyTrashed()->get()->where('user_id',$author->id);                                     //withTrashed();
 		//return dd($post_info);
        // $post_info = Category :: latest()->get()->where('user_id',$author->id);
           //return dd($post_info->categories);
-       return view('author.post.all_post_show',compact('post_info'));
+       return view('author.post.all_post_show',compact('post_info','trash'));
 
       
     } 
+
+
+
         public function get_edit_post( Request $request,$id )
     {
+
+
+    //------------------------------Viewing Trash------------------------
+       $authr=  User::find(session('loggedUser'));
+       $ct_trash = Post ::onlyTrashed()->get()->where('user_id',$authr->id);
+       $trash=$ct_trash->count();
+     //------------------------------Viewing Trash------------------------
        
      $post = post:: find($id);
      $categories = category::all();
      $tags= Tag::all();
       return view('author.post.edit_post')->with('post',$post)
                                           ->with('categories',$categories)
-                                          ->with('tags',$tags);
+                                          ->with('tags',$tags)
+                                          ->with('trash',$trash);
          // dd($request->all());
       
     } 
+
+
+     //------------Unpublished Post View-----------
     
     
         public function view_all_unpublished_post()
     {
+       
+       
+      //------------------------------Viewing Trash------------------------
+           $authr=  User::find(session('loggedUser'));
+           $ct_trash = Post ::onlyTrashed()->get()->where('user_id',$authr->id);
+           $trash=$ct_trash->count();
+       //------------------------------Viewing Trash------------------------ 
+       
+       
        
         $author = User::find(session('loggedUser'));
         
@@ -64,7 +106,7 @@ class AuthorPostController extends Controller
         $post_info = Post ::all()->where('user_id',$author->id)->where('status','Unpublish');
         //$post_info = Post ::all()->where('user_id',$author->id);
        // $post_info = Category :: latest()->get()->where('user_id',$author->id);
-        return view('author.post.unpublished_post_show',compact('post_info'));
+        return view('author.post.unpublished_post_show',compact('post_info','trash'));
 
       
     }    
@@ -139,11 +181,18 @@ class AuthorPostController extends Controller
 
     public function preview($id)
     {
+     //------------------------------Viewing Trash------------------------
+        $authr=  User::find(session('loggedUser'));
+         $ct_trash = Post ::onlyTrashed()->get()->where('user_id',$authr->id);
+         $trash=$ct_trash->count();
+     //------------------------------Viewing Trash------------------------
+       
+       
         $post_info = Post :: find($id);
         $categories = category::all();
         $tags= Tag::all();
          
-        return view('author.post.preview_post',compact('post_info','categories','tags'));
+        return view('author.post.preview_post',compact('post_info','categories','tags','trash'));
     }    
    
   
@@ -213,7 +262,7 @@ class AuthorPostController extends Controller
 
 
 
-    public function destroy(Post $id)
+    public function soft_destroy(Post $id)
     {
       
         //dd($id);
@@ -228,10 +277,28 @@ class AuthorPostController extends Controller
        //$id->tags()->detach();
       // $id->categories()->detach();
 
-       $msg='Successfully Deleted';
-       Toastr::success($msg, 'Success.!'); 
+       $msg='Post Moved To Trashed';
+       Toastr::warning($msg, 'Success.!'); 
        return redirect()->back();
 
 
     }
+
+
+     //------------All Trashed Post View-----------
+
+
+
+     public function trashed_post_show()
+     {
+        
+         $author = User::find(session('loggedUser'));
+        // return dd($author->id);
+        $post_info = Post ::onlyTrashed()->get()->where('user_id',$author->id);                                     //withTrashed();
+         //return dd($post_info->count());
+         $trash=$post_info->count();
+        return view('author.post.trashed_post_show',compact('post_info','trash'));
+ 
+       
+     } 
 }

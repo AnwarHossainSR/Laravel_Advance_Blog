@@ -86,7 +86,7 @@
         
       </button>
 
-      <form method="post" id="delete-form-{{$value->id}}" action="{{route('AuthorPostController.destroy',$value->id)}}" 
+      <form method="post" id="delete-form-{{$value->id}}" action="{{route('AuthorPostController.soft_destroy',$value->id)}}" 
       
       style="display: none;">
       
@@ -150,8 +150,8 @@ buttonsStyling: false
 
 swalWithBootstrapButtons.fire({
 title: 'Are you sure?',
-text: "You won't be able to revert this!",
-icon: 'warning',
+text: "Post will added in Trash.!",
+icon: 'info',
 showCancelButton: true,
 confirmButtonText: 'Yes, delete it!',
 cancelButtonText: 'No, cancel!',

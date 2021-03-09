@@ -1,13 +1,13 @@
 @extends('author.master')
 
 @section('title')
-    Author || All Post
+    Author || All Trashed Post
 @endsection
 
 @section('content')
 <div class="card">
   <div class="card-header">
-    <h3 class="card-title">Show all post</h3>
+    <h3 class="card-title">Show the deleted post</h3>
   </div>
    
 
@@ -80,7 +80,7 @@
      <td class="text-centre">
       <a href="{{ route('AuthorPostController.get_edit_post', $value->id)}}" class='btn btn-success' data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"></i></a>
       
-      <button class="btn btn-danger waves-effect" data-toggle="tooltip" data-placement="top" title="Delete"type="button" onclick="deleteFunc({{$value->id}})"> 
+      <button class="btn btn-danger waves-effect" type="button" onclick="deleteFunc({{$value->id}})">
         
         <i class="fas fa-trash-alt"></i> 
         
@@ -113,6 +113,8 @@
 @endsection
 
 @section('script')
+
+
 <script>
   $(function () {
     $("#example1").DataTable({
@@ -129,7 +131,7 @@
       "responsive": true,
     });
   });
-</script> 
+</script>  
 
 {{-- Sweet Alert --}}
 
@@ -177,6 +179,9 @@ swalWithBootstrapButtons.fire(
   }
 
 </script>
+
+
+
 
 @endsection
 
