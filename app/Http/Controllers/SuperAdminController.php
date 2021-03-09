@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Brian2694\Toastr\Facades\Toastr;
+
 
 class SuperAdminController extends Controller
 {
@@ -71,7 +73,8 @@ class SuperAdminController extends Controller
             $user->profileImage = $user->profileImage;
             $user->update();
         }
-
+        $msg='Profile Updated!';
+        Toastr::success($msg, 'Success.!');
         return back()->with('success','Profile updated successfully'); 
     }
 
@@ -94,8 +97,12 @@ class SuperAdminController extends Controller
             $user->password = Hash::make($req->password);
             $user->save();
             Auth::logout();
+            $msg='Password Changed!';
+            Toastr::success($msg, 'Success.!');
             return redirect('/login')->with('success','Password changed successfully');
         } else {
+            $msg='Current password invalid!';
+            Toastr::error($msg, 'Success.!');
             return \back()->with('error','current password is invalid');
         }
         

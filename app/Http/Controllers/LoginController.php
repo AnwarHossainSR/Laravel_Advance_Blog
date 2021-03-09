@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Brian2694\Toastr\Facades\Toastr;
+
 
 class LoginController extends Controller
 {
@@ -33,6 +35,8 @@ class LoginController extends Controller
                 return \redirect('dashboard/user');
             }
         } else {
+            $msg='Email or password wrong!';
+            Toastr::error($msg, 'Error.!');
             return back()->with('error', 'Email or password is incorrect');
         }
     }
@@ -40,21 +44,29 @@ class LoginController extends Controller
     public function superAdminDashboard()
     {
         $data = User::find(session('loggedUser'));
+        $msg='Authorize Successfull';
+        Toastr::success($msg, 'Success.!');
         return view('superadmin.include.home')->with('data', $data);
     }
     public function adminDashboard()
     {
         $data = User::find(session('loggedUser'));
+        $msg='Authorize Successfull';
+        Toastr::success($msg, 'Success.!');
         return view('admin.include.home')->with('data', $data);
     }
     public function authorDashboard(Request $req)
     {
         $data = User::find(session('loggedUser'));
+        $msg='Authorize Successfull';
+        Toastr::success($msg, 'Success.!');
         return view('author.include.home')->with('data', $data);
     }
     public function userDashboard()
     {
         $data = User::find(session('loggedUser'));
+        $msg='Authorize Successfull';
+        Toastr::success($msg, 'Success.!');
         return view('user.user')->with('data', $data);
     }
 }

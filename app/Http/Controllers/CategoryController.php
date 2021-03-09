@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Brian2694\Toastr\Facades\Toastr;
 
 class CategoryController extends Controller
 {
@@ -59,6 +60,8 @@ class CategoryController extends Controller
         $category->slug = strtolower(str_replace('', '_', $request->name));
         $category->image = $imageName;
         $category->save();
+        $msg='Category Created Successfully';
+        Toastr::success($msg, 'Success.!');
         return redirect()->route('category.index')->with('success', 'Category created successfully');
     }
 
@@ -120,6 +123,8 @@ class CategoryController extends Controller
             $category->slug = strtolower(str_replace('', '_', $request->name));
             $cate->update();
         }
+        $msg='Category Updated Successfully';
+        Toastr::success($msg, 'Success.!');
         return redirect()->route('category.index')->with('success', 'Category updated successfully');
     }
 
@@ -132,6 +137,8 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         Category::destroy($id);
+        $msg='Category Deleted Successfully';
+        Toastr::success($msg, 'Success.!');
         return back()->with('success', 'Category deleted successfully');
     }
 
@@ -140,6 +147,8 @@ class CategoryController extends Controller
         $category = Category::find($id);
         $category->status = 0;
         $category->save();
+        $msg='Category Hide Successfully';
+        Toastr::success($msg, 'Success.!');
         return back()->with('success', 'Category hide successfully');
     }
     public function publish($id)
@@ -147,6 +156,8 @@ class CategoryController extends Controller
         $category = Category::find($id);
         $category->status = 1;
         $category->save();
-        return back()->with('success', 'Category publish successfully');
+        $msg='Category Published Successfully';
+        Toastr::success($msg, 'Success.!');
+        return back()->with('success', 'Category published successfully');
     }
 }

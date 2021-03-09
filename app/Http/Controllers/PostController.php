@@ -7,6 +7,8 @@ use App\Models\Category;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Brian2694\Toastr\Facades\Toastr;
+
 
 class PostController extends Controller
 {
@@ -71,7 +73,8 @@ class PostController extends Controller
 
         $post->categories()->attach($request->categories);
         $post->tags()->attach($request->tags);
-
+        $msg='Post Created Successfully';
+        Toastr::success($msg, 'Success.!');
         return redirect()->route('superadmin.post.singleuser')->with('success','Post created successfully');
     }
 
@@ -140,6 +143,7 @@ class PostController extends Controller
             $post->update();
             $post->categories()->sync($request->categories);
             $post->tags()->sync($request->tags);
+           
         } else {
             $post->title = $request->title;
             $post->slug = strtolower(str_replace('', '_', $request->title));
@@ -152,6 +156,8 @@ class PostController extends Controller
             $post->categories()->sync($request->categories);
             $post->tags()->sync($request->tags);
         }
+        $msg='Post Updated Successfully';
+        Toastr::success($msg, 'Success.!');
         return redirect()->route('superadmin.post.singleuser')->with('success', 'Post updated successfully');
     }
 
@@ -172,7 +178,9 @@ class PostController extends Controller
         $post->categories()->detach();
         $post->tags()->detach();
         $post->delete();
-      // return back()->with('success','Post deleted successfully');
+        $msg='Post Deleted Successfully';
+        Toastr::success($msg, 'Success.!');
+        return back()->with('success','Post deleted successfully');
     }
 
     public function hide($id)
@@ -180,6 +188,8 @@ class PostController extends Controller
         $post = Post::find($id);
         $post->status = 'Unpublish';
         $post->save();
+        $msg='Post Hide Successfully';
+        Toastr::success($msg, 'Success.!');
         return back()->with('success','Post hide successfully');
     }
     public function publish($id)
@@ -187,6 +197,8 @@ class PostController extends Controller
         $post = Post::find($id);
         $post->status =  'Publish';
         $post->save();
+        $msg='Post Published Successfully';
+        Toastr::success($msg, 'Success.!');
         return back()->with('success','Post publish successfully');
     }
 
