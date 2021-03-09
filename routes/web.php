@@ -13,6 +13,7 @@ use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\admin\AdminCategoryController;
 use App\Http\Controllers\admin\AdminTagController;
 use App\Http\Controllers\admin\AdminPostController;
+//Author
 use App\Http\Controllers\author\AuthorPostController;
 use App\Http\Controllers\author\AuthorProfileController;
 //user
