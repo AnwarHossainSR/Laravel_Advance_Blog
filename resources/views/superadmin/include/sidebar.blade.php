@@ -131,6 +131,14 @@
             </ul>
         </li>
         <li class="nav-item">
+            <a href="{{ route('subscriber.index') }}" class="nav-link">
+            <i class="nav-icon text-primary fas fa-phone-volume"></i>
+            <p>
+                Subscription
+            </p>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="#" class="nav-link">
             <i class="nav-icon text-primary fas fa-phone-volume"></i>
             <p>

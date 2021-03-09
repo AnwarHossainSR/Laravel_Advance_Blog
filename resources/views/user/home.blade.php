@@ -2,7 +2,6 @@
 @section('title', 'Home')
 @section('customCSS')
 	<link href="{{asset('user/front-page-category/css/styles.css')}}" rel="stylesheet">
-
 	<link href="{{asset('user/front-page-category/css/responsive.css')}}" rel="stylesheet">
 @endsection
 @section('content')
