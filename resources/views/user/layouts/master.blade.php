@@ -10,6 +10,8 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/fontawesome.min.css" integrity="sha512-shT5e46zNSD6lt4dlJHb+7LoUko9QZXTGlmWWx0qjI9UhQrElRb+Q5DM7SVte9G9ZNmovz2qIaV7IWv0xQkBkw==" crossorigin="anonymous" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+	<!-- Toster CSS -->
+	<link rel="stylesheet" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 
 
 	<!-- Stylesheets -->
@@ -114,8 +116,9 @@
 
 					<h4 class="title"><b>SUBSCRIBE</b></h4>
 					<div class="input-area">
-						<form>
-							<input class="email-input" type="text" placeholder="Enter your email">
+						<form action="{{ route('user.subscriber') }}" method="POST">
+							@csrf
+							<input class="email-input" type="text" name="email" placeholder="Enter your email">
 							<button class="submit-btn" type="submit"><i class="icon ion-ios-email-outline"></i></button>
 						</form>
 					</div>
@@ -139,6 +142,25 @@
 <script src="{{asset('user/common-js/swiper.js')}}"></script>
 
 <script src="{{asset('user/common-js/scripts.js')}}"></script>
+<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+    {!! Toastr::message() !!}
+
+	<script>
+		@if($errors->any())
+   
+		  @foreach ($errors->all() as $error)
+  
+				toastr.error('{{$error}}','Error.!',{
+				
+				closeButton:true,
+				progressBar:true,
+				
+				}); //It requires optional parameter value
+  
+			@endforeach
+  
+		@endif
+	</script>
 
 </body>
 </html>
