@@ -51,6 +51,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/tag/details/{id}', [AdminTagController::class, 'details'])->name('admin.tag.details');
         //admin post
         Route::get('/posts', [AdminPostController::class, 'index'])->name('admin.posts.all');
+        Route::get('/post/create', [AdminPostController::class, 'create'])->name('admin.post.create');
+        Route::post('/post/create', [AdminPostController::class, 'createPost'])->name('admin.post.create');
+        Route::get('/post/edit/{id}', [AdminPostController::class, 'edit'])->name('admin.post.edit');
+        Route::post('/post/edit/{id}', [AdminPostController::class, 'editPost'])->name('admin.post.edit');
+        Route::post('/post/delete/{id}', [AdminPostController::class, 'delete'])->name('admin.post.delete');
+        Route::get('/post/details/{id}', [AdminPostController::class, 'details'])->name('admin.post.details');
     });
 
 
