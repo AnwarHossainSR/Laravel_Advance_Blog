@@ -28,7 +28,7 @@
                     <div class="card-header">
                         <div class="d-flex justify-content-between align-items-center">
                             <h3 class="card-title">Posts List</h3>
-                            <a href="#" class="btn btn-primary">Create Post</a>
+                            <a href="{{ route('admin.post.create') }}" class="btn btn-primary">Create Post</a>
                         </div>
                     </div>
 
@@ -41,35 +41,49 @@
                                     <th>Slug</th>
                                     <th>Excerpt</th>
                                     <th>Content</th>
+                                    <th>Tags</th>
+                                    <th>Category</th>
+                                    <th>Author</th>
+                                    <th>Status</th>
                                     <th style="height:100px;width:100px">Image</th>
                                     <th style="width: 40px">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if($categories->count())
-                                @foreach ($categories as $category)
+                                @if($posts->count())
+                                @foreach ($posts as $post)
                                     <tr>
-                                        <td>{{ $category->id }}</td>
-                                        <td>{{ $category->name }}</td>
-                                        <td>{{ $category->slug }}</td>
+                                        <td>{{ $post->id }}</td>
+                                        <td>{{ $post->title }}</td>
+                                        <td>{{ $post->slug }}</td>
+                                        <td>{{ $post->excerpt }}</td>
+                                        <td>{{ $post->content }}</td>
                                         <td>
-                                            {{ $category->status }}
+                                            @foreach($post->tags as $tag)
+                                                <span class="badge badge-primary">{{ $tag->name }} </span>
+                                            @endforeach
                                         </td>
-                                        <td><img src="{{ asset('/upload') }}/{{ $category->image }}" class="rounded-circle" alt="post image" width="120px" height="120px"></td>
+                                        <td>{{ $post->category_id }}</td>
+                                        <td>{{ $post->user_id }}</td>
+                                        <td>
+                                            {{ $post->status }}
+                                        </td>
+                                        <td><img src="{{ asset('/upload') }}/{{ $post->postImage }}" class="rounded-circle" alt="post image" width="120px" height="120px"></td>
+                                        {{-- <td><img src="{{ asset('/upload') }}/{{ $category->image }}" class="rounded-circle" alt="post image" width="120px" height="120px"></td> --}}
                                         <td class="d-flex">
-                                            <a href="{{ route('admin.category.edit',[$category->id]) }}" class="btn btn-sm btn-primary mr-1"> <i class="fas fa-edit"></i> </a>
-                                            <form action="{{ route('admin.category.delete',[$category->id]) }}" class="mr-1" method="POST">
+                                            <a href="{{ route('admin.post.edit',$post->id) }}" class="btn btn-sm btn-primary mr-1"> <i class="fas fa-edit"></i> </a>
+                                            <form action="{{ route('admin.post.delete',$post->id) }}" class="mr-1" method="POST">
                                                 @csrf
                                                 <button type="submit" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i> </button>
                                             </form>
-                                            <a href="{{ route('admin.category.details',[$category->id]) }}" class="btn btn-sm btn-success mr-1"> <i class="fas fa-eye"></i> </a>
+                                            <a href="{{ route('admin.post.details',$post->id) }}" class="btn btn-sm btn-success mr-1"> <i class="fas fa-eye"></i> </a>
                                         </td>
                                     </tr>
                                 @endforeach
                                 @else
                                     <tr>
                                         <td colspan="5">
-                                            <h5 class="text-center">No categories found.</h5>
+                                            <h5 class="text-center">No posts found.</h5>
                                         </td>
                                     </tr>
 

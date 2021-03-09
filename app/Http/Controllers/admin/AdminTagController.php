@@ -53,7 +53,7 @@ class AdminTagController extends Controller
         }
         $tag = Tag::find($id);
         $tag->name = $req->name;
-        $tag->slug = $req->slug;
+        $tag->slug = Str::slug($req->name, '-');
         $tag->save();
         Session::flash('success', 'Tag updated successfully');
         return redirect()->back();
