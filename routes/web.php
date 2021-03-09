@@ -3,30 +3,35 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
+//superAdmin
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\UserManageController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\SubscriberController;
+//admin
 use App\Http\Controllers\admin\AdminCategoryController;
 use App\Http\Controllers\admin\AdminTagController;
 use App\Http\Controllers\admin\AdminPostController;
 use App\Http\Controllers\author\AuthorPostController;
 use App\Http\Controllers\author\AuthorProfileController;
-use App\Http\Controllers\SubscriberController;
+//user
+use App\Http\Controllers\user\UserHomeController;
+use App\Http\Controllers\user\UserSubscriberController;
 
-//Useing Route
-/* Route::get('/', function () {
-    return view('welcome');
-})->name('homepage'); */
+
 
 //User
-Route::get('/', [UserController::class, 'index'])->name('homepage');
-Route::get('/single-blog/{id}', [UserController::class, 'singleBlog'])->name('user.single-blog');
+Route::get('/', [UserHomeController::class, 'index'])->name('homepage');
+Route::prefix('home')->group(function () {
+    Route::get('/single-blog/{id}', [UserHomeController::class, 'singleBlog'])->name('user.single-blog');
+    Route::post('/subscriber', [UserSubscriberController::class, 'subscriberStore'])->name('user.subscriber');
+});
+
+
 
 Auth::routes();
-
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('auth/login', [LoginController::class, 'login'])->name('login.custom');
 
@@ -118,7 +123,6 @@ Route::group(['middleware' => ['auth']], function () {
 	  
 	   //Author Area
     Route::prefix('author')->group( function () {
-
         //Author Profile
         Route::get('/profile',[AuthorProfileController::class,'view_profile'])->name('AuthorProfileController.view_profile');
         Route::post('/profile',[AuthorProfileController::class,'save_profile'])->name('AuthorProfileController.save_profile');
