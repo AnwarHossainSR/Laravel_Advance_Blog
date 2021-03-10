@@ -19,12 +19,12 @@ class CreatePostsTable extends Migration
             $table->string('slug')->unique();
             $table->mediumText('excerpt')->nullable();
             $table->longText('content')->nullable();
-            $table->foreignId('category_id')->constrained();
+            $table->integer('category_id')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->string('view_count')->default(0);
             $table->string('postImage')->default('postDefault.jpg');
             $table->enum('status',['Publish','Unpublish'])->default('Publish');
-            $table->boolean('is_approve')->default(false);
+            $table->string('is_approve')->default(0);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();

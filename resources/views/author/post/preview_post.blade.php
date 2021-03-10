@@ -13,10 +13,9 @@
             <div class="col-lg-12" >
               <div class="card" >
                  <div class="card-header" >
-                     <div class="">           <!-- d-flex justify-content-between align-items-center-->
-                         <h3 class="" > Preview Post</h3>
+                     <div class="d-flex justify-content-between align-items-center">
+                         <h3 class="card-title" > Preview Post</h3>
                          <a href="{{route('AuthorPostController.add_post')}}" ><button class="btn btn-primary waves-effect">Add New Post</button></a> 
-                         <a href="{{ route('AuthorPostController.get_edit_post', $post_info->id)}}" class='btn btn-success' >Edit this post</a>
                      </div>
                      
                 </div> 
@@ -35,27 +34,18 @@
                             <tr>
                                 <th style="width: 100px" >Category</th>
                                 <td>
-                                    
-                                     @foreach ($post_info->categories as $value)
+{{--                                     
+                                     @foreach ($post_info as $value)
                                       
-                                     {{$value->name}} 
+                                                  @foreach ($value->categories as $item)
+           
+                                                   {{$item->name}}
+                                    
+                                                @endforeach 
+                                        
+                                    @endforeach  --}}
 
-                                    @endforeach 
-
-                                  
-                                </td>
-                            </tr>
-                            <tr>
-                                <th style="width: 100px" >Tags</th>
-                                <td>
-
-                                  
-                                   @foreach ($post_info->tags as $item)
-
-                                   <span class="badge bg-yellow">{{ $item->name}} </span> 
-
-                                   @endforeach
-                                
+                                   {{$post_info->categories}} 
                                 </td>
                             </tr>
                             <tr>
@@ -76,9 +66,8 @@
                             </tr>
                             <tr>
                                 <th style="width: 100px" >Author</th>
-                                <td>{{ Auth::user()->name }}</td>
+                                <td>{{$post_info->user_id}}</td>
                             </tr>
-                            <tr>
                             <tr>
                                 <th style="width: 100px" >Post Added</th>
                                 <td>{{$post_info->created_at}}</td>
@@ -97,9 +86,9 @@
                                 <th style="width: 100px" >Image</th>
                                 <td>
                                     
-                                    <div style="max-width:300px; max-height:300px; overflow:hidden">
+                                    <div style="max-width:70px; max-height:70px; overflow:hidden">
                    
-                                        <img src="{{asset('/storage/post_img')}}/{{$post_info->postImage}}" class="img-fluid" alt="">
+                                        <img src="{{asset('/source/back/post/author')}}/{{$post_info->postImage}}" class="img-fluid" alt="">
                          
                                     </div>
 

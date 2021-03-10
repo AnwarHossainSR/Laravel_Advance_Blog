@@ -36,7 +36,7 @@
 			<div class="menu-nav-icon" data-nav-menu="#main-menu"><i class="ion-navicon"></i></div>
 
 			<ul class="main-menu visible-on-click" id="main-menu">
-				<li><a href="{{ route('homepage') }}">Home</a></li>
+				<li><a href="#">Home</a></li>
 				<li><a href="#">Categories</a></li>
 				<li><a href="#">Features</a></li>
 				@if (Route::has('login'))
@@ -54,7 +54,7 @@
 							<li><a href="{{ route('login') }}">Login</a></li>
 
 							@if (Route::has('register'))
-								<li><a href="{{ route('register') }}">Register</a></li>
+								<li><a href="{{ route('register') }}">Registrater</a></li>
 							@endif
 					@endauth
                 @endif
@@ -62,8 +62,8 @@
 
 			<div class="src-area">
 				<form>
-					<button class="src-btn" type="submit"><i class="fas fa-search"></i></button>
-					<input class="src-input" type="text" placeholder="Type of search" style="margin-top: 20px;padding-top: -10px;padding-bottom: 20px;">
+					<button class="src-btn" type="submit"><i class="ion-ios-search-strong"></i></button>
+					<input class="src-input" type="text" placeholder="Type of search">
 				</form>
 			</div>
 
@@ -82,13 +82,14 @@
 				<div class="footer-section">
 
 					<a class="logo" href="#"><img src="{{asset('user/images/logo.png')}}" alt="Logo Image"></a>
-					<p class="copyright">Bona @ 2021. All rights reserved.</p>
+					<p class="copyright">Bona @ 2017. All rights reserved.</p>
+					<p class="copyright">Designed by <a href="https://colorlib.com" target="_blank">Colorlib</a>.Downloaded from <a href="https://themeslab.org/" target="_blank">Themeslab</a></p>
 					<ul class="icons">
-						<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-						<li><a href="#"><i class="fab fa-twitter"></i></a></li>
-						<li><a href="#"><i class="fab fa-instagram-square"></i></a></li>
-						<li><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
-						<li><a href="#"><i class="fab fa-pinterest"></i></a></li>
+						<li><a href="#"><i class="ion-social-facebook-outline"></i></a></li>
+						<li><a href="#"><i class="ion-social-twitter-outline"></i></a></li>
+						<li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
+						<li><a href="#"><i class="ion-social-vimeo-outline"></i></a></li>
+						<li><a href="#"><i class="ion-social-pinterest-outline"></i></a></li>
 					</ul>
 
 				</div><!-- footer-section -->
@@ -112,8 +113,8 @@
 					<div class="input-area">
 						<form action="{{ route('user.subscriber') }}" method="POST">
 							@csrf
-							<input class="email-input" type="text" name="email" placeholder="Enter your email" style="padding-bottom: 28px;">
-							<button class="submit-btn" type="submit" style="margin-bottom: 20px;"><i class="far fa-envelope"></i></i></button>
+							<input class="email-input" type="text" name="email" placeholder="Enter your email">
+							<button class="submit-btn" type="submit"><i class="icon ion-ios-email-outline"></i></button>
 						</form>
 					</div>
 
