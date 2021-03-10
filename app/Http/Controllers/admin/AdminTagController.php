@@ -45,7 +45,7 @@ class AdminTagController extends Controller
     public function editPost($id, Request $req)
     {
         $validation = validator::make($req->all(), [
-            'name' => 'required|min:3|max:15|unique:tags,name',
+            'name' => 'required|min:3|max:15',
             'slug' => 'required|min:3',
         ]);
         if ($validation->fails()) {
