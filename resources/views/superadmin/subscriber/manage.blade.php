@@ -49,9 +49,12 @@
                             <td>{{ $i++ }}</td>
                             <td>{{ $subscriber->email }}</td>
                             <td>
-                                <a href="{{ route('subscriber.destroy',$subscriber->id) }}" title="Delete" class="btn text-danger">
-                                    <i class="fas fa-trash nav-icon"></i>
-                                </a>
+                                <i class="fas fa-trash nav-icon text-danger" title="Delete" onclick="deleteSubscriber({{ $subscriber->id }})" style="cursor: pointer;"></i>
+                                
+                                <form id="delete-form-{{ $subscriber->id }}" method="POST" action="{{ route('subscriber.destroy',$subscriber->id) }}"  style="display:none;">
+                                    @csrf
+                                    @method('delete')
+                                </form>
                             </td>
                         </tr>
                     @endforeach
@@ -69,4 +72,43 @@
     <!-- /.container-fluid -->
   </section>
 
+@endsection
+@section('script')
+    <!-- sweet Alart CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous"></script>
+    <script>
+        function deleteSubscriber(id) { 
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+          },
+          buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, delete it!',
+          cancelButtonText: 'No, cancel!',
+          reverseButtons: true
+        }).then((result) => {
+          if (result.isConfirmed) {
+            event.preventDefault();
+            document.getElementById('delete-form-'+id).submit();
+          } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            swalWithBootstrapButtons.fire(
+              'Cancelled',
+              'Your subscriber is safe :)',
+              'error'
+            )
+          }
+        })
+      }
+    </script>
 @endsection
