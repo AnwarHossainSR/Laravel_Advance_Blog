@@ -10,6 +10,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\UserManageController;
 use App\Http\Controllers\SubscriberController;
+use App\Http\Controllers\EmailController;
 //admin
 use App\Http\Controllers\admin\AdminCategoryController;
 use App\Http\Controllers\admin\AdminTagController;
@@ -116,6 +117,11 @@ Route::group(['middleware' => ['auth']], function () {
         //Subscriber
         Route::prefix('manage')->group(function(){ 
             Route::resource('subscriber', SubscriberController::class);
+        });
+
+        //Emailing
+        Route::prefix('dashboard')->group(function(){ 
+            Route::resource('email', EmailController::class);
         });
     });
 	
