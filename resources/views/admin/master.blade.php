@@ -22,9 +22,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{ asset('source/back') }}/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  {{--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">  --}}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" />
   @yield('style')
-  @yield('stylecss')
 </head>
     <body class="hold-transition sidebar-mini">
     <div class="wrapper">
@@ -67,18 +67,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="{{ asset('source/back') }}/plugins/jquery/jquery.min.js"></script>
+    <scrip src="{{ asset('source/back') }}/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="{{ asset('source/back') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <scrip src="{{ asset('source/back') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></scrip>
     <!-- AdminLTE App -->
-    <script src="{{ asset('source/back') }}/dist/js/adminlte.min.js"></script>
+    <scrip src="{{ asset('source/back') }}/dist/js/adminlte.min.js"></scrip>
     <!-- DataTables -->
-    <script src="{{ asset('source/back') }}/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="{{ asset('source/back') }}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="{{ asset('source/back') }}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="{{ asset('source/back') }}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <scrip src="{{ asset('source/back') }}/plugins/datatables/jquery.dataTables.min.js"></scrip>
+    <scrip src="{{ asset('source/back') }}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></scrip>
+    <scrip src="{{ asset('source/back') }}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></scrip>
+    <scrip src="{{ asset('source/back') }}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></scrip>
+    {{--  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>  --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
-
     <script>
         @if(Session::has('success'))
             toastr.success("{{ Session::get('success') }}");
@@ -86,7 +86,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </script>
     <!-- page script -->
     @yield('script')
-    @yield('scriptjs')
     <script>
         $(function () {
 

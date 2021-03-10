@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\author;
 
 use Carbon\Carbon;
-use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -19,14 +18,7 @@ class AuthorProfileController extends Controller
     {
        //$author= User::all()->where('name');
        $author = User::find(session('loggedUser'));
-     //------------------------------Viewing Trash--------------------------
-        $ct_trash = Post ::onlyTrashed()->get()->where('user_id',$author->id);
-            $trash=$ct_trash->count();
-     //------------------------------Viewing Trash---------------------------
-
-       
-
-        return view('author.author_profile')->with('author',$author)->with('trash',$trash);
+        return view('author.author_profile')->with('author',$author);
     }    
     
     public function save_profile(Request $request) 
@@ -47,7 +39,7 @@ class AuthorProfileController extends Controller
 
         $img=  $request->file('image');
 
-        if(isset($img))        // if image data inserted
+        if(isset($img))
         {
             $currentDate= Carbon ::now()->toDateString();
 
