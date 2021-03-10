@@ -1,4 +1,4 @@
-<aside class="main-sidebar sidebar-green-primary elevation-4">
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ route('author.dashboard') }}" class="brand-link">
     <img src="{{ asset('source/back') }}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
@@ -53,7 +53,16 @@
                 <li class="nav-item">
                     <a href="{{route('AuthorPostController.view_all_unpublished_post')}}" class="nav-link {{-- active --}}">
                         <i class="fas fa-spinner fa-spin"></i>
-                    <p> Pending Posts</p>
+                    <p> Pending Posts </p>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{route('AuthorPostController.view_all_unpublished_post')}}" class="nav-link {{-- active --}}">
+                        <i class="far fa-check-circle"></i>
+                    <p>Verified Posts</p>
                     </a>
                 </li>
             </ul>
@@ -64,7 +73,7 @@
                     <a href="{{route('AuthorPostController.all_post_show')}}" class="nav-link {{-- active --}}">
                         <i class="fas fa-file-alt"></i>
                     <p> Show all post</p>
-                    <i class="fas fa-info-circle"></i>
+                   
                     </a>
                 </li>
             </ul>
@@ -88,12 +97,13 @@
             </ul>
         </li>
 
+
         <li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="fas fa-envelope"></i>
+            <a href="{{route('AuthorPostController.trashed_post_show')}}" class="nav-link">
+                <i class="fas fa-trash-alt"></i>
             <p>
-                Support
-               {{--  <span class="right badge badge-danger">New</span> --}}
+                Trash
+                <span class="badge badge-danger">{{$trash}}</span>
             </p>
             </a>
         </li>
@@ -106,6 +116,17 @@
             </p>
             </a>
         </li>
+
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="fas fa-envelope"></i>
+            <p>
+                Support
+               {{--  <span class="right badge badge-danger">New</span> --}}
+            </p>
+            </a>
+        </li>   
+        
 
         </ul>
     </nav>

@@ -70,12 +70,6 @@
                     <p>Manage</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('superadmin.post.singleuser') }}" class="nav-link ">
-                    <i class="far fa-circle nav-icon text-primary"></i>
-                    <p>Post By Me</p>
-                    </a>
-                </li>
             </ul>
         </li>
         <li class="nav-item has-treeview {{-- menu-open --}}">

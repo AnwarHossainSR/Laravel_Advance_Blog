@@ -10,6 +10,8 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/fontawesome.min.css" integrity="sha512-shT5e46zNSD6lt4dlJHb+7LoUko9QZXTGlmWWx0qjI9UhQrElRb+Q5DM7SVte9G9ZNmovz2qIaV7IWv0xQkBkw==" crossorigin="anonymous" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+	<!-- Toster CSS -->
+	<link rel="stylesheet" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 
 
 	<!-- Stylesheets -->
@@ -34,7 +36,7 @@
 			<div class="menu-nav-icon" data-nav-menu="#main-menu"><i class="ion-navicon"></i></div>
 
 			<ul class="main-menu visible-on-click" id="main-menu">
-				<li><a href="#">Home</a></li>
+				<li><a href="{{ route('homepage') }}">Home</a></li>
 				<li><a href="#">Categories</a></li>
 				<li><a href="#">Features</a></li>
 				@if (Route::has('login'))
@@ -52,7 +54,7 @@
 							<li><a href="{{ route('login') }}">Login</a></li>
 
 							@if (Route::has('register'))
-								<li><a href="{{ route('register') }}">Registrater</a></li>
+								<li><a href="{{ route('register') }}">Register</a></li>
 							@endif
 					@endauth
                 @endif
@@ -60,8 +62,8 @@
 
 			<div class="src-area">
 				<form>
-					<button class="src-btn" type="submit"><i class="ion-ios-search-strong"></i></button>
-					<input class="src-input" type="text" placeholder="Type of search">
+					<button class="src-btn" type="submit"><i class="fas fa-search"></i></button>
+					<input class="src-input" type="text" placeholder="Type of search" style="margin-top: 20px;padding-top: -10px;padding-bottom: 20px;">
 				</form>
 			</div>
 
@@ -80,14 +82,13 @@
 				<div class="footer-section">
 
 					<a class="logo" href="#"><img src="{{asset('user/images/logo.png')}}" alt="Logo Image"></a>
-					<p class="copyright">Bona @ 2017. All rights reserved.</p>
-					<p class="copyright">Designed by <a href="https://colorlib.com" target="_blank">Colorlib</a>.Downloaded from <a href="https://themeslab.org/" target="_blank">Themeslab</a></p>
+					<p class="copyright">Bona @ 2021. All rights reserved.</p>
 					<ul class="icons">
-						<li><a href="#"><i class="ion-social-facebook-outline"></i></a></li>
-						<li><a href="#"><i class="ion-social-twitter-outline"></i></a></li>
-						<li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
-						<li><a href="#"><i class="ion-social-vimeo-outline"></i></a></li>
-						<li><a href="#"><i class="ion-social-pinterest-outline"></i></a></li>
+						<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+						<li><a href="#"><i class="fab fa-twitter"></i></a></li>
+						<li><a href="#"><i class="fab fa-instagram-square"></i></a></li>
+						<li><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
+						<li><a href="#"><i class="fab fa-pinterest"></i></a></li>
 					</ul>
 
 				</div><!-- footer-section -->
@@ -97,14 +98,9 @@
 					<div class="footer-section">
 					<h4 class="title"><b>CATAGORIES</b></h4>
 					<ul>
-						<li><a href="#">BEAUTY</a></li>
-						<li><a href="#">HEALTH</a></li>
-						<li><a href="#">MUSIC</a></li>
-					</ul>
-					<ul>
-						<li><a href="#">SPORT</a></li>
-						<li><a href="#">DESIGN</a></li>
-						<li><a href="#">TRAVEL</a></li>
+						@foreach($catfilter as $key => $cate)
+							<li><a href="#">{{ $cate->name }}</a></li>
+						@endforeach
 					</ul>
 				</div><!-- footer-section -->
 			</div><!-- col-lg-4 col-md-6 -->
@@ -114,9 +110,10 @@
 
 					<h4 class="title"><b>SUBSCRIBE</b></h4>
 					<div class="input-area">
-						<form>
-							<input class="email-input" type="text" placeholder="Enter your email">
-							<button class="submit-btn" type="submit"><i class="icon ion-ios-email-outline"></i></button>
+						<form action="{{ route('user.subscriber') }}" method="POST">
+							@csrf
+							<input class="email-input" type="text" name="email" placeholder="Enter your email" style="padding-bottom: 28px;">
+							<button class="submit-btn" type="submit" style="margin-bottom: 20px;"><i class="far fa-envelope"></i></i></button>
 						</form>
 					</div>
 
@@ -139,6 +136,25 @@
 <script src="{{asset('user/common-js/swiper.js')}}"></script>
 
 <script src="{{asset('user/common-js/scripts.js')}}"></script>
+<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+    {!! Toastr::message() !!}
+
+	<script>
+		@if($errors->any())
+   
+		  @foreach ($errors->all() as $error)
+  
+				toastr.error('{{$error}}','Error.!',{
+				
+				closeButton:true,
+				progressBar:true,
+				
+				}); //It requires optional parameter value
+  
+			@endforeach
+  
+		@endif
+	</script>
 
 </body>
 </html>
