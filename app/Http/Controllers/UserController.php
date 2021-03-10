@@ -14,9 +14,8 @@ class UserController extends Controller
         return view('user.home')->with('posts',$posts);
     }
 
-    public function singleBlog($id)
+    public function singleBlog()
     {
-        $post = Post::find($id);
-        return view('user.single-blog')->with('post',$post);
+        return view('user.single-blog');
     }
 }

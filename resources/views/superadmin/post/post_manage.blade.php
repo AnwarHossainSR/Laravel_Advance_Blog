@@ -9,7 +9,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">All Post : <span class="text-info">{{ $posts->count() }}</span></h1>
+                <h1 class="m-0">Post Page</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -46,9 +46,8 @@
                 <tr>
                   <th>#</th>
                   <th>Title</th>
-                  <th>Author</th>
-                  <th><i class="far fa-eye text-primary"></i></th>
-                  <th>isApprove</th>
+                  <th>Slug</th>
+                  <th>Excerpt</th>
                   <th>Status</th>
                   <th>Image</th>
                   <th>Action</th>
@@ -59,32 +58,24 @@
                     @foreach($posts as $key => $post)
                         <tr>
                             <td>{{ $i++ }}</td>
-                            <td>{{ \Illuminate\Support\Str::limit($post->title, 10) }}</td>
-                            <td>{{ $post->user->name }}</td>
-                            <td>{{ $post->view_count }}</td>
-                            <td>
-                              @if ($post->is_approve == true)
-                                    <li class="badge bg-blue">Approved</li>
-                                @else
-                                    <li class="badge bg-pink">Pending</li>
-                                @endif
-                            </td>
+                            <td>{{ $post->title }}</td>
+                            <td>{{ $post->slug }}</td>
+                            <td>{{ $post->excerpt }}</td>
                             <td>
                                 @if ($post->status == 'Publish')
-                                    <li class="text-success">Published</li>
+                                    <li class="text-success">Publish</li>
                                 @else
-                                <li class="text-danger">Unpublished</li>
+                                <li class="text-danger">Unpublish</li>
                                 @endif
                             </td>
                             <td><img src="{{ asset('source/back/post') }}/{{ $post->postImage }}" class="rounded-circle" alt="post image" width="120px" height="120px"></td>
                             <td>
-                                <a href="{{ route('post.show',$post->id) }}" title="Post Details" class="btn text-primary">
-                                    <i class="fas fa-info-circle nav-icon"></i>
-                                </a>
                                 <a href="{{ route('post.delete',$post->id) }}" title="Delete" class="btn text-danger">
                                     <i class="fas fa-trash nav-icon"></i>
                                 </a>
-                                
+                                <a href="{{ route('post.edit',$post->id) }}" title="Edit" class="btn text-success">
+                                    <i class="fas fa-edit nav-icon"></i>
+                                </a>
                                 @if($post->status == 'Publish')
                                     <a href="{{ route('post.hide',$post->id) }}" title="Click to Unpublish" class="btn text-success">
                                         <i class="fas fa-arrow-up nav-icon"></i>
