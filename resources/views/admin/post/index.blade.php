@@ -40,6 +40,7 @@
                                     <th>Title</th>
                                     <th>Slug</th>
                                     <th>Excerpt</th>
+                                    <th>Content</th>
                                     <th>Tags</th>
                                     <th>Category</th>
                                     <th>Author</th>
@@ -56,6 +57,7 @@
                                         <td>{{ $post->title }}</td>
                                         <td>{{ $post->slug }}</td>
                                         <td>{{ $post->excerpt }}</td>
+                                        <td>{{ $post->content }}</td>
                                         <td>
                                             @foreach($post->tags as $tag)
                                                 <span class="badge badge-primary">{{ $tag->name }} </span>
