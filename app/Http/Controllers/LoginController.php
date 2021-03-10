@@ -24,23 +24,23 @@ class LoginController extends Controller
 
             if ($user->type == 'Superadmin') {
                 $request->session()->put('loggedUser', $user->id);
-                $msg='Authorization successfull !';
-                Toastr::success($msg, 'Authorized');
+                $msg='Authorized!';
+                Toastr::success($msg, 'Authorization successfull.!');
                 return \redirect('dashboard/superadmin');
             } elseif ($user->type == 'Admin') {
                 $request->session()->put('loggedUser', $user->id);
-                $msg='Authorization successfull !';
-                Toastr::success($msg, 'Authorized');
+                $msg='Authorized!';
+                Toastr::success($msg, 'Authorization successfull.!');
                 return \redirect('dashboard/admin');
             } elseif ($user->type == 'Author') {
                 $request->session()->put('loggedUser', $user->id);
-                $msg='Authorization successfull !';
-                Toastr::success($msg, 'Authorized');
+                $msg='Authorized!';
+                Toastr::success($msg, 'Authorization successfull.!');
                 return \redirect('dashboard/author');
             } else {
                 $request->session()->put('loggedUser', $user->id);
-                $msg='Authorization successfull !';
-                Toastr::success($msg, 'Authorized!');
+                $msg='Email or password wrong!';
+                Toastr::success($msg, 'Authorization successfull.!');
                 return \redirect('dashboard/user');
             }
         } else {

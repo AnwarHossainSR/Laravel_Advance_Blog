@@ -50,7 +50,7 @@
                                     </tr>
                                     <tr style="height:100px;">
                                         <td style="font-size: 22px;font-weight:bold">Content</td>
-                                        <td>{!! $posts->content !!}</td>
+                                        <td style="font-size: 22px">{{ $posts->content }}</td>
                                     </tr>
                                     <tr style="height:100px;">
                                         <td style="font-size: 22px;font-weight:bold">Category</td>
