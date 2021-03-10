@@ -70,7 +70,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/post/edit/{id}', [AdminPostController::class, 'edit'])->name('admin.post.edit');
         Route::post('/post/edit/{id}', [AdminPostController::class, 'editPost'])->name('admin.post.edit');
         Route::post('/post/delete/{id}', [AdminPostController::class, 'delete'])->name('admin.post.delete');
-        Route::get('/post/details/{id}', [AdminPostController::class, 'details'])->name('admin.post.details.all');
+        Route::get('/post/details/{id}', [AdminPostController::class, 'details'])->name('admin.post.details');
     });
 
 
@@ -82,7 +82,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/categories/unpublished', [CategoryController::class, 'unpublishedCategory'])->name('category.unpublished');
         Route::get('/category/publish/{id}', [CategoryController::class, 'publish'])->name('category.publish');
         Route::get('/category/hide/{id}', [CategoryController::class, 'hide'])->name('category.hide');
-        
+
         //Posts
         Route::resource('post', PostController::class);
         Route::get('/destroy/{id}', [PostController::class, 'destroy'])->name('post.delete');
@@ -114,34 +114,26 @@ Route::group(['middleware' => ['auth']], function () {
         });
 
         //Subscriber
-        Route::prefix('manage')->group(function(){ 
+        Route::prefix('manage')->group(function () {
             Route::resource('subscriber', SubscriberController::class);
         });
     });
-	
-	  
-	  
-	   //Author Area
-    Route::prefix('author')->group( function () {
+
+
+
+    //Author Area
+    Route::prefix('author')->group(function () {
         //Author Profile
-        Route::get('/profile',[AuthorProfileController::class,'view_profile'])->name('AuthorProfileController.view_profile');
-        Route::post('/profile',[AuthorProfileController::class,'save_profile'])->name('AuthorProfileController.save_profile');
-        Route::get('/add_post',[AuthorPostController::class,'add_post'])->name('AuthorPostController.add_post');
-        
+        Route::get('/profile', [AuthorProfileController::class, 'view_profile'])->name('AuthorProfileController.view_profile');
+        Route::post('/profile', [AuthorProfileController::class, 'save_profile'])->name('AuthorProfileController.save_profile');
+        Route::get('/add_post', [AuthorPostController::class, 'add_post'])->name('AuthorPostController.add_post');
+
         //Author Post
-        Route::get('/edit_post/{id}',[AuthorPostController::class,'get_edit_post'])->name('AuthorPostController.get_edit_post');
-        Route::post('/update_post/{id}',[AuthorPostController::class,'update_post'])->name('AuthorPostController.update_post');
-        Route::post('/store_new_post',[AuthorPostController::class,'store_new_post'])->name('AuthorPostController.store_new_post');
-        Route::get('/view_all_post',[AuthorPostController::class,'all_post_show'])->name('AuthorPostController.all_post_show');
-        Route::get('/view_all_unpublished_post',[AuthorPostController::class,'view_all_unpublished_post'])->name('AuthorPostController.view_all_unpublished_post');
-        Route::get('/preview/post/{id}',[AuthorPostController::class,'preview'])->name('AuthorPostController.preview');
-    
-    
+        Route::get('/edit_post/{id}', [AuthorPostController::class, 'get_edit_post'])->name('AuthorPostController.get_edit_post');
+        Route::post('/update_post/{id}', [AuthorPostController::class, 'update_post'])->name('AuthorPostController.update_post');
+        Route::post('/store_new_post', [AuthorPostController::class, 'store_new_post'])->name('AuthorPostController.store_new_post');
+        Route::get('/view_all_post', [AuthorPostController::class, 'all_post_show'])->name('AuthorPostController.all_post_show');
+        Route::get('/view_all_unpublished_post', [AuthorPostController::class, 'view_all_unpublished_post'])->name('AuthorPostController.view_all_unpublished_post');
+        Route::get('/preview/post/{id}', [AuthorPostController::class, 'preview'])->name('AuthorPostController.preview');
     });
-	
-	
-	      
 });
-
-
-
