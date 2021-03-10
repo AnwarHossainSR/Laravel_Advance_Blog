@@ -99,4 +99,18 @@
     </div>
 </div>
 @endsection
+@section('stylecss')
+    <link rel="stylesheet" href="{{ asset('/admin/css/summernote-bs4.css') }}">
+@endsection
+
+@section('scriptjs')
+    <script src="{{ asset('/admin/js/summernote-bs4.js') }}"></script>
+    <script>
+        $('#content').summernote({
+            placeholder: 'Hello Bootstrap 4',
+            tabsize: 2,
+            height: 200
+        });
+    </script>
+@endsection
 
