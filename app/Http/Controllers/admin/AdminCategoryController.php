@@ -36,7 +36,6 @@ class AdminCategoryController extends Controller
         $category->image = $files->getClientOriginalName();
         $category->save();
         Session::flash('success', 'category created successfully');
-        //return redirect()->route('admin.category.all');
         return redirect()->back();
     }
     public function edit($id)
