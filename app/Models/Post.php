@@ -18,10 +18,10 @@ class Post extends Model
         'slug',
         'excerpt',
         'content',
+        'category_id',
         'user_id',
         'postImage',
         'status',
-        'is_approve',
     ];
 
     public function user()

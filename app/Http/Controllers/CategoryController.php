@@ -13,11 +13,18 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
+    public function index()
+    {
+        $categories = Category::latest()->get();
+        return view('superadmin.category.manage',compact('categories',$categories));
+=======
 
     public function index()
     {
         $categories = Category::where('status','=',1)->latest()->get();
         return view('superadmin.category.manage', compact('categories', $categories));
+>>>>>>> 7c60a22496e414c41c301686c59dc80ea5dfb219
     }
     public function unpublishedCategory()
     {
@@ -46,23 +53,27 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|unique:categories|max:20',
         ]);
-
-        if ($request->hasFile('feature_image')) {
+        
+        if ($request->hasFile('feature_image')){
             $image = $request->file('feature_image');
-            $imageName = time() . '.' . $image->extension();
-            $image->move(public_path('source/back/category'), $imageName);
-        } else {
+            $imageName = time().'.'.$image->extension();
+            $image->move(public_path('source/back/category'),$imageName);
+        }else{
             $imageName = "catDefault.jpg";
         }
-
+        
         $category = new Category();
         $category->name = $request->name;
-        $category->slug = strtolower(str_replace('', '_', $request->name));
+        $category->slug = strtolower(str_replace('','_',$request->name));
         $category->image = $imageName;
         $category->save();
+<<<<<<< HEAD
+        return redirect()->route('category.index')->with('success','Category created successfully');
+=======
         $msg='Category Created Successfully';
         Toastr::success($msg, 'Success.!');
         return redirect()->route('category.index')->with('success', 'Category created successfully');
+>>>>>>> 7c60a22496e414c41c301686c59dc80ea5dfb219
     }
 
     /**
@@ -85,7 +96,7 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         //$category = Category::find($id);
-        return view('superadmin.category.edit_form', compact('category'));
+        return view('superadmin.category.edit_form',compact('category'));
     }
 
     /**
@@ -103,29 +114,34 @@ class CategoryController extends Controller
 
         $cate = Category::find($request->id);
 
-        if ($request->hasFile('feature_image')) {
+        if ($request->hasFile('feature_image')){
 
-            $existPhoto = '/source/back/category/' . $cate->image;
-            $path = str_replace('\\', '/', public_path());
-            if (file_exists($path . $existPhoto)) {
-                \unlink($path . $existPhoto);
+            $existPhoto = '/source/back/category/'.$cate->image;
+            $path = str_replace('\\','/',public_path());
+            if (file_exists($path.$existPhoto)) {
+                \unlink($path.$existPhoto);
             }
             $image = $request->file('feature_image');
-            $imageName = time() . '.' . $image->extension();
-            $image->move(public_path('source/back/category'), $imageName);
-
+            $imageName = time().'.'.$image->extension();
+            $image->move(public_path('source/back/category'),$imageName);
+            
             $cate->name = $request->name;
-            $category->slug = strtolower(str_replace('', '_', $request->name));
+            $category->slug = strtolower(str_replace('','_',$request->name));
             $cate->image = $imageName;
             $cate->update();
-        } else {
+        }else{
             $cate->name = $request->name;
-            $category->slug = strtolower(str_replace('', '_', $request->name));
+            $category->slug = strtolower(str_replace('','_',$request->name));
             $cate->update();
         }
+<<<<<<< HEAD
+        return redirect()->route('category.index')->with('success','Category updated successfully');
+
+=======
         $msg='Category Updated Successfully';
         Toastr::success($msg, 'Success.!');
         return redirect()->route('category.index')->with('success', 'Category updated successfully');
+>>>>>>> 7c60a22496e414c41c301686c59dc80ea5dfb219
     }
 
     /**
@@ -137,9 +153,13 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         Category::destroy($id);
+<<<<<<< HEAD
+       return back()->with('success','Category deleted successfully');
+=======
         $msg='Category Deleted Successfully';
         Toastr::success($msg, 'Success.!');
         return back()->with('success', 'Category deleted successfully');
+>>>>>>> 7c60a22496e414c41c301686c59dc80ea5dfb219
     }
 
     public function hide($id)
@@ -147,17 +167,25 @@ class CategoryController extends Controller
         $category = Category::find($id);
         $category->status = 0;
         $category->save();
+<<<<<<< HEAD
+        return back()->with('success','Category hide successfully');
+=======
         $msg='Category Hide Successfully';
         Toastr::success($msg, 'Success.!');
         return back()->with('success', 'Category hide successfully');
+>>>>>>> 7c60a22496e414c41c301686c59dc80ea5dfb219
     }
     public function publish($id)
     {
         $category = Category::find($id);
         $category->status = 1;
         $category->save();
+<<<<<<< HEAD
+        return back()->with('success','Category publish successfully');
+=======
         $msg='Category Published Successfully';
         Toastr::success($msg, 'Success.!');
         return back()->with('success', 'Category published successfully');
+>>>>>>> 7c60a22496e414c41c301686c59dc80ea5dfb219
     }
 }

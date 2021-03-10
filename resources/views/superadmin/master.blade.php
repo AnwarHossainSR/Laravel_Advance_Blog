@@ -22,6 +22,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{ asset('source/back') }}/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+<<<<<<< HEAD
+=======
    <!-- Sweet Alart -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <!-- Sweet alert animate Css -->
@@ -29,6 +31,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
  <!-- Toster CSS -->
  <link rel="stylesheet" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
   @stack('css')
+>>>>>>> 7c60a22496e414c41c301686c59dc80ea5dfb219
   @yield('style')
 </head>
     <body class="hold-transition sidebar-mini">
@@ -82,11 +85,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{ asset('source/back') }}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="{{ asset('source/back') }}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
     <!-- page script -->
+<<<<<<< HEAD
+=======
     <script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
     {!! Toastr::message() !!}
 
           {{--Global Tostar error using laravel error--}}
    
+>>>>>>> 7c60a22496e414c41c301686c59dc80ea5dfb219
     @yield('script')
     <script>
       @if($errors->any())
@@ -108,11 +114,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $("#example1").DataTable({
             "responsive": true,
             "autoWidth": false,
-          });
+          });/*
+          $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+          }); */
         });
+<<<<<<< HEAD
+=======
 
         
       
+>>>>>>> 7c60a22496e414c41c301686c59dc80ea5dfb219
       </script>
     </body>
 </html>
