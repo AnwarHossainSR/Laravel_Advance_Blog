@@ -67,16 +67,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <scrip src="{{ asset('source/back') }}/plugins/jquery/jquery.min.js"></script>
+    <script src="{{ asset('source/back') }}/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
-    <scrip src="{{ asset('source/back') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></scrip>
+    <script src="{{ asset('source/back') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
-    <scrip src="{{ asset('source/back') }}/dist/js/adminlte.min.js"></scrip>
+    <script src="{{ asset('source/back') }}/dist/js/adminlte.min.js"></script>
     <!-- DataTables -->
-    <scrip src="{{ asset('source/back') }}/plugins/datatables/jquery.dataTables.min.js"></scrip>
-    <scrip src="{{ asset('source/back') }}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></scrip>
-    <scrip src="{{ asset('source/back') }}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></scrip>
-    <scrip src="{{ asset('source/back') }}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></scrip>
+    <script src="{{ asset('source/back') }}/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('source/back') }}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="{{ asset('source/back') }}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="{{ asset('source/back') }}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
     {{--  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>  --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
     <script>
