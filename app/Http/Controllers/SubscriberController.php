@@ -81,8 +81,11 @@ class SubscriberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Subscriber $subscriber)
     {
-        //
+        $subscriber->delete();
+        $msg='Subscriber Deleted Successfully';
+        Toastr::success($msg, 'Success.!');
+        return back()->with('success','Subscriber deleted successfully');
     }
 }
