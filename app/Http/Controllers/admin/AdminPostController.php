@@ -49,6 +49,7 @@ class AdminPostController extends Controller
         $post->user_id = Auth::id();
         $post->postImage = $files->getClientOriginalName();
         $post->status = "Publish";
+        $post->is_approve=1;
         $post->save();
         $post->tags()->attach($req->tags);
 
@@ -126,5 +127,33 @@ class AdminPostController extends Controller
         $cat = Category::find($post->category_id);
         $user = User::find($post->user_id);
         return view('admin.post.details')->with('posts', $post)->with('category', $cat)->with('user', $user);
+    }
+    public function pending()
+    {
+        $post = Post::where('is_approve',0)->orderBy('created_at', 'DESC')->paginate(20);
+        return view('admin.post.pending')->with('posts',$post);
+    }
+    public function approve($id)
+    {
+        $post = Post::find($id);
+        $post->is_approve=1;
+        $post->save();
+        Session::flash('success', 'Post approved');
+        return redirect()->back();;
+    }
+    public function deny($id)
+    {
+        $post = Post::find($id);
+        $post->is_approve=2;
+        $post->save();
+        Session::flash('success', 'Post denyed by admin');
+        return redirect()->back();;
+    }
+    public function pendingDetails($id)
+    {
+        $post = Post::find($id);
+        $cat = Category::find($post->category_id);
+        $user = User::find($post->user_id);
+        return  view('admin.post.pendingdetail')->with('posts',$post)->with('category', $cat)->with('user', $user);
     }
 }
