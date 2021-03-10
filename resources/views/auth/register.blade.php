@@ -68,16 +68,8 @@
           </div>
           <span class="text-danger">@error('password'){{ $message }}@enderror</span>
         <div class="row">
-          <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="agreeTerms" name="terms" value="agree">
-              <label for="agreeTerms">
-               I agree to the <a href="#">terms</a>
-              </label>
-            </div>
-          </div>
           <!-- /.col -->
-          <div class="col-4">
+          <div class="col-12">
             <button type="submit" class="btn btn-primary btn-block">Register</button>
           </div>
           <!-- /.col -->
@@ -96,7 +88,7 @@
         </a>
       </div>
 
-      <a href="{{ route('login.custom') }}" class="text-center">I already have a membership</a>
+      <a href="{{ route('login') }}" class="text-center">I already have a membership</a>
     </div>
     <!-- /.form-box -->
   </div><!-- /.card -->
