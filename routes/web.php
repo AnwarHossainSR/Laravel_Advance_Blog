@@ -72,6 +72,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/post/edit/{id}', [AdminPostController::class, 'editPost'])->name('admin.post.edit');
         Route::post('/post/delete/{id}', [AdminPostController::class, 'delete'])->name('admin.post.delete');
         Route::get('/post/details/{id}', [AdminPostController::class, 'details'])->name('admin.post.details');
+        Route::get('/post/pending', [AdminPostController::class, 'pending'])->name('admin.posts.pending');
+        Route::get('/post/pending/approve/{id}', [AdminPostController::class, 'approve'])->name('admin.posts.approve');
+        Route::post('/post/pending/deny/{id}', [AdminPostController::class, 'deny'])->name('admin.posts.deny');
+        Route::get('/post/pending/details/{id}', [AdminPostController::class, 'pendingDetails'])->name('admin.posts.pending.details');
     });
 
 
@@ -120,7 +124,7 @@ Route::group(['middleware' => ['auth']], function () {
         });
 
         //Emailing
-        Route::prefix('dashboard')->group(function(){ 
+        Route::prefix('dashboard')->group(function(){
             Route::resource('email', EmailController::class);
         });
     });

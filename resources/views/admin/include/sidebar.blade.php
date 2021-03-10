@@ -50,13 +50,28 @@
             </a>
         </li>
         <li class="nav-item has-treeview {{-- menu-open --}}">
-            <a href="{{ route('admin.posts.all') }}" class="nav-link ">
+            <a href="#" class="nav-link ">
 
             <i class="nav-icon text-primary fas fa-clipboard"></i>
                 <p>
                     Post Management
+                    <i class="right fas fa-angle-left"></i>
                 </p>
             </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ route('admin.posts.all') }}" class="nav-link {{-- active --}}">
+                    <i class="fas fa-tasks nav-icon text-primary"></i>
+                    <p>Manage Post</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.posts.pending') }}" class="nav-link {{-- active --}}">
+                    <i class="fab fa-twitch nav-icon text-primary"></i>
+                    <p>Pending Post</p>
+                    </a>
+                </li>
+            </ul>
         </li>
 
 
