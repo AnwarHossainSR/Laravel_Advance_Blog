@@ -112,16 +112,16 @@
 
 						<div class="post-icons-area">
 							<ul class="post-icons">
-								<li><a href="#"><i class="ion-heart"></i>57</a></li>
-								<li><a href="#"><i class="ion-chatbubble"></i>6</a></li>
-								<li><a href="#"><i class="ion-eye"></i>138</a></li>
+								<li><a href="#"><i class="far fa-heart"></i>57</a></li>
+								<li><a href="#"><i class="far fa-comment"></i>6</a></li>
+								<li><a href="#"><i class="far fa-share-square"></i>138</a></li>
 							</ul>
 
 							<ul class="icons">
 								<li>SHARE : </li>
-								<li><a href="#"><i class="ion-social-facebook"></i></a></li>
-								<li><a href="#"><i class="ion-social-twitter"></i></a></li>
-								<li><a href="#"><i class="ion-social-pinterest"></i></a></li>
+								<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+								<li><a href="#"><i class="fab fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fab fa-pinterest"></i></a></li>
 							</ul>
 						</div>
 
@@ -158,8 +158,8 @@
 							<h4 class="title"><b>SUBSCRIBE</b></h4>
 							<div class="input-area">
 								<form action="{{ route('user.subscriber') }}" method="POST">
-									<input class="email-input" type="text" name="email" placeholder="Enter your email">
-									<button class="submit-btn" type="submit"><i class="icon ion-ios-email-outline"></i></button>
+									<input class="email-input" type="text" name="email" placeholder="Enter your email" style="padding-bottom: 28px;">
+									<button class="submit-btn" type="submit" style="margin-bottom: 20px;"><i class="far fa-envelope"></i></button>
 								</form>
 							</div>
 						</div><!-- subscribe-area -->
@@ -168,14 +168,9 @@
 
 							<h4 class="title"><b>TAG CLOUD</b></h4>
 							<ul>
-								<li><a href="#">Manual</a></li>
-								<li><a href="#">Liberty</a></li>
-								<li><a href="#">Recomendation</a></li>
-								<li><a href="#">Interpritation</a></li>
-								<li><a href="#">Manual</a></li>
-								<li><a href="#">Liberty</a></li>
-								<li><a href="#">Recomendation</a></li>
-								<li><a href="#">Interpritation</a></li>
+								@foreach($tags as $key => $tag)
+									<li><a href="#">{{ $tag->name }}</a></li>
+								@endforeach
 							</ul>
 
 						</div><!-- subscribe-area -->
