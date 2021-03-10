@@ -70,7 +70,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/post/edit/{id}', [AdminPostController::class, 'edit'])->name('admin.post.edit');
         Route::post('/post/edit/{id}', [AdminPostController::class, 'editPost'])->name('admin.post.edit');
         Route::post('/post/delete/{id}', [AdminPostController::class, 'delete'])->name('admin.post.delete');
-        Route::get('/post/details/{id}', [AdminPostController::class, 'details'])->name('admin.post.details');
+        Route::get('/post/details/{id}', [AdminPostController::class, 'details'])->name('admin.post.details.all');
     });
 
 
