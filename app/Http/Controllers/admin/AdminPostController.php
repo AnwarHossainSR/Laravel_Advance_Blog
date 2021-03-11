@@ -3,15 +3,20 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\AdminApproval;
+use App\Mail\AdminReject;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\User;
 use App\Models\Tag;
+use App\Notifications\AdminPostApprove;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Notification;
 
 class AdminPostController extends Controller
 {
@@ -117,9 +122,17 @@ class AdminPostController extends Controller
     }
     public function delete($id)
     {
-        Post::destroy($id);
-        Session::flash('success', 'Post deleted successfully');
-        return redirect()->route('admin.posts.all');
+        $post=Post::find($id);
+        if($post){
+            if(file_exists(public_path($post->postImage))){
+                unlink(public_path($post->postImage));
+            }
+            $post->tags()->detach();
+            $post->delete();
+            Session::flash('success', 'Post deleted successfully');
+            return redirect()->route('admin.posts.all');
+        }
+
     }
     public function details($id)
     {
@@ -135,17 +148,29 @@ class AdminPostController extends Controller
     }
     public function approve($id)
     {
+        $details=[
+            'title'=>'Mail from blog website',
+            'body'=>'Your post has been approved by Admin.'
+        ];
         $post = Post::find($id);
+        $user=User::find($post->user_id);
         $post->is_approve=1;
         $post->save();
+        Mail::to($user->email)->send(new AdminApproval($details));
         Session::flash('success', 'Post approved');
         return redirect()->back();;
     }
     public function deny($id)
     {
+        $details=[
+            'title'=>'Mail from blog website',
+            'body'=>'Your post has been denied by Admin.'
+        ];
         $post = Post::find($id);
+        $user=User::find($post->user_id);
         $post->is_approve=2;
         $post->save();
+        Mail::to($user->email)->send(new AdminReject($details));
         Session::flash('success', 'Post denyed by admin');
         return redirect()->back();;
     }
