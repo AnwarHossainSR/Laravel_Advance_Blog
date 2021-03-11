@@ -15,6 +15,8 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\admin\AdminCategoryController;
 use App\Http\Controllers\admin\AdminTagController;
 use App\Http\Controllers\admin\AdminPostController;
+use App\Http\Controllers\admin\ProfileController;
+//author
 use App\Http\Controllers\author\AuthorPostController;
 use App\Http\Controllers\author\AuthorProfileController;
 //user
@@ -79,6 +81,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/post/pending/approve/{id}', [AdminPostController::class, 'approve'])->name('admin.posts.approve');
         Route::post('/post/pending/deny/{id}', [AdminPostController::class, 'deny'])->name('admin.posts.deny');
         Route::get('/post/pending/details/{id}', [AdminPostController::class, 'pendingDetails'])->name('admin.posts.pending.details');
+        //admin profile
+        Route::get('/profile', [ProfileController::class, 'index'])->name('admin.profile');
+        Route::post('/profile/update', [ProfileController::class, 'update'])->name('admin.profile.update');
     });
 
 
