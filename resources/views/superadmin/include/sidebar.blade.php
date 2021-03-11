@@ -133,7 +133,7 @@
 
         <li class="nav-item has-treeview {{-- menu-open --}}">
             <a href="#" class="nav-link">
-            <i class="nav-icon text-primary fas fa-address-book"></i>
+            <i class="nav-icon text-primary fas fa-envelope-open"></i>
                 <p>
                     Emailing
                     <i class="right fas fa-angle-left"></i>
@@ -151,7 +151,7 @@
 
         <li class="nav-item has-treeview {{-- menu-open --}}">
             <a href="#" class="nav-link">
-            <i class="nav-icon text-primary fas fa-address-book"></i>
+            <i class="nav-icon text-primary fas fa-subscript"></i>
                 <p>
                     Subscriber manage
                     <i class="right fas fa-angle-left"></i>
@@ -200,6 +200,19 @@
                {{--  <span class="right badge badge-danger">New</span> --}}
             </p>
             </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();">
+            <i class="nav-icon text-danger fas fa-sign-out-alt"></i>
+            <p>
+                Logout
+               {{--  <span class="right badge badge-danger">New</span> --}}
+            </p>
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
         </li>
 
         </ul>

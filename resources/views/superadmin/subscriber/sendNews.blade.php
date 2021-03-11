@@ -7,7 +7,6 @@
 <div class="container">
     <div class="main-body">
           <div class="row gutters-sm">
-            
             <div class="col-md-12">
               <div class="card mb-3">
                   @include('superadmin.include.alert')

@@ -11,6 +11,9 @@ class UserSubscriberController extends Controller
 {
     public function subscriberStore(Request $request)
     {
+        $request->validate([
+            'email' => 'required|email|unique:subscribers',
+        ]);
         $subscriber = new Subscriber();
         $subscriber->email = $request->email;
         $subscriber->save();
