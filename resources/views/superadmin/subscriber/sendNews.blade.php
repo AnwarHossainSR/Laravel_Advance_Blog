@@ -18,9 +18,9 @@
                       <div class="card-body">
                         <div class="form-group">
                           <label>Subject</label>
-                          <input class="form-control" type="text" name="subject" placeholder="Write your subject">
+                          <input class="form-control" type="text" name="subject" value="{{ old('subject') }}" placeholder="Write your subject">
                           <label>Message</label>
-                          <textarea type="text" class="form-control" name="message" placeholder="Write your message" rows="5"></textarea>
+                          <textarea type="text" class="form-control" name="message" value="{{ old('message') }}" placeholder="Write your message" rows="5"></textarea>
                         </div>
                         <div class="">
                             <button type="submit" class="btn btn-primary">Send</button>
