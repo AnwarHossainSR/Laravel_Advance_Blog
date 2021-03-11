@@ -21,10 +21,7 @@
 	<link href="{{asset('user/common-css/swiper.css')}}" rel="stylesheet">
 
 	<link href="{{asset('user/common-css/ionicons.css')}}" rel="stylesheet">
-	@yield('customCSS');
-
-	
-
+	@yield('customCSS')
 </head>
 <body >
 
@@ -69,61 +66,60 @@
 
 		</div><!-- conatiner -->
 	</header>
-@yield('content');
 
-	
+	@yield('content');
 
-<footer>
+	<footer>
 
-	<div class="container">
-		<div class="row">
+		<div class="container">
+			<div class="row">
 
-			<div class="col-lg-4 col-md-6">
-				<div class="footer-section">
-
-					<a class="logo" href="#"><img src="{{asset('user/images/logo.png')}}" alt="Logo Image"></a>
-					<p class="copyright">Bona @ 2021. All rights reserved.</p>
-					<p class="copyright">Designed by Bona Teams</p>
-					<ul class="icons">
-						<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-						<li><a href="#"><i class="fab fa-twitter"></i></a></li>
-						<li><a href="#"><i class="fab fa-instagram-square"></i></a></li>
-						<li><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
-						<li><a href="#"><i class="fab fa-pinterest"></i></a></li>
-					</ul>
-
-				</div><!-- footer-section -->
-			</div><!-- col-lg-4 col-md-6 -->
-
-			<div class="col-lg-4 col-md-6">
+				<div class="col-lg-4 col-md-6">
 					<div class="footer-section">
-					<h4 class="title"><b>CATAGORIES</b></h4>
-					<ul>
-						@foreach($catfilter as $key => $cate)
-							<li><a href="#">{{ $cate->name }}</a></li>
-						@endforeach
-					</ul>
-				</div><!-- footer-section -->
-			</div><!-- col-lg-4 col-md-6 -->
 
-			<div class="col-lg-4 col-md-6">
-				<div class="footer-section">
+						<a class="logo" href="#"><img src="{{asset('user/images/logo.png')}}" alt="Logo Image"></a>
+						<p class="copyright">Bona @ 2021. All rights reserved.</p>
+						<p class="copyright">Designed by Bona Teams</p>
+						<ul class="icons">
+							<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+							<li><a href="#"><i class="fab fa-twitter"></i></a></li>
+							<li><a href="#"><i class="fab fa-instagram-square"></i></a></li>
+							<li><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
+							<li><a href="#"><i class="fab fa-pinterest"></i></a></li>
+						</ul>
 
-					<h4 class="title"><b>SUBSCRIBE</b></h4>
-					<div class="input-area">
-						<form action="{{ route('user.subscriber') }}" method="POST">
-							@csrf
-							<input class="email-input" type="text" name="email" placeholder="Enter your email" style="padding-bottom: 28px;">
-							<button class="submit-btn" type="submit" style="margin-bottom: 20px;"><i class="far fa-envelope"></i></i></button>
-						</form>
-					</div>
+					</div><!-- footer-section -->
+				</div><!-- col-lg-4 col-md-6 -->
 
-				</div><!-- footer-section -->
-			</div><!-- col-lg-4 col-md-6 -->
+				<div class="col-lg-4 col-md-6">
+						<div class="footer-section">
+						<h4 class="title"><b>CATAGORIES</b></h4>
+						<ul>
+							@foreach($catfilter as $key => $cate)
+								<li><a href="#">{{ $cate->name }}</a></li>
+							@endforeach
+						</ul>
+					</div><!-- footer-section -->
+				</div><!-- col-lg-4 col-md-6 -->
 
-		</div><!-- row -->
-	</div><!-- container -->
-</footer>
+				<div class="col-lg-4 col-md-6">
+					<div class="footer-section">
+
+						<h4 class="title"><b>SUBSCRIBE</b></h4>
+						<div class="input-area">
+							<form action="{{ route('user.subscriber') }}" method="POST">
+								@csrf
+								<input class="email-input" type="text" name="email" placeholder="Enter your email" style="padding-bottom: 28px;">
+								<button class="submit-btn" type="submit" style="margin-bottom: 20px;"><i class="far fa-envelope"></i></i></button>
+							</form>
+						</div>
+
+					</div><!-- footer-section -->
+				</div><!-- col-lg-4 col-md-6 -->
+
+			</div><!-- row -->
+		</div><!-- container -->
+	</footer>
 
 
 <!-- SCIPTS -->

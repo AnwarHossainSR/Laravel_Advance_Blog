@@ -14,7 +14,8 @@ class UserHomeController extends Controller
     public function index()
     {
         $categories = Category::where('status','=',1)->latest()->get();
-        $catfilter = Category::where('status','=',1)->take(-8)->get();
+        //$catfilter = Category::where('status','=',1)->take(-3)->get();
+        $catfilter = Category::orderBy('id', 'desc')->take(14)->get();
         $posts=Post::where([['status','=','Publish'],['is_approve','=',1]])->latest()->get();
          //return $posts->count();
         return view('user.home',compact('posts','categories','catfilter'));
@@ -24,7 +25,7 @@ class UserHomeController extends Controller
     {
         $post = Post::find($id);
         $tags = Tag::all();
-        $catfilter = Category::where('status','=',1)->take(-8)->get();
+        $catfilter = Category::orderBy('id', 'desc')->take(14)->get();
         return view('user.single-blog',compact('post','catfilter','tags'));
     }
 }
