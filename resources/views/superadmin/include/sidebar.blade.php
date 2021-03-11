@@ -130,14 +130,49 @@
                 </li>
             </ul>
         </li>
-        <li class="nav-item">
-            <a href="{{ route('subscriber.index') }}" class="nav-link">
-            <i class="nav-icon text-primary fas fa-phone-volume"></i>
-            <p>
-                Subscription
-            </p>
+
+        <li class="nav-item has-treeview {{-- menu-open --}}">
+            <a href="#" class="nav-link">
+            <i class="nav-icon text-primary fas fa-address-book"></i>
+                <p>
+                    Emailing
+                    <i class="right fas fa-angle-left"></i>
+                </p>
             </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ route('email.index') }}" class="nav-link {{-- active --}}">
+                    <i class="far fa-circle nav-icon text-primary"></i>
+                    <p>Manage</p>
+                    </a>
+                </li>
+            </ul>
         </li>
+
+        <li class="nav-item has-treeview {{-- menu-open --}}">
+            <a href="#" class="nav-link">
+            <i class="nav-icon text-primary fas fa-address-book"></i>
+                <p>
+                    Subscriber manage
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ route('subscriber.index') }}" class="nav-link {{-- active --}}">
+                    <i class="far fa-circle nav-icon text-primary"></i>
+                    <p>Manage</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('subscriber.email.show') }}" class="nav-link {{-- active --}}">
+                    <i class="far fa-circle nav-icon text-primary"></i>
+                    <p>Send News</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        
         <li class="nav-item">
             <a href="#" class="nav-link">
             <i class="nav-icon text-primary fas fa-phone-volume"></i>
@@ -156,15 +191,7 @@
             </p>
             </a>
         </li>
-        <li class="nav-item">
-            <a href="{{ route('email.index') }}" class="nav-link">
-            <i class="nav-icon text-primary fas fa-envelope"></i>
-            <p>
-                Emailing
-               {{--  <span class="right badge badge-danger">New</span> --}}
-            </p>
-            </a>
-        </li>
+        
         <li class="nav-item">
             <a href="{{ route('user.index') }}" class="nav-link">
             <i class="nav-icon text-primary fas fa-user-circle"></i>

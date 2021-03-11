@@ -121,6 +121,7 @@ Route::group(['middleware' => ['auth']], function () {
         //Subscriber
         Route::prefix('manage')->group(function () {
             Route::resource('subscriber', SubscriberController::class);
+            Route::get('/sendnews', [SubscriberController::class, 'sendNewsToSubscriber'])->name('subscriber.email.show');
         });
 
         //Emailing
