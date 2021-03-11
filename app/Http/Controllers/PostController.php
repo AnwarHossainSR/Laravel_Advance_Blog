@@ -114,7 +114,7 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|min:5|max:255',
             'excerpt' => 'required|min:5|max:255',
-            'content' => 'required|unique:posts',
+            'content' => 'required|min:5',
             'categories'=>'required',
             'tags'=>'required',
         ]);
@@ -135,7 +135,7 @@ class PostController extends Controller
             $post->title = $request->title;
             $post->slug = strtolower(str_replace('', '_', $request->title));
             $post->excerpt = $request->excerpt;
-            $post->content = $request->excerpt;
+            $post->content = $request->content;
             $post->user_id = Auth::id();
             $post->postImage = $imageName;
             $post->status = $request->status;
@@ -148,7 +148,7 @@ class PostController extends Controller
             $post->title = $request->title;
             $post->slug = strtolower(str_replace('', '_', $request->title));
             $post->excerpt = $request->excerpt;
-            $post->content = $request->excerpt;
+            $post->content = $request->content;
             $post->user_id = Auth::id();
             $post->status = $request->status;
             $post->is_approve = $request->is_approve;
@@ -204,7 +204,7 @@ class PostController extends Controller
 
     public function getAllPostBySuperAdmin()
     {
-        $posts = Post::where('user_id','=',Auth::id())->get();
+        $posts = Post::where('user_id','=',Auth::id())->latest()->get();
         return \view('superadmin.post.singleUserManage',\compact('posts'));
     }
 }
