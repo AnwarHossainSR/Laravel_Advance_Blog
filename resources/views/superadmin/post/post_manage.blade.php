@@ -34,7 +34,7 @@
                     <i class="fas fa-plus-circle nav-icon"></i>
                     Create Post
                   </a>
-              <a href="{{-- {{ route('post.create') }} --}}" class="card-title btn btn-danger float-right">
+              <a href="{{ route('softdelete.post') }}" class="card-title btn btn-danger float-right">
                 <i class="fas fa-trash-alt nav-icon"></i>
                 Trash Post
               </a>
@@ -81,9 +81,12 @@
                                 <a href="{{ route('post.show',$post->id) }}" title="Post Details" class="btn text-primary">
                                     <i class="fas fa-info-circle nav-icon"></i>
                                 </a>
-                                <a href="{{ route('post.delete',$post->id) }}" title="Delete" class="btn text-danger">
-                                    <i class="fas fa-trash nav-icon"></i>
-                                </a>
+                                <i class="fas fa-trash nav-icon text-danger" title="Delete" onclick="deletePost({{ $post->id }})" style="cursor: pointer;"></i>
+                                
+                                <form id="delete-form-{{ $post->id }}" method="POST" action="{{ route('post.destroy',$post->id) }}"  style="display:none;">
+                                    @csrf
+                                    @method('delete')
+                                </form>
                                 
                                 @if($post->status == 'Publish')
                                     <a href="{{ route('post.hide',$post->id) }}" title="Click to Unpublish" class="btn text-success">
@@ -111,4 +114,43 @@
     <!-- /.container-fluid -->
   </section>
 
+@endsection
+@section('script')
+    <!-- sweet Alart CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous"></script>
+    <script>
+        function deletePost(id) { 
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+          },
+          buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+          title: 'Are you sure?',
+          text: "You will be be able to revert this from trash!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, delete it!',
+          cancelButtonText: 'No, cancel!',
+          reverseButtons: true
+        }).then((result) => {
+          if (result.isConfirmed) {
+            event.preventDefault();
+            document.getElementById('delete-form-'+id).submit();
+          } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            swalWithBootstrapButtons.fire(
+              'Cancelled',
+              'Your post is safe :)',
+              'error'
+            )
+          }
+        })
+      }
+    </script>
 @endsection

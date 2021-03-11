@@ -1,5 +1,9 @@
 @extends('admin.master')
-
+<style>
+   .not-active{
+       pointer-events: none;
+   }
+</style>
 @section('title')
     Admin || Post
 @endsection
@@ -76,10 +80,13 @@
                                     <tr>
                                         <td ></td>
                                         <td >
-                                            <button type="button" class="btn btn-primary" style="width: 100px;"><a href="{{ route('admin.posts.approve',$posts->id) }}" style="color:white;">Approve</a></button>
+                                            <button type="button" class="btn btn-primary" @if($posts->is_approve==1||$posts->is_approve==2)  disabled
+                                                @endif style="width: 100px;"><a href="{{ route('admin.posts.approve',$posts->id) }}" style="color:white;" @if($posts->is_approve==1||$posts->is_approve==2)  class="not-active"
+                                                @endif >Approve</a></button>
                                             <form action="{{ route('admin.posts.deny',$posts->id) }}" class="mr-1" method="POST">
                                                 @csrf
-                                                <button type="submit" class="btn btn-danger" style="width: 100px;">Deny</button>
+                                                <button type="submit" class="btn btn-danger" style="width: 100px;" @if($posts->is_approve==1||$posts->is_approve==2)  disabled
+                                                @endif>Deny</button>
                                             </form>
                                         </td>
                                     </tr>

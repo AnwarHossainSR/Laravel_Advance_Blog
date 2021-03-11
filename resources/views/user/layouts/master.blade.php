@@ -28,7 +28,7 @@
 	<header>
 		<div class="container-fluid position-relative no-side-padding">
 
-			<a href="#" class="logo"><img src="{{asset('user/images/logo.png')}}" alt="Logo Image"></a>
+			<a href="{{ route('homepage') }}" class="logo"><img src="{{asset('user/images/logo.png')}}" alt="Logo Image"></a>
 
 			<div class="menu-nav-icon" data-nav-menu="#main-menu"><i class="ion-navicon"></i></div>
 
@@ -77,7 +77,7 @@
 				<div class="col-lg-4 col-md-6">
 					<div class="footer-section">
 
-						<a class="logo" href="#"><img src="{{asset('user/images/logo.png')}}" alt="Logo Image"></a>
+						<a class="logo" href="{{ route('homepage') }}"><img src="{{asset('user/images/logo.png')}}" alt="Logo Image"></a>
 						<p class="copyright">Bona @ 2021. All rights reserved.</p>
 						<p class="copyright">Designed by Bona Teams</p>
 						<ul class="icons">
