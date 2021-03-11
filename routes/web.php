@@ -22,6 +22,7 @@ use App\Http\Controllers\author\AuthorProfileController;
 //user
 use App\Http\Controllers\user\UserHomeController;
 use App\Http\Controllers\user\UserSubscriberController;
+use App\Http\Controllers\user\UserProfileController;
 
 
 
@@ -30,6 +31,8 @@ Route::get('/', [UserHomeController::class, 'index'])->name('homepage');
 Route::prefix('home')->group(function () {
     Route::get('/single-blog/{id}', [UserHomeController::class, 'singleBlog'])->name('user.single-blog');
     Route::post('/subscriber', [UserSubscriberController::class, 'subscriberStore'])->name('user.subscriber');
+
+    Route::get('/single-author/{id}', [UserProfileController::class, 'AuthorProfile'])->name('user.single-author');
 });
 
 
