@@ -95,6 +95,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/hide/{id}', [PostController::class, 'hide'])->name('post.hide');
         Route::post('/content/file', [PostController::class, 'fileUpload'])->name('post.content_file');
         Route::get('/posts/singleuser', [PostController::class, 'getAllPostBySuperAdmin'])->name('superadmin.post.singleuser');
+        Route::get('/deleted/posts', [PostController::class,'getDeletedPost'])->name('softdelete.post');
+        Route::get('/deleted/post/restore/{id}', [PostController::class,'restoreDeletedPost'])->name('softdelete.restore');
+        Route::get('/post/delete/permanent/{id}', [PostController::class,'postDeletePermanent'])->name('permanent.post.delete');
 
         //Profile
         Route::prefix('profile')->group(function () {

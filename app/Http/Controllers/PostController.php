@@ -170,13 +170,13 @@ class PostController extends Controller
     
     public function destroy(Post $post)
     {
-        $existPhoto = '/source/back/post/' . $post->postImage;
+        /* $existPhoto = '/source/back/post/' . $post->postImage;
         $path = str_replace('\\', '/', public_path());
         if (file_exists($path . $existPhoto)) {
             \unlink($path . $existPhoto);
         }
         $post->categories()->detach();
-        $post->tags()->detach();
+        $post->tags()->detach(); */
         $post->delete();
         $msg='Post Deleted Successfully';
         Toastr::success($msg, 'Success.!');
@@ -206,5 +206,33 @@ class PostController extends Controller
     {
         $posts = Post::where('user_id','=',Auth::id())->latest()->get();
         return \view('superadmin.post.singleUserManage',\compact('posts'));
+    }
+
+    public function getDeletedPost()
+    {
+        $posts = Post::latest()->onlyTrashed()->get();
+        return view('superadmin.post.softDeletePost',compact('posts',$posts));
+    }
+    public function restoreDeletedPost($id)
+    {
+        $posts = Post::onlyTrashed()->find($id)->restore();
+        return \redirect()->route('post.index')->with('success','Post restore successfully');
+    }
+    public function postDeletePermanent($id)
+    {
+        $post = Post::onlyTrashed()->find($id);
+        $existPhoto = '/source/back/post/' . $post->postImage;
+        $path = str_replace('\\', '/', public_path());
+        if ($existPhoto != "postDefault.jpg") {
+            if (file_exists($path . $existPhoto)) {
+                \unlink($path . $existPhoto);
+            }
+        }
+        $post->categories()->detach();
+        $post->tags()->detach();
+        $post->forceDelete();
+        $msg='Post has been deleted permanently';
+        Toastr::success($msg, 'Success.!'); 
+        return back()->with('success','Post has been deleted permanently'); 
     }
 }

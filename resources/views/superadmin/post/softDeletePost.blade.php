@@ -9,7 +9,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Your Total Post : <span class="text-info">{{ $posts->count() }}</span></h1>
+                <h1 class="m-0">All Deleted Post : <span class="text-info">{{ $posts->count() }}</span></h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -34,9 +34,9 @@
                     <i class="fas fa-plus-circle nav-icon"></i>
                     Create Post
                   </a>
-              <a href="{{ route('softdelete.post') }}" class="card-title btn btn-danger float-right">
-                <i class="fas fa-trash-alt nav-icon"></i>
-                Trash Post
+              <a href="{{ route('post.index') }}" class="card-title btn btn-primary float-right">
+                <i class="fab fa-slack nav-icon nav-icon"></i>
+                All Post
               </a>
             </div>
             <!-- /.card-header -->
@@ -78,29 +78,15 @@
                             </td>
                             <td><img src="{{ asset('source/back/post') }}/{{ $post->postImage }}" class="rounded-circle" alt="post image" width="120px" height="120px"></td>
                             <td>
-                                <a href="{{ route('post.show',$post->id) }}" title="Post Details" class="btn text-primary">
-                                    <i class="fas fa-info-circle nav-icon"></i>
+                                <a href="{{ route('softdelete.restore',$post->id) }}" title="Delete" class="btn text-danger">
+                                    <i class="fas fa-reply nav-icon"></i>
                                 </a>
-                                <a href="{{ route('post.edit',$post->id) }}" title="Post Edit" class="btn text-success">
-                                    <i class="fas fa-edit nav-icon"></i>
-                                </a>
+                                <i class="fas fa-trash nav-icon text-danger" title="Delete" onclick="deletePostPermanent({{ $post->id }})" style="cursor: pointer;"></i>
                                 
-                                <i class="fas fa-trash nav-icon text-danger" title="Delete" onclick="deletePost({{ $post->id }})" style="cursor: pointer;"></i>
-                                
-                                <form id="delete-form-{{ $post->id }}" method="POST" action="{{ route('post.destroy',$post->id) }}"  style="display:none;">
+                                <form id="delete-form-{{ $post->id }}" method="POST" action="{{ route('permanent.post.delete',$post->id) }}"  style="display:none;">
                                     @csrf
-                                    @method('delete')
+                                    @method('get')
                                 </form>
-                                
-                                @if($post->status == 'Publish')
-                                    <a href="{{ route('post.hide',$post->id) }}" title="Click to Unpublish" class="btn text-success">
-                                        <i class="fas fa-arrow-up nav-icon"></i>
-                                    </a>
-                                @else
-                                <a href="{{ route('post.publish',$post->id) }}" title="Click to Publish" class="btn text-danger">
-                                    <i class="fas fa-arrow-down nav-icon"></i>
-                                </a>
-                                @endif
                             </td>
                         </tr>
                     @endforeach
@@ -124,7 +110,7 @@
     <!-- sweet Alart CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous"></script>
     <script>
-        function deletePost(id) { 
+        function deletePostPermanent(id) { 
         const swalWithBootstrapButtons = Swal.mixin({
           customClass: {
             confirmButton: 'btn btn-success',
@@ -135,7 +121,7 @@
 
         swalWithBootstrapButtons.fire({
           title: 'Are you sure?',
-          text: "You will be be able to revert this from trash!",
+          text: "You won't be able to revert this!",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonText: 'Yes, delete it!',
@@ -159,4 +145,3 @@
       }
     </script>
 @endsection
-
