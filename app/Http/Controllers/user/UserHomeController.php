@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserHomeController extends Controller
@@ -17,8 +18,10 @@ class UserHomeController extends Controller
         //$catfilter = Category::where('status','=',1)->take(-3)->get();
         $catfilter = Category::orderBy('id', 'desc')->take(14)->get();
         $posts=Post::where([['status','=','Publish'],['is_approve','=',1]])->latest()->get();
+        $authors = User::where('type','=','Author')->where('active','=',1)->get();
+        $users = User::where('type','=','User')->where('active','=',1)->get();
          //return $posts->count();
-        return view('user.home',compact('posts','categories','catfilter'));
+        return view('user.home',compact('posts','categories','catfilter','authors','users'));
     }
 
     public function singleBlog($id)
