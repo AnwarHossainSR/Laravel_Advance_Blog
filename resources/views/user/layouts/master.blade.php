@@ -74,7 +74,7 @@
 		<div class="container">
 			<div class="row">
 
-				<div class="col-lg-4 col-md-6">
+				<div class="col-lg-3 col-md-6">
 					<div class="footer-section">
 
 						<a class="logo" href="{{ route('homepage') }}"><img src="{{asset('user/images/logo.png')}}" alt="Logo Image"></a>
@@ -91,7 +91,7 @@
 					</div><!-- footer-section -->
 				</div><!-- col-lg-4 col-md-6 -->
 
-				<div class="col-lg-4 col-md-6">
+				<div class="col-lg-3 col-md-6">
 						<div class="footer-section">
 						<h4 class="title"><b>CATAGORIES</b></h4>
 						<ul>
@@ -101,8 +101,17 @@
 						</ul>
 					</div><!-- footer-section -->
 				</div><!-- col-lg-4 col-md-6 -->
-
-				<div class="col-lg-4 col-md-6">
+				<div class="col-lg-3 col-md-6">
+					<h4>AUTHORS</h4>
+					<ul>
+						@foreach($authors as $key => $author)
+						<li style="list-style: disclosure-closed;
+						display: block;
+						text-align: left; text-align:left;"><a href="{{route('user.single-author', $author->id)}}">{{$author->name}}</a></li>
+						@endforeach
+					</ul>
+				</div>
+				<div class="col-lg-3 col-md-6">
 					<div class="footer-section">
 
 						<h4 class="title"><b>SUBSCRIBE</b></h4>

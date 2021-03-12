@@ -37,9 +37,9 @@
 		<div class="container">
 
 			<div class="row">
-				<div class="col-lg-8 col-md-12">
+				
 					@foreach($posts as $key => $post)
-					<div class="col-md-12">
+					<div class="col-lg-4 col-md-6">
 						<div class="card h-100">
 							<div class="single-post post-style-1">
 
@@ -62,29 +62,8 @@
 						</div><!-- card -->
 					</div><!-- col-lg-4 col-md-6 -->
 					@endforeach
-				</div>
-				<div class="col-lg-4 col-md-12">
-					<div class="col-md-12" style="background: #fff;">
-						<h4>Author List</h4>
-						<ul>
-							@foreach($authors as $key => $author)
-							<li style="list-style: disclosure-closed;
-							display: block;
-							text-align: left; text-align:left;"><a href="{{route('user.single-author', $author->id)}}">{{$author->name}}</a></li>
-							@endforeach
-						</ul>
-					</div>
-					<div class="col-md-12" style="background: #fff;">
-						<h4>User List</h4>
-						<ul>
-							@foreach($users as $key => $user)
-							<li style="list-style: disclosure-closed;
-							display: block;
-							text-align: left; text-align:left;"><a href="">{{$user->name}}</a></li>
-							@endforeach
-						</ul>
-					</div>
-				</div>
+				
+				
 				
 			</div><!-- row -->
 
