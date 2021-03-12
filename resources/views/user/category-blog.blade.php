@@ -13,14 +13,15 @@
 @section('content')
 
 	<div class="slider display-table center-text">
-		<h1 class="title display-table-cell"><b></b></h1>
+		<h1 class="title display-table-cell"><b>{{ $category->name }}</b></h1>
 	</div><!-- slider -->
 
 	<section class="blog-area section">
 		<div class="container">
 
+			@if($category->count() > 0)
 			<div class="row">
-                @foreach($category as $key => $post)
+                @foreach($category->posts as $key => $post)
 				<div class="col-lg-4 col-md-6">
 					<div class="card h-100">
 						<div class="single-post post-style-1">
@@ -53,15 +54,11 @@
 					</div><!-- card -->
 				</div><!-- col-lg-4 col-md-6 -->
                 @endforeach
-
-				
-
-				
-
 			</div><!-- row -->
-
 			<a class="load-more-btn" href="#"><b>LOAD MORE</b></a>
-
+			@else
+			<h4 class="title"><b>Sorry ! No post found</b></a></h4>
+			@endif
 		</div><!-- container -->
 	</section><!-- section -->
 
