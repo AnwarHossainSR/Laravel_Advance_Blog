@@ -22,7 +22,12 @@ class AdminPostController extends Controller
 {
     public function index()
     {
-        $post = Post::orderBy('created_at', 'DESC')->paginate(20);
+        $post = Post::where('is_approve',1)->orderBy('created_at', 'DESC')->paginate(20);
+        return view('admin.post.index')->with('posts', $post);
+    }
+    public function ownindex()
+    {
+        $post = Post::where('user_id',Auth::id())->orderBy('created_at', 'DESC')->paginate(20);
         return view('admin.post.index')->with('posts', $post);
     }
     public function create()
@@ -99,7 +104,7 @@ class AdminPostController extends Controller
             $post->excerpt = $req->excerpt;
             $post->content = $req->content;
             $post->category_id = $req->category;
-            $post->user_id = Auth::id();
+            $post->user_id = $post->user_id;
             $post->postImage = $imageName;
             $post->status = "Publish";
             $post->save();
@@ -111,7 +116,7 @@ class AdminPostController extends Controller
             $post->excerpt = $req->excerpt;
             $post->content = $req->content;
             $post->category_id = $req->category;
-            $post->user_id = Auth::id();
+            $post->user_id = $post->user_id;
             $post->status = "Publish";
             $post->save();
             $post->tags()->sync($req->tags);

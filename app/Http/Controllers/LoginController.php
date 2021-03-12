@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Category;
+use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
 use Brian2694\Toastr\Facades\Toastr;
 
@@ -56,8 +59,12 @@ class LoginController extends Controller
     }
     public function adminDashboard()
     {
+        $postCount = Post::all()->count();
+        $categoryCount = Category::all()->count();
+        $tagCount = Tag::all()->count();
+        $userCount = User::all()->count();
         $data = User::find(session('loggedUser'));
-        return view('admin.include.home')->with('data', $data);
+        return view('admin.include.home')->with('post', $postCount)->with('category', $categoryCount)->with('tag', $tagCount)->with('user', $userCount);
     }
     public function authorDashboard(Request $req)
     {
