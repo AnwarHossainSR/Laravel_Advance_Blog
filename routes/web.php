@@ -37,7 +37,7 @@ Route::prefix('home')->group(function () {
     Route::post('/subscriber', [UserSubscriberController::class, 'subscriberStore'])->name('user.subscriber');
 
     Route::get('/single-author/{id}', [UserProfileController::class, 'AuthorProfile'])->name('user.single-author');
-    Route::get('/posts/category/{id}', [UserCategoryController::class, 'PostByCategory'])->name('user.single-author');
+    Route::get('/posts/category/{id}', [UserCategoryController::class, 'PostByCategory'])->name('user.category-post');
 });
 
 

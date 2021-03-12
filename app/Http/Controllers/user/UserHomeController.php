@@ -34,8 +34,9 @@ class UserHomeController extends Controller
             Session::put($blogKey,1);
         }
         $tags = Tag::all();
+        $authors = User::where('type','=','Author')->where('active','=',1)->get();
         $randomPost = Post::where([['status','=','Publish'],['is_approve','=',1]])->get()->random(3);
         $catfilter = Category::orderBy('id', 'desc')->take(14)->get();
-        return view('user.single-blog',compact('post','catfilter','tags','randomPost'));
+        return view('user.single-blog',compact('post','catfilter','tags','randomPost','authors'));
     }
 }
