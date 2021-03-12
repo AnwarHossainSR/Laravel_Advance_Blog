@@ -26,6 +26,7 @@ use App\Http\Controllers\author\AuthorProfileController;
 use App\Http\Controllers\user\UserHomeController;
 use App\Http\Controllers\user\UserSubscriberController;
 use App\Http\Controllers\user\UserProfileController;
+use App\Http\Controllers\user\UserCategoryController;
 
 
 
@@ -36,6 +37,7 @@ Route::prefix('home')->group(function () {
     Route::post('/subscriber', [UserSubscriberController::class, 'subscriberStore'])->name('user.subscriber');
 
     Route::get('/single-author/{id}', [UserProfileController::class, 'AuthorProfile'])->name('user.single-author');
+    Route::get('/posts/category/{id}', [UserCategoryController::class, 'PostByCategory'])->name('user.single-author');
 });
 
 
