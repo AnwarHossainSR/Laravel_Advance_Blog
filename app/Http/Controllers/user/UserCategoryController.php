@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 class UserCategoryController extends Controller
 {
     public function PostByCategory($id){
-        $category = Category::where('id','=',$id)->first()->posts;
+        $category = Category::where('id','=',$id)->first();
         $catfilter = Category::orderBy('id', 'desc')->take(14)->get();
         $authors = User::where('type', '=', 'Author')->where('active','=',1)->get();
         $users = User::where('type','=','User')->where('active','=',1)->get();
