@@ -13,7 +13,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('homepage') }}">Home</a></li>
                     <li class="breadcrumb-item active">Posts list</li>
                 </ol>
             </div><!-- /.col -->
@@ -28,6 +28,13 @@
                     <div class="card-header">
                         <div class="d-flex justify-content-between align-items-center">
                             <h3 class="card-title">Posts List</h3>
+                            {{-- <div class="input-group rounded" style="width:200px;">
+                                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                                  aria-describedby="search-addon" id="search"/>
+                                <span class="input-group-text border-0" id="search-addon">
+                                  <i class="fas fa-search"></i>
+                                </span>
+                              </div> --}}
                             <a href="{{ route('admin.post.create') }}" class="btn btn-primary">Create Post</a>
                         </div>
                     </div>
@@ -99,7 +106,32 @@
     </div>
 </div>
 
+{{-- <script>
+    $(document).ready(function(){
 
+     fetch_customer_data();
+
+     function fetch_customer_data(query = '')
+     {
+      $.ajax({
+       url:"{{ route('admin.posts.search') }}",
+       method:'GET',
+       data:{query:query},
+       dataType:'json',
+       success:function(data)
+       {
+        $('tbody').html(data.table_data);
+       }
+      })
+     }
+
+     $(document).on('keyup', '#search', function(){
+      var query = $(this).val();
+      fetch_customer_data(query);
+     });
+    });
+</script> --}}
 
 @endsection
+
 

@@ -32,7 +32,7 @@
                 </a>
             </li>
         <li class="nav-item has-treeview {{-- menu-open --}}">
-            <a href="{{ route('admin.category.all') }}" class="nav-link {{ (request()->is('admin/category')) ? 'active': '' }}">
+            <a href="{{ route('admin.category.all') }}" class="nav-link {{ (request()->is('admin/category*')) ? 'active': '' }}">
 
             <i class="nav-icon fas fa-shopping-basket"></i>
                 <p>
@@ -41,7 +41,7 @@
             </a>
         </li>
         <li class="nav-item has-treeview {{-- menu-open --}}">
-            <a href="{{ route('admin.tags.all') }}" class="nav-link {{ (request()->is('admin/tag')) ? 'active': '' }}">
+            <a href="{{ route('admin.tags.all') }}" class="nav-link {{ (request()->is('admin/tag*')) ? 'active': '' }}">
 
             <i class="nav-icon fas fa-tags"></i>
                 <p>
@@ -60,19 +60,19 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{{ route('admin.posts.all') }}" class="nav-link {{ (request()->is('admin/posts')) ? 'active': '' }}">
+                    <a href="{{ route('admin.posts.all') }}" class="nav-link {{ (request()->is('admin/posts*')) ? 'active': '' }}">
                     <i class="fas fa-tasks nav-icon "></i>
                     <p>Manage Post</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.posts.pending') }}" class="nav-link {{ (request()->is('admin/post/pending')) ? 'active': '' }}">
+                    <a href="{{ route('admin.posts.pending') }}" class="nav-link {{ (request()->is('admin/post/pending*')) ? 'active': '' }}">
                     <i class="fab fa-twitch nav-icon "></i>
                     <p>Pending Post</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.posts.own') }}" class="nav-link {{ (request()->is('admin/posts/own')) ? 'active': '' }}">
+                    <a href="{{ route('admin.posts.own') }}" class="nav-link {{ (request()->is('admin/posts/own*')) ? 'active': '' }}">
                     <i class="fas fa-user-shield nav-icon "></i>
                     <p>Admin Post</p>
                     </a>
@@ -80,7 +80,7 @@
             </ul>
         </li>
         <li class="nav-item has-treeview {{-- menu-open --}}">
-            <a href="{{ route('admin.profile') }}" class="nav-link {{ (request()->is('admin/profile')) ? 'active': '' }}">
+            <a href="{{ route('admin.profile') }}" class="nav-link {{ (request()->is('admin/profile*')) ? 'active': '' }}">
 
             <i class="nav-icon fas fa-user"></i>
                 <p>
