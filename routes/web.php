@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
+
+//All Users Accessible
+use App\Http\Controllers\AllUser\FavoriteController;
 //superAdmin
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CategoryController;
@@ -15,6 +18,8 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\admin\AdminCategoryController;
 use App\Http\Controllers\admin\AdminTagController;
 use App\Http\Controllers\admin\AdminPostController;
+use App\Http\Controllers\admin\ProfileController;
+//author
 use App\Http\Controllers\author\AuthorPostController;
 use App\Http\Controllers\author\AuthorProfileController;
 //user
@@ -42,6 +47,13 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('auth/login', [LoginController::class, 'login'])->name('login.custom');
 
 Route::group(['middleware' => ['auth']], function () {
+
+
+    //All Users Accessible
+    Route::group(['prefix' => 'home'], function () {
+        Route::get('/favorite/{post}/add', [FavoriteController::class, 'add'])->name('post.favorite');
+    });
+
 
     //Redirect Dashboard
     Route::group(['prefix' => 'dashboard'], function () {
@@ -81,6 +93,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/post/pending/approve/{id}', [AdminPostController::class, 'approve'])->name('admin.posts.approve');
         Route::post('/post/pending/deny/{id}', [AdminPostController::class, 'deny'])->name('admin.posts.deny');
         Route::get('/post/pending/details/{id}', [AdminPostController::class, 'pendingDetails'])->name('admin.posts.pending.details');
+        //admin profile
+        Route::get('/profile', [ProfileController::class, 'index'])->name('admin.profile');
+        Route::post('/profile/update', [ProfileController::class, 'update'])->name('admin.profile.update');
     });
 
 
@@ -155,4 +170,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/view_all_unpublished_post', [AuthorPostController::class, 'view_all_unpublished_post'])->name('AuthorPostController.view_all_unpublished_post');
         Route::get('/preview/post/{id}', [AuthorPostController::class, 'preview'])->name('AuthorPostController.preview');
     });
+
+
+
+    
 });
