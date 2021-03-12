@@ -37,55 +37,30 @@
 		<div class="container">
 
 			<div class="row">
-				<div class="col-lg-8 col-md-12">
-					@foreach($posts as $key => $post)
-					<div class="col-md-12">
-						<div class="card h-100">
-							<div class="single-post post-style-1">
+				@foreach($posts as $key => $post)
+				<div class="col-lg-4 col-md-6">
+					<div class="card h-100">
+						<div class="single-post post-style-1">
 
-								{{-- <div class="blog-image"><img src="{{asset('user/images/marion-michele-330691.jpg')}}" alt="Blog Image"></div> --}}
-								<div class="blog-image"><img src="{{asset('source/back/post').'/'.$post->postImage}}" alt="Blog Image"></div>
+							{{-- <div class="blog-image"><img src="{{asset('user/images/marion-michele-330691.jpg')}}" alt="Blog Image"></div> --}}
+							<div class="blog-image"><img src="{{asset('source/back/post').'/'.$post->postImage}}" alt="Blog Image"></div>
 
-								<a class="avatar" href="#"><img src="{{asset('source/back/profile')}}/{{ $post->user->profileImage }}" alt="Profile Image"></a>
+							<a class="avatar" href="#"><img src="{{asset('source/back/profile')}}/{{ $post->user->profileImage }}" alt="Profile Image"></a>
 
-								<div class="blog-info">
-									<h4 class="title"><a href="{{route('user.single-blog', $post->id)}}"><b>{{$post->title}}</b></a></h4>
+							<div class="blog-info">
+								<h4 class="title"><a href="{{route('user.single-blog', $post->id)}}"><b>{{$post->title}}</b></a></h4>
 
-									<ul class="post-footer">
-										<li><a href="#"><i class="far fa-heart"></i>57</a></li>
-										<li><a href="#"><i class="far fa-comment"></i>6</a></li>
-										<li><a href="#"><i class="far fa-share-square"></i>138</a></li>
-									</ul>
+								<ul class="post-footer">
+									<li><a href="#"><i class="far fa-heart"></i>57</a></li>
+									<li><a href="#"><i class="far fa-comment"></i>6</a></li>
+									<li><a href="#"><i class="far fa-share-square"></i>138</a></li>
+								</ul>
 
-								</div><!-- blog-info -->
-							</div><!-- single-post -->
-						</div><!-- card -->
-					</div><!-- col-lg-4 col-md-6 -->
-					@endforeach
-				</div>
-				<div class="col-lg-4 col-md-12">
-					<div class="col-md-12" style="background: #fff;">
-						<h4>Author List</h4>
-						<ul>
-							@foreach($authors as $key => $author)
-							<li style="list-style: disclosure-closed;
-							display: block;
-							text-align: left; text-align:left;"><a href="{{route('user.single-author', $author->id)}}">{{$author->name}}</a></li>
-							@endforeach
-						</ul>
-					</div>
-					<div class="col-md-12" style="background: #fff;">
-						<h4>User List</h4>
-						<ul>
-							@foreach($users as $key => $user)
-							<li style="list-style: disclosure-closed;
-							display: block;
-							text-align: left; text-align:left;"><a href="">{{$user->name}}</a></li>
-							@endforeach
-						</ul>
-					</div>
-				</div>
-				
+							</div><!-- blog-info -->
+						</div><!-- single-post -->
+					</div><!-- card -->
+				</div><!-- col-lg-4 col-md-6 -->
+				@endforeach
 			</div><!-- row -->
 
 			{{-- <a class="load-more-btn" href="#"><b>LOAD MORE</b></a> --}}
