@@ -3,6 +3,11 @@
 @section('customCSS')
 	<link href="{{asset('user/front-page-category/css/styles.css')}}" rel="stylesheet">
 	<link href="{{asset('user/front-page-category/css/responsive.css')}}" rel="stylesheet">
+	<style>
+		.favorite_posts{
+			color:red;
+		}
+	</style>
 @endsection
 @section('content')
 	<div class="main-slider">
@@ -51,9 +56,19 @@
 								<h4 class="title"><a href="{{route('user.single-blog', $post->id)}}"><b>{{$post->title}}</b></a></h4>
 
 								<ul class="post-footer">
-									<li><a href="#"><i class="far fa-heart"></i>57</a></li>
+									<li>
+										@guest
+											<a href="javascript:void(0);"onclick="toastr.success('To add favorite list. You have to login first.','Info',{
+												closeButton: true,
+												progressBar: true,
+											})"><i class="fas fa-heart"></i>{{ $post->favorite_to_users->count() }}</a>
+										@else
+											<a href="{{ route('post.favorite',$post->id) }}" class="{{ !Auth::user()->favorite_posts->where('pivot.post_id',$post->id)->count()  == 0 ? 'favorite_posts' : ''}}"><i class="fas fa-heart"></i>{{ $post->favorite_to_users->count() }}</a>
+										@endguest
+										
+									</li>
 									<li><a href="#"><i class="far fa-comment"></i>6</a></li>
-									<li><a href="#"><i class="far fa-share-square"></i>138</a></li>
+									<li><a href="#"><i class="far fa-eye"></i>{{ $post->view_count }}</a></li>
 								</ul>
 
 							</div><!-- blog-info -->
@@ -63,7 +78,7 @@
 				@endforeach
 			</div><!-- row -->
 
-			{{-- <a class="load-more-btn" href="#"><b>LOAD MORE</b></a> --}}
+			<a class="load-more-btn" href="#"><b>LOAD MORE</b></a>
 
 		</div><!-- container -->
 	</section><!-- section -->
