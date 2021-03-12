@@ -13,14 +13,14 @@
 @section('content')
 
 	<div class="slider display-table center-text">
-		<h1 class="title display-table-cell"><b>{{ $posts[0]->name }}</b></h1>
+		<h1 class="title display-table-cell"><b></b></h1>
 	</div><!-- slider -->
 
 	<section class="blog-area section">
 		<div class="container">
 
 			<div class="row">
-                @foreach($posts as $key => $post)
+                @foreach($category as $key => $post)
 				<div class="col-lg-4 col-md-6">
 					<div class="card h-100">
 						<div class="single-post post-style-1">
@@ -34,11 +34,6 @@
 								<h4 class="title"><a href="{{route('user.single-blog', $post->id)}}"><b>{{$post->title}}</b></a></h4>
 
 								<ul class="post-footer">
-									<li><a href="#"><i class="ion-heart"></i>57</a></li>
-									<li><a href="#"><i class="ion-chatbubble"></i>6</a></li>
-									<li><a href="#"><i class="ion-eye"></i>138</a></li>
-								</ul>
-                                {{-- <ul class="post-footer">
 									<li>
 										@guest
 											<a href="javascript:void(0);"onclick="toastr.success('To add favorite list. You have to login first.','Info',{
@@ -52,8 +47,7 @@
 									</li>
 									<li><a href="#"><i class="far fa-comment"></i>6</a></li>
 									<li><a href="#"><i class="far fa-eye"></i>{{ $post->view_count }}</a></li>
-								</ul> --}}
-
+								</ul>
 							</div><!-- blog-info -->
 						</div><!-- single-post -->
 					</div><!-- card -->

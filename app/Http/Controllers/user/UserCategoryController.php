@@ -14,27 +14,10 @@ use Illuminate\Support\Facades\DB;
 class UserCategoryController extends Controller
 {
     public function PostByCategory($id){
-        $categories = Category::where('id','=',$id)->first()->posts;
-        return $categories;
-        //$catfilter = Category::where('status','=',1)->take(-3)->get();
+        $category = Category::where('id','=',$id)->first()->posts;
         $catfilter = Category::orderBy('id', 'desc')->take(14)->get();
-
-        $posts=Post::where([['status','=','Publish'],['is_approve','=',1]])->latest()->get();
-        
-        // $posts = DB::table('category_post')
-        // ->join('posts', 'posts.id', '=', 'category_post.post_id')
-        // ->join('categories','categories.id','=','category_post.category_id')
-        // ->where('category_post.category_id','=',$id)
-        // ->where('categories.status','=','Publish')
-        
-        // ->select('categories.name','categories.status','categories.image','posts.id','posts.title','posts.slug','posts.excerpt','posts.content','posts.user_id','posts.postImage')
-        // ->get();
-
-        //return $posts[]->name;
-        
         $authors = User::where('type', '=', 'Author')->where('active','=',1)->get();
         $users = User::where('type','=','User')->where('active','=',1)->get();
-        //return $posts->count();
-        return view('user.category-blog',compact('posts','categories','catfilter','authors','users'));
+        return view('user.category-blog',compact('category','catfilter','authors','users'));
     }
 }
