@@ -28,7 +28,8 @@ class UserHomeController extends Controller
     {
         $post = Post::find($id);
         $tags = Tag::all();
+        $randomPost = Post::where([['status','=','Publish'],['is_approve','=',1]])->get()->random(3);
         $catfilter = Category::orderBy('id', 'desc')->take(14)->get();
-        return view('user.single-blog',compact('post','catfilter','tags'));
+        return view('user.single-blog',compact('post','catfilter','tags','randomPost'));
     }
 }
