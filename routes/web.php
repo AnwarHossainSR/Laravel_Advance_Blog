@@ -83,6 +83,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/tag/details/{id}', [AdminTagController::class, 'details'])->name('admin.tag.details');
         //admin post
         Route::get('/posts', [AdminPostController::class, 'index'])->name('admin.posts.all');
+        Route::get('/posts/search', [AdminPostController::class, 'search'])->name('admin.posts.search');
         Route::get('/posts/own', [AdminPostController::class, 'ownindex'])->name('admin.posts.own');
         Route::get('/post/create', [AdminPostController::class, 'create'])->name('admin.post.create');
         Route::post('/post/create', [AdminPostController::class, 'createPost'])->name('admin.post.create');

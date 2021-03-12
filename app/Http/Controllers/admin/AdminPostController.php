@@ -11,12 +11,14 @@ use App\Models\Category;
 use App\Models\User;
 use App\Models\Tag;
 use App\Notifications\AdminPostApprove;
+use Facade\FlareClient\Http\Response;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\DB;
 
 class AdminPostController extends Controller
 {
@@ -186,4 +188,61 @@ class AdminPostController extends Controller
         $user = User::find($post->user_id);
         return  view('admin.post.pendingdetail')->with('posts',$post)->with('category', $cat)->with('user', $user);
     }
+    // public function search(Request $request){
+    //     if($request->ajax())
+    //  {
+    //   $output = '';
+    //   $query = $request->get('query');
+    //   if($query != '')
+    //   {
+    //    $data = DB::table('posts')
+    //      ->where('title', 'like', '%'.$query.'%')
+    //      ->orWhere('excerpt', 'like', '%'.$query.'%')
+    //      ->orderBy('created_at', 'DESC')
+    //      ->get();
+
+    //   }
+    //   else
+    //   {
+    //    $data = DB::table('posts')
+    //      ->where('is_approve',1)
+    //      ->orderBy('created_at', 'DESC')
+    //      ->get();
+    //   }
+    //   $total_row = $data->count();
+    //   if($total_row > 0)
+    //   {
+    //    foreach($data as $row)
+    //    {
+    //     $output .= '
+    //     <tr>
+    //      <td>'.$row->id.'</td>
+    //      <td>'.$row->title.'</td>
+    //      <td>'.$row->slug.'</td>
+    //      <td>'.$row->excerpt.'</td>
+    //      <td>'."tags".'</td>
+    //      <td>'.$row->category_id.'</td>
+    //      <td>'.$row->user_id.'</td>
+    //      <td>'."Published".'</td>
+    //      <td>'."Default".'</td>
+    //      <td>'."Default".'</td>
+    //     </tr>
+    //     ';
+    //    }
+    //   }
+    //   else
+    //   {
+    //    $output = '
+    //    <tr>
+    //     <td align="center" colspan="5">No Data Found</td>
+    //    </tr>
+    //    ';
+    //   }
+    //   $data = array(
+    //    'table_data'  => $output,
+    //   );
+
+    //   echo json_encode($data);
+    //  }
+    //}
 }
