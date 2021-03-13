@@ -58,14 +58,26 @@
                                             <textarea name="content" id="content" rows="2" class="form-control"
                                                 placeholder="Enter content" value="{{ old('content') }}">{{ old('content') }}</textarea>
                                         </div>
-                                        <div class="form-group">
+                                        {{--  <div class="form-group">
                                             <label for="exampleInputPassword1">Category</label>
                                             <select class="form-select form-control" aria-label="Default select example" name="category">
                                                 @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                                                 @endforeach
                                               </select>
+                                        </div>  --}}
+                                        <div class="form-group">
+                                            <label>Choose Post Category</label>
+                                            <div class=" d-flex flex-wrap">
+                                                @foreach($categories as $category)
+                                                <div class="custom-control custom-checkbox" style="margin-right: 20px">
+                                                    <input class="custom-control-input" name="categories[]" type="checkbox" id="category{{ $category->id}}" value="{{ $category->id }}">
+                                                    <label for="category{{ $category->id}}" class="custom-control-label">{{ $category->name }}</label>
+                                                </div>
+                                                @endforeach
+                                            </div>
                                         </div>
+
                                         <div class="form-group">
                                             <label>Choose Post Tags</label>
                                             <div class=" d-flex flex-wrap">

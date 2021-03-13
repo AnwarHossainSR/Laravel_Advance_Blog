@@ -75,7 +75,7 @@
 
                                     <tr>
                                         <td style="font-size: 22px;font-weight:bold">Image</td>
-                                        <td><img src="{{ asset('/upload') }}/{{ $posts->postImage }}" alt="post image" width="200px" height="250px"></td>
+                                        <td><img src="{{ asset('source/back/post') }}/{{ $posts->postImage }}" alt="post image" width="200px" height="250px"></td>
                                     </tr>
                                     <tr>
                                         <td ></td>

@@ -29,7 +29,7 @@ class AdminCategoryController extends Controller
             return redirect()->route('admin.category.create')->with('errors', $validation->errors())->withInput();
         }
         $files = $req->file('file');
-        $files->move('upload', $files->getClientOriginalName());
+        $files->move('source/back/category', $files->getClientOriginalName());
         $category = new Category();
         $category->name = $req->name;
         $category->slug = $req->slug;
@@ -56,14 +56,14 @@ class AdminCategoryController extends Controller
 
         if ($req->hasFile('file')) {
 
-            $existPhoto = '/upload' . $cate->image;
+            $existPhoto = 'source/back/category' . $cate->image;
             $path = str_replace('\\', '/', public_path());
             if (file_exists($path . $existPhoto)) {
                 \unlink($path . $existPhoto);
             }
             $image = $req->file('file');
             $imageName = $image->getClientOriginalName();
-            $image->move(public_path('/upload'), $imageName);
+            $image->move(public_path('/source/back/category/'), $imageName);
 
             $cate->name = $req->name;
             $cate->slug = $req->slug;
