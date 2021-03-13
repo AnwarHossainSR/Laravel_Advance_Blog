@@ -60,7 +60,11 @@
                                                 <span class="badge badge-primary">{{ $tag->name }} </span>
                                             @endforeach
                                         </td>
-                                        <td>{{ $post->category_id }}</td>
+                                        <td>
+                                            @foreach($post->categories as $category)
+                                                <span class="badge badge-primary">{{ $category->name }} </span>
+                                            @endforeach
+                                        </td>
                                         <td>{{ $post->user_id }}</td>
                                         <td>
                                             @if($post->is_approve==0)
