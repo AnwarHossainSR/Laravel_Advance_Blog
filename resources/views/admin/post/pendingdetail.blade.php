@@ -57,9 +57,12 @@
                                         <td style="font-size: 22px">{!! $posts->content !!}</td>
                                     </tr>
                                     <tr style="height:100px;">
-                                        <td style="font-size: 22px;font-weight:bold">Category</td>
-                                        <td style="font-size: 22px">{{ $category->name }}</td>
-                                    </tr>
+                                        <td style="font-size: 22px;font-weight:bold">Categories</td>
+                                        <td>
+                                        @foreach($posts->categories as $category)
+                                            <span class="badge badge-primary" style="font-size:22px; ">{{ $category->name }} </span>
+                                        @endforeach
+                                    </td>
                                     <tr style="height:100px;">
                                         <td style="font-size: 22px;font-weight:bold">Tags</td>
                                         <td>
