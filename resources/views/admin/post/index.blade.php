@@ -68,12 +68,16 @@
                                                 <span class="badge badge-primary">{{ $tag->name }} </span>
                                             @endforeach
                                         </td>
-                                        <td>{{ $post->category_id }}</td>
+                                        <td>
+                                            @foreach($post->categories as $category)
+                                                <span class="badge badge-primary">{{ $category->name }} </span>
+                                            @endforeach
+                                        </td>
                                         <td>{{ $post->user_id }}</td>
                                         <td>
                                             {{ $post->status }}
                                         </td>
-                                        <td><img src="{{ asset('/upload') }}/{{ $post->postImage }}" class="rounded-circle" alt="post image" width="120px" height="120px"></td>
+                                        <td><img src="{{ asset('source/back/post') }}/{{ $post->postImage }}" class="rounded-circle" alt="post image" width="120px" height="120px"></td>
                                         {{-- <td><img src="{{ asset('/upload') }}/{{ $category->image }}" class="rounded-circle" alt="post image" width="120px" height="120px"></td> --}}
                                         <td class="d-flex">
                                             <a href="{{ route('admin.post.edit',$post->id) }}" class="btn btn-sm btn-primary mr-1"> <i class="fas fa-edit"></i> </a>

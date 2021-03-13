@@ -41,7 +41,7 @@ class AdminPostController extends Controller
     public function createPost(Request $req)
     {
         $validation = validator::make($req->all(), [
-            'title' => 'required|min:3|max:15|unique:posts,title',
+            'title' => 'required|min:3|unique:posts,title',
             'slug' => 'required|min:3',
             'excerpt' => 'required|min:4',
             'content' => 'required|min:5',
@@ -51,18 +51,19 @@ class AdminPostController extends Controller
             return redirect()->route('admin.post.create')->with('errors', $validation->errors())->withInput();
         }
         $files = $req->file('file');
-        $files->move('upload', $files->getClientOriginalName());
+        $files->move('source/back/post', $files->getClientOriginalName());
         $post = new Post();
         $post->title = $req->title;
         $post->slug = Str::slug($req->title, '-');
         $post->excerpt = $req->excerpt;
         $post->content = $req->content;
-        $post->category_id = $req->category;
+        $post->category_id = 3;
         $post->user_id = Auth::id();
         $post->postImage = $files->getClientOriginalName();
         $post->status = "Publish";
         $post->is_approve=1;
         $post->save();
+        $post->categories()->attach($req->categories);
         $post->tags()->attach($req->tags);
 
         Session::flash('success', 'Post created successfully');
@@ -75,7 +76,7 @@ class AdminPostController extends Controller
         $tag = Tag::all();
         $cat = Category::find($post->category_id);
         $category = Category::all();
-        return view('admin.post.edit')->with('posts', $post)->with('cat', $cat)->with('category', $category)->with('tags', $tag);
+        return view('admin.post.edit')->with('posts', $post)->with('cat', $cat)->with('categories', $category)->with('tags', $tag);
     }
     public function editPost($id, Request $req)
     {
@@ -92,24 +93,25 @@ class AdminPostController extends Controller
 
         if ($req->hasFile('file')) {
 
-            $existPhoto = '/upload' . $post->postImage;
+            $existPhoto = 'source/back/post' . $post->postImage;
             $path = str_replace('\\', '/', public_path());
             if (file_exists($path . $existPhoto)) {
                 \unlink($path . $existPhoto);
             }
             $image = $req->file('file');
             $imageName = $image->getClientOriginalName();
-            $image->move(public_path('/upload'), $imageName);
+            $image->move(public_path('source/back/post'), $imageName);
 
             $post->title = $req->title;
             $post->slug = Str::slug($req->title, '-');
             $post->excerpt = $req->excerpt;
             $post->content = $req->content;
-            $post->category_id = $req->category;
+            $post->category_id = 3;
             $post->user_id = $post->user_id;
             $post->postImage = $imageName;
             $post->status = "Publish";
             $post->save();
+            $post->categories()->sync($req->category);
             $post->tags()->sync($req->tags);
             Session::flash('success', 'Post updated successfully');
         } else {
@@ -117,10 +119,11 @@ class AdminPostController extends Controller
             $post->slug = Str::slug($req->title, '-');
             $post->excerpt = $req->excerpt;
             $post->content = $req->content;
-            $post->category_id = $req->category;
+            $post->category_id = 3;
             $post->user_id = $post->user_id;
             $post->status = "Publish";
             $post->save();
+            $post->categories()->sync($req->category);
             $post->tags()->sync($req->tags);
             Session::flash('success', 'Post updated successfully');
         }

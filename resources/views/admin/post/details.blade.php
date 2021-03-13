@@ -52,10 +52,17 @@
                                         <td style="font-size: 22px;font-weight:bold">Content</td>
                                         <td style="font-size: 22px">{!! $posts->content !!}</td>
                                     </tr>
-                                    <tr style="height:100px;">
+                                    {{--  <tr style="height:100px;">
                                         <td style="font-size: 22px;font-weight:bold">Category</td>
                                         <td style="font-size: 22px">{{ $category->name }}</td>
-                                    </tr>
+                                    </tr>  --}}
+                                    <tr style="height:100px;">
+                                        <td style="font-size: 22px;font-weight:bold">Categories</td>
+                                        <td>
+                                        @foreach($posts->categories as $category)
+                                            <span class="badge badge-primary" style="font-size:22px; ">{{ $category->name }} </span>
+                                        @endforeach
+                                    </td>
                                     <tr style="height:100px;">
                                         <td style="font-size: 22px;font-weight:bold">Tags</td>
                                         <td>
@@ -71,7 +78,7 @@
 
                                     <tr>
                                         <td style="font-size: 22px;font-weight:bold">Image</td>
-                                        <td><img src="{{ asset('/upload') }}/{{ $posts->postImage }}" alt="post image" width="200px" height="250px"></td>
+                                        <td><img src="{{ asset('source/back/post') }}/{{ $posts->postImage }}" alt="post image" width="200px" height="250px"></td>
                                     </tr>
                                 </table>
                             </div>
