@@ -77,7 +77,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link ">
+                    <a href="{{ route('superadmin.post.favorite') }}" class="nav-link ">
                     <i class="far fa-circle nav-icon text-primary"></i>
                     <p>Favorite Post</p>
                     </a>
