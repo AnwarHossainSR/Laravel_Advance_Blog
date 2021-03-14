@@ -44,13 +44,13 @@
 
                 <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
-                    <b>Total Post</b> <a class="float-right">{{ count($user->posts) }}</a>
+                    <b>Total Post</b> <a class="float-right text-primary">{{ count($user->posts) }}</a>
                   </li>
                   <li class="list-group-item">
-                    <b>Total Comment</b> <a class="float-right">543</a>
+                    <b>Total Comment</b> <a class="float-right text-primary">{{ $user->comments->count() }}</a>
                   </li>
                   <li class="list-group-item">
-                    <b>Joined</b> <a class="float-right">{{ Auth::user()->created_at->toFormattedDateString() }}</a>
+                    <b>Joined</b> <a class="float-right text-primary">{{ Auth::user()->created_at->toFormattedDateString() }}</a>
                   </li>
                 </ul>
 

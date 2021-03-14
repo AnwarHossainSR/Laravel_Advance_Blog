@@ -115,9 +115,9 @@
         </li>
         <li class="nav-item has-treeview {{-- menu-open --}}">
             <a href="#" class="nav-link">
-            <i class="nav-icon text-primary fas fa-address-book"></i>
+            <i class="nav-icon text-primary fas fa-comment"></i>
                 <p>
-                    Contact
+                    Comments 
                     <i class="right fas fa-angle-left"></i>
                 </p>
             </a>
