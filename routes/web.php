@@ -149,6 +149,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/request', [UserManageController::class, 'requestUserHandle'])->name('request.user');
             Route::get('/request/show/{id}', [UserManageController::class, 'requestDetailsShow'])->name('user.request.show');
             Route::get('/request/accept/{id}', [UserManageController::class, 'requestUserAccept'])->name('user.request.accept');
+            Route::get('/request/cancell/{id}', [UserManageController::class, 'requestUserCancell'])->name('user.request.cancell');
         });
 
         //Subscriber

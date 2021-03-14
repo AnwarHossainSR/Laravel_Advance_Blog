@@ -10,6 +10,7 @@ use App\Notifications\UserRequest as NotificationsUserRequest;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Notifications\Notification;
 use App\Mail\UserRequestApproval;
+use App\Mail\UserRequestCancell;
 use Illuminate\Support\Facades\Mail;
 
 class UserManageController extends Controller
@@ -179,6 +180,30 @@ class UserManageController extends Controller
         $msg='Role Changed Successfully';
         Toastr::success($msg, 'Success.!');
         return \redirect()->route('request.user')->with('success','User role has been changed successfully'); 
+    }
+    public function requestUserCancell($id)
+    {
+        $reqUser = Userrequest::find($id);
+        $details=[
+            'name'=>$reqUser->name,
+            'title'=>'Cancellation Notice',
+            'body'=>'Your request to author has been Cancelled due to some issue.'
+        ];
+        
+        $reqUser->status = 'Cancelled';
+        if($reqUser->save())
+        {
+            Mail::to($reqUser->email)->send(new UserRequestCancell($details));
+        }
+        else
+        {
+            $msg='Something wrong !';
+            Toastr::error($msg, 'Error.!');
+            return \back()->with('error','Something is wrong !');
+        }
+        $msg='Request cancelled';
+        Toastr::success($msg, 'Success.!');
+        return \redirect()->route('request.user')->with('success','Request cancelled successfully'); 
     }
     
 }

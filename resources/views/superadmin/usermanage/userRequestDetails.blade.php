@@ -15,7 +15,7 @@
                     <div class="mt-3">
                       <h4>{{ $user->name }}</h4>
                       <a href="{{ route('user.request.accept',$user->id) }}" class="btn btn-outline-success">Accept</a>
-                      <a href="" class="btn btn-outline-danger">Cancell</a>
+                      <a href="{{ route('user.request.cancell',$user->id) }}" class="btn btn-outline-danger">Cancell</a>
                     </div>
                   </div>
                 </div>
