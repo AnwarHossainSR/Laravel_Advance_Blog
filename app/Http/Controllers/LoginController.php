@@ -73,7 +73,12 @@ class LoginController extends Controller
     }
     public function userDashboard()
     {
+        $postCount = Post::all()->count();
+        $categoryCount = Category::all()->count();
+        $tagCount = Tag::all()->count();
+        $userCount = User::all()->count();
         $data = User::find(session('loggedUser'));
-        return view('user.user')->with('data', $data);
+        return view('user.user-dashboard')->with('data', $data)->with('post', $postCount)->with('category', $categoryCount)->with('tag', $tagCount)->with('user', $userCount);
+        // return view('user.user')->with('data', $data);
     }
 }
