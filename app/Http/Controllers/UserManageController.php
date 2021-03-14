@@ -155,11 +155,13 @@ class UserManageController extends Controller
     }
     public function requestUserAccept($id)
     {
+        $reqUser = Userrequest::find($id);
         $details=[
+            'name'=>$reqUser->name,
             'title'=>'Mail from Bona Blogging',
             'body'=>'Your request to author has been successfully accepted. Now you can post yourself. welcom to Bona blogging Author Community'
         ];
-        $reqUser = Userrequest::find($id);
+        
         $reqUser->status = 'Accepted';
         if($reqUser->save())
         {

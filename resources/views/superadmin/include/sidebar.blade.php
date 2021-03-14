@@ -76,6 +76,12 @@
                     <p>Post By Me</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link ">
+                    <i class="far fa-circle nav-icon text-primary"></i>
+                    <p>Favorite Post</p>
+                    </a>
+                </li>
             </ul>
         </li>
         <li class="nav-item has-treeview {{-- menu-open --}}">

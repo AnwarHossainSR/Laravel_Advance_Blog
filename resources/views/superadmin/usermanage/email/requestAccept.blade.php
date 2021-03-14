@@ -7,9 +7,10 @@
     <title>Document</title>
 </head>
 <body>
-    <h2>Hellow User !</h2>
+    <h2>Hellow <span style="color: cyan;">{{ $details['name'] }}</span> !</h2>
     <p>{{ $details['body'] }}</p>
-    <p>Thank You</p>
+    <p style="color: cyan">Thank You</p>
+    <a href="{{ route('homepage') }}" style="color: blue">Go to website</a>
 
 </body>
 </html>
