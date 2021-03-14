@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Brian2694\Toastr\Facades\Toastr;
@@ -233,5 +234,12 @@ class PostController extends Controller
         $msg='Post has been deleted permanently';
         Toastr::success($msg, 'Success.!'); 
         return back()->with('success','Post has been deleted permanently'); 
+    }
+
+    public function getFevoritePost()
+    {
+        $user = User::find(Auth::id());
+        $posts = $user->favorite_posts;
+        return \view('superadmin.post.favoritePost',\compact('posts'));
     }
 }

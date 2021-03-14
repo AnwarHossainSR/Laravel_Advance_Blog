@@ -30,9 +30,7 @@ use App\Http\Controllers\user\UserCategoryController;
 use App\Http\Controllers\user\UserCommentController;
 
 
-
-
-//User
+//User area
 Route::get('/', [UserHomeController::class, 'index'])->name('homepage');
 Route::prefix('home')->group(function () {
     Route::get('/single-blog/{id}', [UserHomeController::class, 'singleBlog'])->name('user.single-blog');
@@ -41,17 +39,13 @@ Route::prefix('home')->group(function () {
     Route::get('/single-author/{id}', [UserProfileController::class, 'AuthorProfile'])->name('user.single-author');
     Route::get('/posts/category/{id}', [UserCategoryController::class, 'PostByCategory'])->name('user.category-post');
 
-
 });
-
-
 
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('auth/login', [LoginController::class, 'login'])->name('login.custom');
 
 Route::group(['middleware' => ['auth']], function () {
-
 
     //All Users Accessible
     Route::group(['prefix' => 'home'], function () {
@@ -62,7 +56,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('user/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update');
     });
 
-
     //Redirect Dashboard
     Route::group(['prefix' => 'dashboard'], function () {
         Route::get('/superadmin', [LoginController::class, 'superAdminDashboard'])->name('superadmin.dashboard');
@@ -71,7 +64,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/user', [LoginController::class, 'userDashboard'])->name('user.dashboard');
     });
 
-    //admin
+    //admin area
     Route::prefix('admin')->group(function () {
         //admin category
         Route::get('/category', [AdminCategoryController::class, 'index1'])->name('admin.category.all');
@@ -110,8 +103,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/profile/update', [ProfileController::class, 'update'])->name('admin.profile.update');
     });
 
-
-    //Super Admin
+    //Super Admin Area
     Route::prefix('superadmin')->group(function () {
 
         //Categories
@@ -130,6 +122,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/deleted/posts', [PostController::class,'getDeletedPost'])->name('softdelete.post');
         Route::get('/deleted/post/restore/{id}', [PostController::class,'restoreDeletedPost'])->name('softdelete.restore');
         Route::get('/post/delete/permanent/{id}', [PostController::class,'postDeletePermanent'])->name('permanent.post.delete');
+        Route::get('/posts/favorite', [PostController::class,'getFevoritePost'])->name('superadmin.post.favorite');
 
         //Profile
         Route::prefix('profile')->group(function () {
@@ -183,8 +176,5 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/view_all_unpublished_post', [AuthorPostController::class, 'view_all_unpublished_post'])->name('AuthorPostController.view_all_unpublished_post');
         Route::get('/preview/post/{id}', [AuthorPostController::class, 'preview'])->name('AuthorPostController.preview');
     });
-
-
-
 
 });
