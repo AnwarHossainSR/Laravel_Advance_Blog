@@ -50,15 +50,6 @@
                   <hr>
                   <div class="row">
                     <div class="col-sm-3">
-                      <h6 class="mb-0">Phone</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                      (239) 816-9029
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
                       <h6 class="mb-0">Status</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
@@ -74,6 +65,24 @@
                     </div>
                     <div class="col-sm-9 text-secondary">
                       {{ $user->type }}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Total Comments</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{ $user->comments->count() }}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">About</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{ $user->about }}
                     </div>
                   </div>
                 </div>
