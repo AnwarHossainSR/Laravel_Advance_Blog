@@ -50,6 +50,7 @@ class AdminPostController extends Controller
         if ($validation->fails()) {
             return redirect()->route('admin.post.create')->with('errors', $validation->errors())->withInput();
         }
+        $category = Category::first();
         $files = $req->file('file');
         $files->move('source/back/post', $files->getClientOriginalName());
         $post = new Post();
@@ -57,7 +58,7 @@ class AdminPostController extends Controller
         $post->slug = Str::slug($req->title, '-');
         $post->excerpt = $req->excerpt;
         $post->content = $req->content;
-        $post->category_id = 3;
+        $post->category_id = $category->id;
         $post->user_id = Auth::id();
         $post->postImage = $files->getClientOriginalName();
         $post->status = "Publish";
@@ -99,6 +100,7 @@ class AdminPostController extends Controller
                 \unlink($path . $existPhoto);
             }
             $image = $req->file('file');
+            $category = Category::first();
             $imageName = $image->getClientOriginalName();
             $image->move(public_path('source/back/post'), $imageName);
 
@@ -106,7 +108,7 @@ class AdminPostController extends Controller
             $post->slug = Str::slug($req->title, '-');
             $post->excerpt = $req->excerpt;
             $post->content = $req->content;
-            $post->category_id = 3;
+            $post->category_id = $category->id;
             $post->user_id = $post->user_id;
             $post->postImage = $imageName;
             $post->status = "Publish";
@@ -190,6 +192,18 @@ class AdminPostController extends Controller
         $cat = Category::find($post->category_id);
         $user = User::find($post->user_id);
         return  view('admin.post.pendingdetail')->with('posts',$post)->with('category', $cat)->with('user', $user);
+    }
+    public function favourite()
+    {
+        $user=User::find(Auth::id());
+        $posts = $user->favorite_posts;
+        return view('admin.post.favourite')->with('posts', $posts);
+    }
+    public function favouriteRemove($id)
+    {
+        DB::table('post_user')->where('post_id',$id)->delete();
+        Session::flash('success', 'Post deleted successfully from your Favourite list');
+        return redirect()->Back();
     }
     // public function search(Request $request){
     //     if($request->ajax())

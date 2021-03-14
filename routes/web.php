@@ -86,6 +86,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/posts', [AdminPostController::class, 'index'])->name('admin.posts.all');
         Route::get('/posts/search', [AdminPostController::class, 'search'])->name('admin.posts.search');
         Route::get('/posts/own', [AdminPostController::class, 'ownindex'])->name('admin.posts.own');
+        Route::get('/posts/favourite', [AdminPostController::class, 'favourite'])->name('admin.posts.favourite');
+        Route::post('/posts/favourite/remove/{id}', [AdminPostController::class, 'favouriteRemove'])->name('admin.posts.favourite.remove');
         Route::get('/post/create', [AdminPostController::class, 'create'])->name('admin.post.create');
         Route::post('/post/create', [AdminPostController::class, 'createPost'])->name('admin.post.create');
         Route::get('/post/edit/{id}', [AdminPostController::class, 'edit'])->name('admin.post.edit');
