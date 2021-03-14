@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Userrequest;
+use App\Notifications\UserRequest as NotificationsUserRequest;
 use Brian2694\Toastr\Facades\Toastr;
-
+use Illuminate\Notifications\Notification;
+use App\Mail\UserRequestApproval;
+use Illuminate\Support\Facades\Mail;
 
 class UserManageController extends Controller
 {
@@ -147,17 +150,25 @@ class UserManageController extends Controller
     public function requestDetailsShow($id)
     {
         $user = Userrequest::find($id);
-        return \view('superadmin.usermanage.userRequestDetails',\compact('user',$user)); 
+        $userComments = User::find($user->userId);
+        return \view('superadmin.usermanage.userRequestDetails',\compact('user','userComments')); 
     }
     public function requestUserAccept($id)
     {
         $reqUser = Userrequest::find($id);
-        $reqUser->status = 'Accept';
+        $details=[
+            'name'=>$reqUser->name,
+            'title'=>'Mail from Bona Blogging',
+            'body'=>'Your request to author has been successfully accepted. Now you can post yourself. welcom to Bona blogging Author Community'
+        ];
+        
+        $reqUser->status = 'Accepted';
         if($reqUser->save())
         {
             $user = User::find($reqUser->userId);
             $user->type = 'Author';
             $user->save();
+            Mail::to($user->email)->send(new UserRequestApproval($details));
         }
         else
         {
