@@ -54,7 +54,7 @@
                                         <td>
                                             {{ $category->status }}
                                         </td>
-                                        <td><img src="{{ asset('/upload') }}/{{ $category->image }}" class="rounded-circle" alt="post image" width="120px" height="120px"></td>
+                                        <td><img src="{{ asset('/source/back/category/') }}/{{ $category->image }}" class="rounded-circle" alt="post image" width="120px" height="120px"></td>
                                         <td class="d-flex">
                                             <a href="{{ route('admin.category.edit',[$category->id]) }}" class="btn btn-sm btn-primary mr-1"> <i class="fas fa-edit"></i> </a>
                                             <form action="{{ route('admin.category.delete',[$category->id]) }}" class="mr-1" method="POST">

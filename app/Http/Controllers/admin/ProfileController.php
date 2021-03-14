@@ -30,14 +30,14 @@ class ProfileController extends Controller
         $user=User::find(Auth::id());
         if ($req->hasFile('image')) {
 
-            $existPhoto = '/upload' . $user->profileImage;
+            $existPhoto = 'source/back/profile' . $user->profileImage;
             $path = str_replace('\\', '/', public_path());
             if (file_exists($path . $existPhoto)) {
                 \unlink($path . $existPhoto);
             }
             $image = $req->file('image');
             $imageName = $image->getClientOriginalName();
-            $image->move(public_path('/upload'), $imageName);
+            $image->move(public_path('source/back/profile'), $imageName);
 
             if($req->has('password') && $req->password !== null){
                 $user->password = bcrypt($req->password);

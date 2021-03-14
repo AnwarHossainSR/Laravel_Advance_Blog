@@ -27,6 +27,7 @@ use App\Http\Controllers\user\UserHomeController;
 use App\Http\Controllers\user\UserSubscriberController;
 use App\Http\Controllers\user\UserProfileController;
 use App\Http\Controllers\user\UserCategoryController;
+use App\Http\Controllers\user\UserCommentController;
 
 
 
@@ -38,6 +39,8 @@ Route::prefix('home')->group(function () {
 
     Route::get('/single-author/{id}', [UserProfileController::class, 'AuthorProfile'])->name('user.single-author');
     Route::get('/posts/category/{id}', [UserCategoryController::class, 'PostByCategory'])->name('user.category-post');
+
+    
 });
 
 
@@ -52,6 +55,7 @@ Route::group(['middleware' => ['auth']], function () {
     //All Users Accessible
     Route::group(['prefix' => 'home'], function () {
         Route::get('/favorite/{post}/add', [FavoriteController::class, 'add'])->name('post.favorite');
+        Route::post('/comment/{post}', [UserCommentController::class, 'Store'])->name('comment.store');
     });
 
 

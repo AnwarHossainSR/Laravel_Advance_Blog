@@ -58,13 +58,27 @@
                                             <textarea name="content" id="content" rows="2" class="form-control"
                                                 placeholder="Enter content">{{ $posts->content }}</textarea>
                                         </div>
-                                        <div class="form-group">
+                                        {{--  <div class="form-group">
                                             <label for="exampleInputPassword1">Category</label>
                                             <select class="form-select form-control" aria-label="Default select example" name="category">
                                                 @foreach ($category as $item)
                                                 <option value="{{ $item->id }}" @if($item->id == $cat->id) selected @endif>{{ $item->name }}</option>
                                                 @endforeach
                                               </select>
+                                        </div>  --}}
+                                        <div class="form-group">
+                                            <label>Choose Post Category</label>
+                                            <div class=" d-flex flex-wrap">
+                                                @foreach($categories as $category)
+                                                <div class="custom-control custom-checkbox" style="margin-right: 20px">
+                                                    <input class="custom-control-input" name="category[]" type="checkbox" id="category{{ $category->id}}" value="{{ $category->id }}" @foreach($posts->categories as $t)
+                                                    @if($category->id == $t->id) checked @endif
+                                                @endforeach>
+
+                                                    <label for="category{{ $category->id}}" class="custom-control-label">{{ $category->name }}</label>
+                                                </div>
+                                                @endforeach
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label>Choose Post Tags</label>
@@ -98,7 +112,7 @@
                                             </div>
                                             <div class="col-4 text-right">
                                                 <div style="max-width: 100px; max-height: 100px;overflow:hidden; margin-left: auto">
-                                                    <img src="{{ asset('/upload') }}/{{ $posts->postImage }}" class="img-fluid" alt="">
+                                                    <img src="{{ asset('source/back/post') }}/{{ $posts->postImage }}" class="img-fluid" alt="">
                                                 </div>
                                             </div>
                                         </div>

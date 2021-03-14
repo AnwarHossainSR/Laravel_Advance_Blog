@@ -46,7 +46,7 @@
                                     </tr>
                                     <tr>
                                         <td style="font-size: 22px;font-weight:bold">Image</td>
-                                        <td><img src="{{ asset('/upload') }}/{{ $categories->image }}" alt="post image" width="200px" height="150px"></td>
+                                        <td><img src="{{ asset('/source/back/category/') }}/{{ $categories->image }}" alt="post image" width="200px" height="150px"></td>
                                     </tr>
                                 </table>
                             </div>

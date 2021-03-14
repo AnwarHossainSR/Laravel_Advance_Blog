@@ -72,7 +72,7 @@
                                 <div class="card">
                                     <div class="card-body text-center">
                                         <div style="height: 200px; width: 200px; overflow:hidden;" class="m-auto">
-                                            <img src="{{ asset('/upload') }}/{{ $user->profileImage }}" alt="" class="img-fluid rounded-circle img-rounded">
+                                            <img src="{{ asset('source/back/profile') }}/{{ $user->profileImage }}" alt="" class="img-fluid rounded-circle img-rounded">
                                         </div>
                                         <div class="mt-2">
                                             <h5>{{ $user->name }}</h5>
