@@ -59,7 +59,6 @@ class PostController extends Controller
             $imageName = "postDefault.jpg";
         }
 
-
         $post = Post::create([
             'title'=>$request->title,
             'slug'=>strtolower(str_replace('','_',$request->title)),
