@@ -5,21 +5,29 @@
     <link href="{{asset('user/category/css/styles.css')}}" rel="stylesheet">
 	<link href="{{asset('user/category/css/responsive.css')}}" rel="stylesheet">
 	<style>
+		.header-bg{
+			height:400px;
+			width:100%;
+			background-image:url({{ asset('source/back/category/'.$category->image) }});
+			background-size:cover;
+		}
 		.favorite_posts{
 			color:red;
 		}
+		
 	</style>
 @endsection
 @section('content')
 
-	<div class="slider display-table center-text">
-		<h1 class="title display-table-cell"><b>{{ $category->name }}</b></h1>
-	</div><!-- slider -->
-
+	<div class="header-bg">
+		<div class="display-table center-text">
+			<h1 class="title display-table-cell"><b>{{ $category->name }}</b></h1>
+		</div><!-- slider -->
+	</div>
 	<section class="blog-area section">
 		<div class="container">
 
-			@if($category->count() > 0)
+			@if($category->posts->count() > 0)
 			<div class="row">
                 @foreach($category->posts as $key => $post)
 				<div class="col-lg-4 col-md-6">
