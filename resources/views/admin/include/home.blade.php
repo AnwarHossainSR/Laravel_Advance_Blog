@@ -80,77 +80,105 @@
               </div>
             </div>
             <!-- ./col -->
-          </div>
-          {{-- <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h3 class="card-title">Post List</h3>
-                            <a href="#" class="btn btn-primary">Post List</a>
-                        </div>
+            <div class="col-md-6" style="border: 1px solid green;margin:0">
+                    <div class="panel panel-default">
+                     <div class="panel-heading">
+                      <h3 class="panel-title">Percentage of Users</h3>
+                     </div>
+                     <div class="panel-body" align="center">
+                      <div id="pie_chart" style="width:550px; height:450px;">
+
+                      </div>
+                     </div>
                     </div>
-                    <!-- /.card-header -->
-                    <div class="card-body p-0">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th style="width: 10px">#</th>
-                                    <th>Image</th>
-                                    <th>Title</th>
-                                    <th>Category</th>
-                                    <th>Tags</th>
-                                    <th>Author</th>
-                                    <th>Created Date</th>
-                                    <th style="width: 40px">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if($posts->count())
-                                @foreach ($posts as $post)
-                                    <tr>
-                                        <td>{{ $post->id }}</td>
-                                        <td>
-                                            <div style="max-width: 70px; max-height:70px;overflow:hidden">
-                                                <img src="{{ asset($post->image) }}" class="img-fluid img-rounded" alt="">
-                                            </div>
-                                        </td>
-                                        <td>{{ $post->title }}</td>
-                                        <td>{{ $post->category->name }}</td>
-                                        <td>
-                                            @foreach($post->tags as $tag)
-                                                <span class="badge badge-primary">{{ $tag->name }} </span>
-                                            @endforeach
-                                        </td>
-                                        <td>{{ $post->user->name }}</td>
-                                        <td>{{ $post->created_at->format('d M, Y') }}</td>
-                                        <td class="d-flex">
-                                            <a href="{{ route('post.show', [$post->id]) }}" class="btn btn-sm btn-success mr-1"> <i class="fas fa-eye"></i> </a>
-                                            <a href="{{ route('post.edit', [$post->id]) }}" class="btn btn-sm btn-primary mr-1"> <i class="fas fa-edit"></i> </a>
-                                            <form action="{{ route('post.destroy', [$post->id]) }}" class="mr-1" method="POST">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button type="submit" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i> </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                @else
-                                    <tr>
-                                        <td colspan="6">
-                                            <h5 class="text-center">No posts found.</h5>
-                                        </td>
-                                    </tr>
-                                @endif
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
             </div>
-        </div> --}}
+            <div class="col-md-6" style="border: 1px solid blue;margin:0">
+                <div class="panel panel-default">
+                 <div class="panel-heading">
+                  <h3 class="panel-title">HighChart</h3>
+                 </div>
+                 <div class="panel-body" align="center">
+                  <div id="chart-container" style="width:550px; height:450px;">
+
+                  </div>
+                 </div>
+                </div>
+        </div>
+          </div>
           <!-- /.row -->
+
         </div><!-- /.container-fluid -->
       </div>
+      <script type="text/javascript">
+        var analytics = <?php echo $type; ?>
+
+
+        google.charts.load('current', {'packages':['corechart']});
+
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart()
+        {
+         var data = google.visualization.arrayToDataTable(analytics);
+         var options = {
+          title : 'Percentage of Users'
+         };
+         var chart = new google.visualization.PieChart(document.getElementById('pie_chart'));
+         chart.draw(data, options);
+        }
+        //var datas=<?php echo $datas; ?>
+
+       </script>
+       <script type="text/javascript">
+        {{-- var datas=<?php echo $datas; ?> --}}
+        var datas={{ $datas }}
+        console.log(<?php echo $datas; ?>);
+        Highcharts.chart('chart-container', {
+            title: {
+                text: 'New User Growth, 2020'
+            },
+            subtitle: {
+                text: 'Source: Surfside Media'
+            },
+            xAxis: {
+                categories: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+                    'October', 'November', 'December'
+                ]
+            },
+            yAxis: {
+                title: {
+                    text: 'Number of New Users'
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+            plotOptions: {
+                series: {
+                    allowPointSelect: true
+                }
+            },
+            series: [{
+                name: 'New Users',
+                data: datas
+            }],
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+        });
+       </script>
 
 @endsection
