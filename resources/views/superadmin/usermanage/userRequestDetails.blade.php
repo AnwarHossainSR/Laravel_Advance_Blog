@@ -14,8 +14,8 @@
                     <img src="{{ asset('source/back/profile') }}/{{ $user->profileImage }}" alt="Admin" class="rounded-circle" width="150">
                     <div class="mt-3">
                       <h4>{{ $user->name }}</h4>
-                      <a href="" class="btn btn-outline-primary">Message</a>
                       <a href="{{ route('user.request.accept',$user->id) }}" class="btn btn-outline-success">Accept</a>
+                      <a href="" class="btn btn-outline-danger">Cancell</a>
                     </div>
                   </div>
                 </div>
@@ -77,7 +77,7 @@
                       <h6 class="mb-0">Total Comment</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      {{ $user->totalComment }}
+                      {{ $userComments->comments->count() }}
                     </div>
                   </div>
                   <hr>
