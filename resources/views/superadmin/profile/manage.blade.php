@@ -100,6 +100,15 @@
                           <strong>{{ $message }}</strong>
                       </span>
                     @enderror
+                    <div class="form-group">
+                      <label for="exampleInputAbout">About Me</label>
+                      <textarea type="text" name="about" class="form-control @error('about') is-invalid @enderror" id="exampleInputAbout" name="about" placeholder="Enter email">{{ Auth::user()->about }}</textarea>
+                    </div>
+                     @error('about')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                      @enderror
 
                     <label >Image Upload</label>
                   <div class="form-group-file">

@@ -72,8 +72,8 @@
 									@endguest
 									
 								</li>
-								<li><a href="#"><i class="far fa-comment"></i>{{ $post->comments()->count() }}</a></li>
-								<li><a href="#"><i class="far fa-eye"></i>{{ $post->view_count }}</a></li>
+								<li><a href="{{route('user.single-blog', $post->id)}}"><i class="far fa-comment"></i>{{ $post->comments()->count() }}</a></li>
+								<li><a href="{{route('user.single-blog', $post->id)}}"><i class="far fa-eye"></i>{{ $post->view_count }}</a></li>
 							</ul>
 
 							<ul class="icons">
@@ -154,8 +154,8 @@
 										@endguest
 										
 									</li>
-									<li><a href="#"><i class="far fa-comment"></i>{{ $rp->comments()->count() }}</a></li>
-									<li><a href="#"><i class="far fa-eye"></i>{{ $rp->view_count }}</a></li>
+									<li><a href="{{route('user.single-blog', $rp->id)}}"><i class="far fa-comment"></i>{{ $rp->comments()->count() }}</a></li>
+									<li><a href="{{route('user.single-blog', $rp->id)}}"><i class="far fa-eye"></i>{{ $rp->view_count }}</a></li>
 								</ul>
 							</div><!-- blog-info -->
 
@@ -178,7 +178,7 @@
 				<div class="col-lg-8 col-md-12">
 					<div class="comment-form">
 						@guest
-							<p>For post a new ccomment ,you need to login first <a href="{{route('home')}}">Login</a></p>
+							<p>For post a new comment ,you need to login first <a href="{{route('login')}}" class="font-weight-bold text-primary"> Login </a></p>
 						@else
 						<form method="post" action="{{route('comment.store',$post->id)}}">
 							@csrf
