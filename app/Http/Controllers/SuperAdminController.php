@@ -43,21 +43,21 @@ class SuperAdminController extends Controller
      */
     public function update(Request $request,User $u)
     {
-        
          $request->validate([
-            'name' => 'required|unique:users|min:3|max:20|',
-            'email' => 'required|min:12|max:50'
+            'name' => 'required|min:3|max:20|',
+            'email' => 'required|min:12|max:50',
+            'about' => 'required|min:30|max:500'
         ]);
 
         $user = User::find($request->user_id);
 
         if ($request->hasFile('feature_image')){
 
-           /*  $existPhoto = '/source/back/profile/'.$user->profileImage;
+            $existPhoto = '/source/back/profile/'.$user->profileImage;
             $path = str_replace('\\','/',public_path());
             if (file_exists($path.$existPhoto)) {
                 \unlink($path.$existPhoto);
-            } */
+            }
             $image = $request->file('feature_image');
             $imageName = time().'.'.$image->extension();
             $image->move(public_path('source/back/profile'),$imageName);
@@ -65,12 +65,14 @@ class SuperAdminController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             $user->profileImage = $imageName;
+            $user->about = $request->about;
             $user->update();
 
         }else{
             $user->name = $request->name;
             $user->email = $request->email;
             $user->profileImage = $user->profileImage;
+            $user->about = $request->about;
             $user->update();
         }
         $msg='Profile Updated!';

@@ -67,8 +67,8 @@
 										@endguest
 										
 									</li>
-									<li><a href="#"><i class="far fa-comment"></i>{{ $post->comments()->count() }}</a></li>
-									<li><a href="#"><i class="far fa-eye"></i>{{ $post->view_count }}</a></li>
+									<li><a href="{{route('user.single-blog', $post->id)}}"><i class="far fa-comment"></i>{{ $post->comments()->count() }}</a></li>
+									<li><a href="{{route('user.single-blog', $post->id)}}"><i class="far fa-eye"></i>{{ $post->view_count }}</a></li>
 								</ul>
 
 							</div><!-- blog-info -->
