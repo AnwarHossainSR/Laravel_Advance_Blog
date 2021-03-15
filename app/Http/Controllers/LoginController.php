@@ -81,7 +81,22 @@ class LoginController extends Controller
                                 ->take(10)->get();
        $category_count = Category::all()->count();
        $tag_count = Tag::all()->count();
-        return view('superadmin.include.home',\compact('data','posts','popular_posts','total_pending_posts','all_views','author_count','new_user_today','active_authors','category_count','tag_count'));
+
+       //chart
+       $users = Post::select(DB::raw('COUNT(*) as count'))
+                                ->whereYear('created_at',date('Y'))
+                                ->groupBy(DB::raw('Month(created_at)'))
+                                ->pluck('count');
+        $months = Post::select(DB::raw('Month(created_at) as month'))
+                                   ->whereYear('created_at',date('Y'))
+                                   ->groupBy(DB::raw('Month(created_at)'))
+                                   ->pluck('month');
+        $datas=array(0,0,0,0,0,0,0,0,0,0,0,0);
+        foreach ($months as $index => $month) {
+            $datas[$month-1]=$users[$index];
+        }
+
+        return view('superadmin.include.home',\compact('data','posts','popular_posts','total_pending_posts','all_views','author_count','new_user_today','active_authors','category_count','tag_count'))->with('datas',json_encode($datas));
     }
     public function adminDashboard()
     {
