@@ -163,7 +163,7 @@ Route::group(['middleware' => ['auth']], function () {
         });
 
         //comments
-        // Route::resource('comment', CommentController::class);
+         Route::resource('comment', CommentController::class);
         Route::get('comments/self', [CommentController::class,'commentsByMe'])->name('comments.self');
     });
 
