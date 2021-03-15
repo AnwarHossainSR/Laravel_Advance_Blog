@@ -14,6 +14,7 @@ use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\UserManageController;
 use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\user\UserCommentController;
 //admin
 use App\Http\Controllers\admin\AdminCategoryController;
 use App\Http\Controllers\admin\AdminTagController;
@@ -22,12 +23,12 @@ use App\Http\Controllers\admin\ProfileController;
 //author
 use App\Http\Controllers\author\AuthorPostController;
 use App\Http\Controllers\author\AuthorProfileController;
+use App\Http\Controllers\CommentController;
 //user
 use App\Http\Controllers\user\UserHomeController;
 use App\Http\Controllers\user\UserSubscriberController;
 use App\Http\Controllers\user\UserProfileController;
 use App\Http\Controllers\user\UserCategoryController;
-use App\Http\Controllers\user\UserCommentController;
 
 
 //User area
@@ -157,6 +158,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::prefix('dashboard')->group(function(){
             Route::resource('email', EmailController::class);
         });
+
+        //comments
+        Route::resource('comment', CommentController::class);
+        Route::get('comments/self', [CommentController::class,'commentsByMe'])->name('comments.self');
     });
 
 

@@ -130,7 +130,7 @@
 
         swalWithBootstrapButtons.fire({
           title: 'Are you sure?',
-          text: "You will be be able to revert this from trash!",
+          text: "You will be able to revert this from trash!",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonText: 'Yes, delete it!',
