@@ -26,7 +26,6 @@
       <div class="row">
         <div class="col-12">
           <div class="card">
-
             @include('superadmin.include.alert')
             <!-- /.card-header -->
             <div class="card-body">
