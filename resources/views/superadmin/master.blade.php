@@ -72,6 +72,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- jQuery -->
     <script src="{{ asset('source/back') }}/plugins/jquery/jquery.min.js"></script>
+    
     <!-- Bootstrap 4 -->
     <script src="{{ asset('source/back') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->

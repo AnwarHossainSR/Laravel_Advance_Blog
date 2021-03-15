@@ -145,6 +145,63 @@
             </div>
         </div>
         <!-- #END# Widgets -->
+        <!-- Widgets -->
+        <div class="row clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+                <div class="small-box bg-pink">
+                    <div class="inner">
+                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $category_count }}" data-speed="1000" data-fresh-interval="20"></h5>
+                      <p>CATEGORIES</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fab fa-affiliatetheme"></i>
+                    </div>
+                </div> 
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $tag_count }}" data-speed="1000" data-fresh-interval="20"></h5>
+                      <p>TAGS</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                </div>
+                <div class="small-box bg-purple">
+                    <div class="inner">
+                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $author_count }}" data-speed="1000" data-fresh-interval="20"></h5>
+                      <p>TOTAL AUTHOR</p>
+                    </div>
+                    <div class="icon">
+                      <i class="fas fa-user-friends"></i>
+                    </div>
+                </div>
+                <div class="small-box bg-secondary">
+                    <div class="inner">
+                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $new_user_today }}" data-speed="1000" data-fresh-interval="20"></h5>
+                      <p>TODAY User</p>
+                    </div>
+                    <div class="icon">
+                      <i class="fas fa-user"></i>
+                    </div>
+                </div> 
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
+                <div class="card">
+                    <div class="body">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-body" align="center">
+                                    <div id="chart-container">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #END# Widgets -->
     </div><!-- /.container-fluid -->
 </div>
 @endsection
@@ -152,22 +209,60 @@
 @section('script')
 <!-- Jquery CountTo Plugin Js -->
 <script src="{{ asset('assets/backend/plugins/jquery-countto/jquery.countTo.js') }}"></script>
-
-<!-- Morris Plugin Js -->
-{{-- <script src="{{ asset('assets/backend/plugins/raphael/raphael.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/morrisjs/morris.js') }}"></script> --}}
-
-<!-- ChartJs -->
-{{-- <script src="{{ asset('assets/backend/plugins/chartjs/Chart.bundle.js') }}"></script> --}}
-
-<!-- Flot Charts Plugin Js -->
-{{-- <script src="assets/backend/plugins/flot-charts/jquery.flot.js"></script>
-<script src="assets/backend/plugins/flot-charts/jquery.flot.resize.js"></script>
-<script src="assets/backend/plugins/flot-charts/jquery.flot.pie.js"></script>
-<script src="assets/backend/plugins/flot-charts/jquery.flot.categories.js"></script>
-<script src="assets/backend/plugins/flot-charts/jquery.flot.time.js"></script> --}}
-
-<!-- Sparkline Chart Plugin Js -->
 <script src="assets/backend/plugins/jquery-sparkline/jquery.sparkline.js"></script>
 <script src="{{ asset('assets/backend/js/pages/index.js') }}"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+
+<script type="text/javascript">
+//var datas=<?php echo $datas; ?>
+console.log(<?php echo $datas; ?>);
+ var datas=<?php echo $datas; ?>;
+ 
+ Highcharts.chart('chart-container', {
+     title: {
+         text: 'New Post Growth, 2021'
+     },
+     subtitle: {
+         text: 'Source: Bona Blogging Analytics 2021'
+     },
+     xAxis: {
+         categories: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+             'October', 'November', 'December'
+         ]
+     },
+     yAxis: {
+         title: {
+             text: 'Number of New Posts'
+         }
+     },
+     legend: {
+         layout: 'vertical',
+         align: 'right',
+         verticalAlign: 'middle'
+     },
+     plotOptions: {
+         series: {
+             allowPointSelect: true
+         }
+     },
+     series: [{
+         name: 'New Posts',
+         data: datas
+     }],
+     responsive: {
+         rules: [{
+             condition: {
+                 maxWidth: 500
+             },
+             chartOptions: {
+                 legend: {
+                     layout: 'horizontal',
+                     align: 'center',
+                     verticalAlign: 'bottom'
+                 }
+             }
+         }]
+     }
+ });
+</script>
 @endsection
