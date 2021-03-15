@@ -129,9 +129,15 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{{-- {{ route('post.index') }} --}}" class="nav-link {{-- active --}}">
+                    <a href="{{ route('comment.index') }}" class="nav-link {{-- active --}}">
                     <i class="far fa-circle nav-icon text-primary"></i>
                     <p>Manage</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('comments.self') }}" class="nav-link {{-- active --}}">
+                    <i class="far fa-circle nav-icon text-primary"></i>
+                    <p>Comments by me</p>
                     </a>
                 </li>
             </ul>
@@ -188,21 +194,12 @@
             </p>
             </a>
         </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-            <i class="nav-icon text-primary fas fa-comments"></i>
-            <p>
-               Chat Box
-               {{--  <span class="right badge badge-danger">New</span> --}}
-            </p>
-            </a>
-        </li>
         
         <li class="nav-item">
             <a href="{{ route('user.index') }}" class="nav-link">
-            <i class="nav-icon text-primary fas fa-user-circle"></i>
+            <i class="nav-icon text-primary fas fa-user-cog"></i>
             <p>
-                Accounts
+                Settings
                {{--  <span class="right badge badge-danger">New</span> --}}
             </p>
             </a>
