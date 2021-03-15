@@ -43,13 +43,13 @@
             <ul class="nav nav-treeview">
                 <li class="nav-item">
                     <a href="{{ route('category.index') }}" class="nav-link {{-- active --}}">
-                    <i class="far fa-circle nav-icon text-primary"></i>
+                    <i class="far fa-circle nav-icon text-warning"></i>
                     <p>Manage</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('category.unpublished') }}" class="nav-link {{-- active --}}">
-                    <i class="far fa-circle nav-icon text-primary"></i>
+                    <i class="far fa-circle nav-icon text-warning"></i>
                     <p>Unpublished Category</p>
                     </a>
                 </li>
@@ -66,19 +66,19 @@
             <ul class="nav nav-treeview">
                 <li class="nav-item">
                     <a href="{{ route('post.index') }}" class="nav-link {{-- active --}}">
-                    <i class="far fa-circle nav-icon text-primary"></i>
+                    <i class="far fa-circle nav-icon text-warning"></i>
                     <p>Manage</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('superadmin.post.singleuser') }}" class="nav-link ">
-                    <i class="far fa-circle nav-icon text-primary"></i>
+                    <i class="far fa-circle nav-icon text-warning"></i>
                     <p>Post By Me</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('superadmin.post.favorite') }}" class="nav-link ">
-                    <i class="far fa-circle nav-icon text-primary"></i>
+                    <i class="far fa-circle nav-icon text-warning"></i>
                     <p>Favorite Post</p>
                     </a>
                 </li>
@@ -95,25 +95,25 @@
             <ul class="nav nav-treeview">
                 <li class="nav-item">
                     <a href="{{ route('manage.index') }}" class="nav-link {{-- active --}}">
-                    <i class="far fa-circle nav-icon text-primary"></i>
+                    <i class="far fa-circle nav-icon text-warning"></i>
                     <p>Active Users</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('user.deactive') }}" class="nav-link {{-- active --}}">
-                    <i class="far fa-circle nav-icon text-primary"></i>
+                    <i class="far fa-circle nav-icon text-warning"></i>
                     <p>Deactive Users</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('role.manage') }}" class="nav-link {{-- active --}}">
-                    <i class="far fa-circle nav-icon text-primary"></i>
+                    <i class="far fa-circle nav-icon text-warning"></i>
                     <p>Manage Roles</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('request.user') }}" class="nav-link {{-- active --}}">
-                    <i class="far fa-circle nav-icon text-primary"></i>
+                    <i class="far fa-circle nav-icon text-warning"></i>
                     <p>User Request</p>
                     </a>
                 </li>
@@ -130,13 +130,13 @@
             <ul class="nav nav-treeview">
                 <li class="nav-item">
                     <a href="{{ route('comment.index') }}" class="nav-link {{-- active --}}">
-                    <i class="far fa-circle nav-icon text-primary"></i>
+                    <i class="far fa-circle nav-icon text-warning"></i>
                     <p>Manage</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('comments.self') }}" class="nav-link {{-- active --}}">
-                    <i class="far fa-circle nav-icon text-primary"></i>
+                    <i class="far fa-circle nav-icon text-warning"></i>
                     <p>Comments by me</p>
                     </a>
                 </li>
@@ -154,7 +154,7 @@
             <ul class="nav nav-treeview">
                 <li class="nav-item">
                     <a href="{{ route('email.index') }}" class="nav-link {{-- active --}}">
-                    <i class="far fa-circle nav-icon text-primary"></i>
+                    <i class="far fa-circle nav-icon text-warning"></i>
                     <p>Manage</p>
                     </a>
                 </li>
@@ -172,13 +172,13 @@
             <ul class="nav nav-treeview">
                 <li class="nav-item">
                     <a href="{{ route('subscriber.index') }}" class="nav-link {{-- active --}}">
-                    <i class="far fa-circle nav-icon text-primary"></i>
+                    <i class="far fa-circle nav-icon text-warning"></i>
                     <p>Manage</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('subscriber.email.show') }}" class="nav-link {{-- active --}}">
-                    <i class="far fa-circle nav-icon text-primary"></i>
+                    <i class="far fa-circle nav-icon text-warning"></i>
                     <p>Send News</p>
                     </a>
                 </li>
