@@ -65,9 +65,6 @@
                             </td>
                             <td><img src="{{ asset('source/back/category') }}/{{ $cate->image }}" class="rounded-circle" alt="Category Image" width="100px" height="100px"></td>
                             <td>
-                                <a href="{{ route('category.destroy',$cate->id) }}" title="Delete" class="btn text-danger">
-                                    <i class="fas fa-trash nav-icon"></i>
-                                </a>
                                 <a href="{{ route('category.edit',$cate->id) }}" title="Edit" class="btn text-primary">
                                     <i class="fas fa-edit nav-icon"></i>
                                 </a>
