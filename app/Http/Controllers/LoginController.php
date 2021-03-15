@@ -10,6 +10,7 @@ use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 
 class LoginController extends Controller
@@ -56,7 +57,31 @@ class LoginController extends Controller
     public function superAdminDashboard()
     {
         $data = User::find(session('loggedUser'));
-        return view('superadmin.include.home')->with('data', $data);
+        $posts = Post::all();
+        $popular_posts = Post::withCount('comments')
+                            ->withCount('favorite_to_users')
+                            ->orderBy('view_count','desc')
+                            ->orderBy('comments_count','desc')
+                            ->orderBy('favorite_to_users_count','desc')
+                            ->take(5)->get();
+        $total_pending_posts = Post::where('is_approve','=',0)->count();
+        $all_views = Post::sum('view_count');
+        $author_count = User::where('type','=','Author')->count();
+        $admin_count = User::where('type','=','Admin')->count();
+        $admin_count = User::where('type','=','User')->count();
+        $new_user_today = User::where('type','=','User')
+                                ->whereDate('created_at',Carbon::today())->count();
+       $active_authors = User::where('type','=','Author')
+                                ->withCount('posts')
+                                ->withCount('comments')
+                                ->withCount('favorite_posts')
+                                ->orderBy('posts_count','desc')
+                                ->orderBy('comments_count','desc')
+                                ->orderBy('favorite_posts_count','desc')
+                                ->take(10)->get();
+       $category_count = Category::all()->count();
+       $tag_count = Tag::all()->count();
+        return view('superadmin.include.home',\compact('data','posts','popular_posts','total_pending_posts','all_views','author_count','new_user_today','active_authors','category_count','tag_count'));
     }
     public function adminDashboard()
     {
