@@ -170,13 +170,7 @@ class PostController extends Controller
     
     public function destroy(Post $post)
     {
-        /* $existPhoto = '/source/back/post/' . $post->postImage;
-        $path = str_replace('\\', '/', public_path());
-        if (file_exists($path . $existPhoto)) {
-            \unlink($path . $existPhoto);
-        }
-        $post->categories()->detach();
-        $post->tags()->detach(); */
+        
         $post->delete();
         $msg='Post Deleted Successfully';
         Toastr::success($msg, 'Success.!');
