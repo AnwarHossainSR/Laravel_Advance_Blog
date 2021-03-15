@@ -90,7 +90,7 @@
                       <p>TODAY User</p>
                     </div>
                     <div class="icon">
-                      <i class="fas fa-pen-square"></i>
+                      <i class="fas fa-user"></i>
                     </div>
                 </div> 
             </div>
