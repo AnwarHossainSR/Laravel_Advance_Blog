@@ -135,7 +135,7 @@
         console.log(<?php echo $datas; ?>);
         Highcharts.chart('chart-container', {
             title: {
-                text: 'New User Growth, 2020'
+                text: 'New User Growth, 2021'
             },
             subtitle: {
                 text: 'Source: Surfside Media'
