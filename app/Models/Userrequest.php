@@ -8,5 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Userrequest extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'userId',
+        'name',
+        'email',
+        'status',
+        'type',
+        'reqType',
+        'message',
+        'totalComment',
+        'profileImage',
+        'joined',
+    ];
     
 }
