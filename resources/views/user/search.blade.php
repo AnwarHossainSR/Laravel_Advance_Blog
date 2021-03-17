@@ -6,6 +6,12 @@
 	<link href="{{asset('user/front-page-category/css/styles.css')}}" rel="stylesheet">
 	<link href="{{asset('user/front-page-category/css/responsive.css')}}" rel="stylesheet">
 	<style>
+        .header-bg{
+			height:400px;
+			width:100%;
+			background-image:url({{ asset('source/back/category/catDefault.jpg') }});
+			background-size:cover;
+		}
 		.favorite_posts{
 			color:red;
 		}
@@ -13,9 +19,11 @@
 @endsection
 
 @section('content')
-    <div class="slider display-table center-text">
-        <h1 class="title display-table-cell">{{ $posts->count() }} Results found for <b>{{ $query }}</b></h1>
-    </div><!-- slider -->
+    <div class="header-bg">
+        <div class="display-table center-text">
+            <h1 class="title display-table-cell text-white"><b class="text-primary">{{ $posts->count() }}</b> Results found for <b class="text-primary">{{ $query }}</b></h1>
+        </div>
+    </div>
 
     <section class="blog-area section">
         <div class="container">
