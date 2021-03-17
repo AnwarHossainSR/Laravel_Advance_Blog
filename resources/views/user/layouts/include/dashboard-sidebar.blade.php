@@ -36,9 +36,9 @@
         <li class="nav-item has-treeview {{-- menu-open --}}">
             <a href="{{ route('user.posts.favourite') }}" class="nav-link {{ (request()->is('admin/posts/favourite*')) ? 'active': '' }}">
 
-            <i class="fas fa-user-shield nav-icon "></i>
+                <i class="fas fa-at nav-icon"></i>
                 <p>
-                    Favorite Post
+                   Request Section
                 </p>
             </a>
         </li>
@@ -52,14 +52,6 @@
                 </p>
             </a>
         </li>
-
-
-
-
-
-
-
-
         </ul>
     </nav>
     <!-- /.sidebar-menu -->

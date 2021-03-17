@@ -11,7 +11,7 @@
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="small-box bg-green">
                     <div class="inner">
-                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $posts->count() }}" data-speed="1000" data-fresh-interval="20"></h5>
+                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $posts->count() }}" data-speed="5000" data-fresh-interval="20"></h5>
                       <p>Total Posts</p>
                     </div>
                     <div class="icon">
@@ -22,7 +22,7 @@
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="small-box bg-cyan">
                     <div class="inner">
-                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ Auth::user() ->favorite_posts()->count() }}" data-speed="1000" data-fresh-interval="20"></h5>
+                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ Auth::user() ->favorite_posts()->count() }}" data-speed="5000" data-fresh-interval="20"></h5>
                       <p>Total Favorite</p>
                     </div>
                     <div class="icon">
@@ -33,7 +33,7 @@
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="small-box bg-red">
                     <div class="inner">
-                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $total_pending_posts }}" data-speed="1000" data-fresh-interval="20"></h5>
+                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $total_pending_posts }}" data-speed="5000" data-fresh-interval="20"></h5>
                       <p>PENDING POSTS</p>
                     </div>
                     <div class="icon">
@@ -44,7 +44,7 @@
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="small-box bg-orange">
                     <div class="inner">
-                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $all_views }}" data-speed="1000" data-fresh-interval="20"></h5>
+                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $all_views }}" data-speed="5000" data-fresh-interval="20"></h5>
                       <p>TOTAL VIEWS</p>
                     </div>
                     <div class="icon">
@@ -59,7 +59,7 @@
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
                 <div class="small-box bg-pink">
                     <div class="inner">
-                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $category_count }}" data-speed="1000" data-fresh-interval="20"></h5>
+                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $category_count }}" data-speed="5000" data-fresh-interval="20"></h5>
                       <p>CATEGORIES</p>
                     </div>
                     <div class="icon">
@@ -68,7 +68,7 @@
                 </div> 
                 <div class="small-box bg-yellow">
                     <div class="inner">
-                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $tag_count }}" data-speed="1000" data-fresh-interval="20"></h5>
+                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $tag_count }}" data-speed="5000" data-fresh-interval="20"></h5>
                       <p>TAGS</p>
                     </div>
                     <div class="icon">
@@ -77,7 +77,7 @@
                 </div>
                 <div class="small-box bg-purple">
                     <div class="inner">
-                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $author_count }}" data-speed="1000" data-fresh-interval="20"></h5>
+                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $author_count }}" data-speed="5000" data-fresh-interval="20"></h5>
                       <p>TOTAL AUTHOR</p>
                     </div>
                     <div class="icon">
@@ -86,7 +86,7 @@
                 </div>
                 <div class="small-box bg-secondary">
                     <div class="inner">
-                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $new_user_today }}" data-speed="1000" data-fresh-interval="20"></h5>
+                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $new_user_today }}" data-speed="5000" data-fresh-interval="20"></h5>
                       <p>TODAY User</p>
                     </div>
                     <div class="icon">
@@ -150,7 +150,7 @@
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
                 <div class="small-box bg-pink">
                     <div class="inner">
-                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $category_count }}" data-speed="1000" data-fresh-interval="20"></h5>
+                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $category_count }}" data-speed="5000" data-fresh-interval="20"></h5>
                       <p>CATEGORIES</p>
                     </div>
                     <div class="icon">
@@ -159,7 +159,7 @@
                 </div> 
                 <div class="small-box bg-yellow">
                     <div class="inner">
-                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $tag_count }}" data-speed="1000" data-fresh-interval="20"></h5>
+                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $tag_count }}" data-speed="5000" data-fresh-interval="20"></h5>
                       <p>TAGS</p>
                     </div>
                     <div class="icon">
@@ -168,7 +168,7 @@
                 </div>
                 <div class="small-box bg-purple">
                     <div class="inner">
-                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $author_count }}" data-speed="1000" data-fresh-interval="20"></h5>
+                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $author_count }}" data-speed="5000" data-fresh-interval="20"></h5>
                       <p>TOTAL AUTHOR</p>
                     </div>
                     <div class="icon">
@@ -177,7 +177,7 @@
                 </div>
                 <div class="small-box bg-secondary">
                     <div class="inner">
-                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $new_user_today }}" data-speed="1000" data-fresh-interval="20"></h5>
+                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $new_user_today }}" data-speed="5000" data-fresh-interval="20"></h5>
                       <p>TODAY User</p>
                     </div>
                     <div class="icon">
@@ -214,8 +214,6 @@
 <script src="https://code.highcharts.com/highcharts.js"></script>
 
 <script type="text/javascript">
-//var datas=<?php echo $datas; ?>
-console.log(<?php echo $datas; ?>);
  var datas=<?php echo $datas; ?>;
  
  Highcharts.chart('chart-container', {
