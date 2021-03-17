@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Tag;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\superAdmin\NewPostNotification;
 
 class AuthorPostController extends Controller
 {
@@ -99,13 +100,13 @@ class AuthorPostController extends Controller
         'category_id' => $request->category_id
     ]);
 
+    $id = 1;
+    User::find($id)->notify(new NewPostNotification($post));
     $msg='New Post added Successfully';
     Toastr::success($msg, 'Success.!');
               
      return redirect()->back();
      
- 
-      
     }
 
     public function preview($id)
@@ -147,7 +148,8 @@ class AuthorPostController extends Controller
         $post_info->save();
         $msg='Post Updated Successfully';
         Toastr::success($msg, 'Success.!'); 
-
+        $id = 1;
+        User::find($id)->notify(new NewPostNotification($post_info));
         return redirect()->route('AuthorPostController.all_post_show');
          
        // return view('author.post.preview_post',compact('post_info'));

@@ -14,7 +14,7 @@ use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\UserManageController;
 use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\EmailController;
-use App\Http\Controllers\user\UserCommentController;
+use App\Http\Controllers\NotificationController;
 //admin
 use App\Http\Controllers\admin\AdminCategoryController;
 use App\Http\Controllers\admin\AdminTagController;
@@ -31,6 +31,7 @@ use App\Http\Controllers\user\UserProfileController;
 use App\Http\Controllers\user\UserCategoryController;
 use App\Http\Controllers\user\UserPostController;
 use App\Http\Controllers\user\SearchController;
+use App\Http\Controllers\user\UserCommentController;
 
 
 //User area
@@ -166,8 +167,11 @@ Route::group(['middleware' => ['auth']], function () {
         });
 
         //comments
-         Route::resource('comment', CommentController::class);
+        Route::resource('comment', CommentController::class);
         Route::get('comments/self', [CommentController::class,'commentsByMe'])->name('comments.self');
+
+        //Notifications
+        Route::get('/notifications', [NotificationController::class,'getAllNotifications'])->name('superadmin.notifications');
     });
 
 

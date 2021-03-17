@@ -186,11 +186,11 @@
         </li>
         
         <li class="nav-item">
-            <a href="#" class="nav-link">
-            <i class="nav-icon text-primary fas fa-phone-volume"></i>
+            <a href="{{ route('superadmin.notifications') }}" class="nav-link">
+            <i class="nav-icon text-primary far fa-bell"></i>
             <p>
-                Video Call
-               {{--  <span class="right badge badge-danger">New</span> --}}
+                Notifications
+                <span class="right badge badge-danger">{{ Auth::user()->unreadNotifications->count() }}</span>
             </p>
             </a>
         </li>

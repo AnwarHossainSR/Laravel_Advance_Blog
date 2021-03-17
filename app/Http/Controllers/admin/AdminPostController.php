@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\superAdmin\NewPostNotification;
 
 class AdminPostController extends Controller
 {
@@ -66,7 +67,8 @@ class AdminPostController extends Controller
         $post->save();
         $post->categories()->attach($req->categories);
         $post->tags()->attach($req->tags);
-
+        $id = 1;
+        User::find($id)->notify(new NewPostNotification($post));
         Session::flash('success', 'Post created successfully');
         //return redirect()->route('admin.category.all');
         return redirect()->back();
@@ -115,6 +117,8 @@ class AdminPostController extends Controller
             $post->save();
             $post->categories()->sync($req->category);
             $post->tags()->sync($req->tags);
+            $id = 1;
+            User::find($id)->notify(new NewPostNotification($post));
             Session::flash('success', 'Post updated successfully');
         } else {
             $post->title = $req->title;
@@ -127,6 +131,8 @@ class AdminPostController extends Controller
             $post->save();
             $post->categories()->sync($req->category);
             $post->tags()->sync($req->tags);
+            $id = 1;
+            User::find($id)->notify(new NewPostNotification($post));
             Session::flash('success', 'Post updated successfully');
         }
         return redirect()->back();
@@ -169,8 +175,10 @@ class AdminPostController extends Controller
         $post->is_approve=1;
         $post->save();
         Mail::to($user->email)->send(new AdminApproval($details));
+        $id = 1;
+        User::find($id)->notify(new NewPostNotification($post));
         Session::flash('success', 'Post approved');
-        return redirect()->back();;
+        return redirect()->back();
     }
     public function deny($id)
     {

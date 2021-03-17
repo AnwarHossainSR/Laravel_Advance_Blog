@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Brian2694\Toastr\Facades\Toastr;
+use App\Notifications\superAdmin\NewPostNotification;
 
 
 class PostController extends Controller
@@ -70,9 +71,10 @@ class PostController extends Controller
             'status'=>$request->status,
             'is_approve'=>$request->is_approve,
         ]);
-
+        
         $post->categories()->attach($request->categories);
         $post->tags()->attach($request->tags);
+        User::find(Auth::id())->notify(new NewPostNotification($post));
         $msg='Post Created Successfully';
         Toastr::success($msg, 'Success.!');
         return redirect()->route('superadmin.post.singleuser')->with('success','Post created successfully');
