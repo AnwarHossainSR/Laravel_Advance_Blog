@@ -57,7 +57,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/user/profile', [UserProfileController::class, 'index'])->name('user.profile');
         Route::post('user/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update');
 
-        Route::get('user/posts/favourite', [UserPostController::class, 'favourite'])->name('user.posts.favourite');
+        Route::get('user/request', [UserPostController::class, 'request'])->name('user.request');
+        Route::post('user/request/post', [UserPostController::class, 'storeRequest'])->name('user.request.post');
     });
 
     //Redirect Dashboard

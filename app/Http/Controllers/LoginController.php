@@ -112,11 +112,6 @@ class LoginController extends Controller
         foreach ($months as $index => $month) {
             $datas[$month]=$users[$index];
         }
-        // $array2[] = ['User', 'Number'];
-        // foreach($data2 as $key => $value)
-        // {
-        //     $array2[++$key] = [$value->user_id, $value->number];
-        // }
         $postCount = Post::all()->count();
         $categoryCount = Category::all()->count();
         $tagCount = Tag::all()->count();
@@ -131,12 +126,14 @@ class LoginController extends Controller
     }
     public function userDashboard()
     {
-        $postCount = Post::all()->count();
+        /* $postCount = Post::all()->count();
         $categoryCount = Category::all()->count();
         $tagCount = Tag::all()->count();
-        $userCount = User::all()->count();
+        $userCount = User::all()->count(); */
+        $user=User::find(Auth::id());
+        $posts = $user->favorite_posts;
         $data = User::find(session('loggedUser'));
-        return view('user.user-dashboard')->with('data', $data)->with('post', $postCount)->with('category', $categoryCount)->with('tag', $tagCount)->with('user', $userCount);
+        return view('user.user-dashboard',\compact('posts', $posts));
         // return view('user.user')->with('data', $data);
     }
 }
