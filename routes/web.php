@@ -30,6 +30,7 @@ use App\Http\Controllers\user\UserSubscriberController;
 use App\Http\Controllers\user\UserProfileController;
 use App\Http\Controllers\user\UserCategoryController;
 use App\Http\Controllers\user\UserPostController;
+use App\Http\Controllers\user\SearchController;
 
 
 //User area
@@ -40,6 +41,7 @@ Route::prefix('home')->group(function () {
 
     Route::get('/single-author/{id}', [UserProfileController::class, 'AuthorProfile'])->name('user.single-author');
     Route::get('/posts/category/{id}', [UserCategoryController::class, 'PostByCategory'])->name('user.category-post');
+    Route::get('/posts/search', [SearchController::class, 'searchController'])->name('search.post');
 
 });
 

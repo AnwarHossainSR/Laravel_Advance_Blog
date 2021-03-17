@@ -35,7 +35,6 @@
 			<ul class="main-menu visible-on-click" id="main-menu">
 				<li><a href="{{ route('homepage') }}">Home</a></li>
 				<li><a href="#">Categories</a></li>
-				<li><a href="#">Features</a></li>
 				@if (Route::has('login'))
 					@auth
 						@if (Auth::user()->type == 'Superadmin')
@@ -58,9 +57,9 @@
 			</ul><!-- main-menu -->
 
 			<div class="src-area">
-				<form>
+				<form method="GET" action="{{ route('search.post') }}">
 					<button class="src-btn" type="submit"><i class="fas fa-search"></i></button>
-					<input class="src-input" type="text" placeholder="Type of search" style="margin-top: 20px;padding-top: -10px;padding-bottom: 20px;">
+					<input class="src-input" type="text" name="query" placeholder="Type of search" style="margin-top: 20px;padding-top: -10px;padding-bottom: 20px;">
 				</form>
 			</div>
 
