@@ -1,5 +1,7 @@
 @extends('user.layouts.master')
-@section('title', 'Home')
+@section('title')
+{{ $query }}
+@endsection
 @section('customCSS')
 	<link href="{{asset('user/front-page-category/css/styles.css')}}" rel="stylesheet">
 	<link href="{{asset('user/front-page-category/css/responsive.css')}}" rel="stylesheet">
@@ -9,39 +11,16 @@
 		}
 	</style>
 @endsection
+
 @section('content')
-	<div class="main-slider">
-		<div class="swiper-container position-static" data-slide-effect="slide" data-autoheight="false"
-			data-swiper-speed="500" data-swiper-autoplay="10000" data-swiper-margin="0" data-swiper-slides-per-view="4"
-			data-swiper-breakpoints="true" data-swiper-loop="true" >
-			<div class="swiper-wrapper">
+    <div class="slider display-table center-text">
+        <h1 class="title display-table-cell">{{ $posts->count() }} Results found for <b>{{ $query }}</b></h1>
+    </div><!-- slider -->
 
-			     @foreach($categories as $key => $cate)
-					<div class="swiper-slide">
-						<a class="slider-category" href="{{ route('user.category-post',$cate->id) }}">
-							<div class="blog-image"><img src="{{asset('source/back/category')}}/{{ $cate->image }}" alt="Category Image" width=250 height=250></div>
+    <section class="blog-area section">
+        <div class="container">
 
-							<div class="category">
-								<div class="display-table center-text">
-									<div class="display-table-cell">
-										<h3><b>{{ $cate->name }}</b></h3>
-									</div>
-								</div>
-							</div>
-
-						</a>
-					</div><!-- swiper-slide -->
-				@endforeach
-			</div><!-- swiper-wrapper -->
-
-		</div><!-- swiper-container -->
-
-	</div><!-- slider -->
-
-	<section class="blog-area section">
-		<div class="container">
-
-			<div class="row">
+            <div class="row">
 				@foreach($posts as $key => $post)
 				<div class="col-lg-4 col-md-6">
 					<div class="card h-100">
@@ -78,7 +57,9 @@
 				@endforeach
 			</div><!-- row -->
 
-		</div><!-- container -->
-	</section><!-- section -->
+            {{--{{ $posts->links() }}--}}
+
+        </div><!-- container -->
+    </section><!-- section -->
 
 @endsection

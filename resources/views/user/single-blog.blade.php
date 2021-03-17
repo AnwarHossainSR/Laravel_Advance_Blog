@@ -112,8 +112,8 @@
 
 							<h4 class="title"><b>Category CLOUD</b></h4>
 							<ul>
-								@foreach($catfilter as $key => $cate)
-									<li><a href="#">{{ $cate->name }}</a></li>
+								@foreach($post->categories as $key => $cate)
+									<li><a href="{{ route('user.category-post',$cate->id) }}">{{ $cate->name }}</a></li>
 								@endforeach
 							</ul>
 
@@ -213,10 +213,6 @@
 										<a class="name" href="#"><b>{{$comment->user->name}}</b></a>
 										<h6 class="date">{{$comment->created_at->diffForHumans()}}</h6>
 									</div>
-
-									{{-- <div class="right-area">
-										<h5 class="reply-btn" ><a href="#"><b>REPLY</b></a></h5>
-									</div> --}}
 
 								</div><!-- post-info -->
 
