@@ -18,24 +18,25 @@ class UserPostController extends Controller
     public function storeRequest(Request $request)
     {
         $request->validate([
-            'message' => 'required|unique:Userrequest|min:10|max:1000'
+            'message' => 'required|min:10|max:1000'
         ]);
         
         $user = User::find(Auth::id());
-        return $user;
-       /*  $request = Userrequest::create([
-            'userId'=>Auth::id(),
-            'name'=>Auth::name(),
-            'email'=>Auth::email(),
+        $request = Userrequest::create([
+            'userId'=>$user->id,
+            'name'=>$user->name,
+            'email'=>$user->email,
             'status'=>'Pending',
-            'type'=>Auth::type(),
+            'type'=>$user->type,
             'reqType'=>'Author',
             'message'=>$request->message,
-            'totalComment'=>Auth::user(),
+            'totalComment'=>$user->comments->count(),
+            'profileImage'=>$user->profileImage,
+            'joind'=>$user->created_at,
         ]);
 
-        $msg='Post Created Successfully';
+        $msg='Request Sent';
         Toastr::success($msg, 'Success.!');
-        return redirect()->route('superadmin.post.singleuser')->with('success','Post created successfully'); */
+        return redirect()->route('user.dashboard')->with('success','Request Sent successfully');
     }
 }
