@@ -95,7 +95,7 @@
 						<h4 class="title"><b>CATAGORIES</b></h4>
 						<ul>
 							@foreach($catfilter as $key => $cate)
-								<li><a href="#">{{ $cate->name }}</a></li>
+								<li><a href="{{ route('user.category-post',$cate->id) }}">{{ $cate->name }}</a></li>
 							@endforeach
 						</ul>
 					</div><!-- footer-section -->

@@ -147,45 +147,8 @@
         <!-- #END# Widgets -->
         <!-- Widgets -->
         <div class="row clearfix">
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-                <div class="small-box bg-pink">
-                    <div class="inner">
-                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $category_count }}" data-speed="5000" data-fresh-interval="20"></h5>
-                      <p>CATEGORIES</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fab fa-affiliatetheme"></i>
-                    </div>
-                </div> 
-                <div class="small-box bg-yellow">
-                    <div class="inner">
-                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $tag_count }}" data-speed="5000" data-fresh-interval="20"></h5>
-                      <p>TAGS</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-tags"></i>
-                    </div>
-                </div>
-                <div class="small-box bg-purple">
-                    <div class="inner">
-                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $author_count }}" data-speed="5000" data-fresh-interval="20"></h5>
-                      <p>TOTAL AUTHOR</p>
-                    </div>
-                    <div class="icon">
-                      <i class="fas fa-user-friends"></i>
-                    </div>
-                </div>
-                <div class="small-box bg-secondary">
-                    <div class="inner">
-                      <h5 class="number count-to" data-from="0" data-from="0" data-to="{{ $new_user_today }}" data-speed="5000" data-fresh-interval="20"></h5>
-                      <p>TODAY User</p>
-                    </div>
-                    <div class="icon">
-                      <i class="fas fa-user"></i>
-                    </div>
-                </div> 
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
+            
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-12">
                 <div class="card">
                     <div class="body">
                         <div class="col-md-12">

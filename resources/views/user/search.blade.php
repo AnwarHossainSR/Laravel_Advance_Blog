@@ -1,6 +1,6 @@
 @extends('user.layouts.master')
 @section('title')
-{{ $query }}
+{{ 'Search for'." ".$query }}
 @endsection
 @section('customCSS')
 	<link href="{{asset('user/front-page-category/css/styles.css')}}" rel="stylesheet">

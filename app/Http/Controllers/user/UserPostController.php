@@ -8,6 +8,7 @@ use App\Models\Userrequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Brian2694\Toastr\Facades\Toastr;
+use App\Notifications\superAdmin\NewUserNotification;
 
 class UserPostController extends Controller
 {
@@ -37,6 +38,8 @@ class UserPostController extends Controller
 
         $msg='Request Sent';
         Toastr::success($msg, 'Success.!');
+        $id = 1;
+        User::find($id)->notify(new NewUserNotification());
         return redirect()->route('user.dashboard')->with('success','Request Sent successfully');
     }
 }
