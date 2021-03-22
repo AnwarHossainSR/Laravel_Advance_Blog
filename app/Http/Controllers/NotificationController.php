@@ -9,7 +9,7 @@ class NotificationController extends Controller
 {
     public function getAllNotifications()
     {
-        //Auth::user()->unreadNotifications->markAsRead();
+        Auth::user()->unreadNotifications->markAsRead();
         $notifications = Auth::user()->unreadNotifications;
         return \view('superadmin.notification.notification',\compact('notifications'));
     }
