@@ -180,7 +180,7 @@
 						@guest
 							<p>For post a new comment ,you need to login first <a href="{{route('login')}}" class="font-weight-bold text-primary"> Login </a></p>
 						@else
-						<form method="post" action="{{route('comment.store',$post->id)}}">
+						<form method="post" action="{{route('comments.store',$post->id)}}">
 							@csrf
 							<div class="row">
 								<div class="col-sm-12">
