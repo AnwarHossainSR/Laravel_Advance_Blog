@@ -26,14 +26,14 @@
                             <b>Total Post</b> <a class="float-right">{{ count($author->posts) }}</a>
                             </li> --}}
                             <li class="list-group-item">
-                            <b>Total Comment</b> <a class="float-right">543</a>
+                            <b>Total Post : </b> <a class="float-right">{{$posts->count()}}</a>
                             </li>
                             {{-- <li class="list-group-item">
                             <b>Joined</b> <a class="float-right">{{ Auth::user()->created_at->toFormattedDateString() }}</a>
                             </li> --}}
                         </ul>
       
-                        <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                        {{-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> --}}
                     </div>
                     <!-- /.card-body -->
                   </div>
@@ -56,9 +56,19 @@
 									<h4 class="title"><a href="{{route('user.single-blog', $post->id)}}"><b>{{$post->title}}</b></a></h4>
 
 									<ul class="post-footer">
-										<li><a href="#"><i class="far fa-heart"></i>57</a></li>
-										<li><a href="#"><i class="far fa-comment"></i>6</a></li>
-										<li><a href="#"><i class="far fa-share-square"></i>138</a></li>
+										<li>
+											@guest
+												<a href="javascript:void(0);"onclick="toastr.success('To add favorite list. You have to login first.','Info',{
+													closeButton: true,
+													progressBar: true,
+												})"><i class="fas fa-heart"></i>{{ $post->favorite_to_users->count() }}</a>
+											@else
+												<a href="{{ route('post.favorite',$post->id) }}" class="{{ !Auth::user()->favorite_posts->where('pivot.post_id',$post->id)->count()  == 0 ? 'favorite_posts' : ''}}"><i class="fas fa-heart"></i>{{ $post->favorite_to_users->count() }}</a>
+											@endguest
+											
+										</li>
+										<li><a href="{{route('user.single-blog', $post->id)}}"><i class="far fa-comment"></i>{{ $post->comments()->count() }}</a></li>
+										<li><a href="{{route('user.single-blog', $post->id)}}"><i class="far fa-eye"></i>{{ $post->view_count }}</a></li>
 									</ul>
 
 								</div><!-- blog-info -->

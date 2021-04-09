@@ -28,4 +28,13 @@ class UserCommentController extends Controller
         Toastr::success('Comment Successfully Published', 'Success');
         return redirect()->back();
     }
+    public function Delete($id){
+        
+        $comment = Comment::find($id);
+        
+        $comment->delete();
+        $msg='Comment Deleted';
+        Toastr::success($msg, 'Success.!');
+        return back()->with('success','Comment deleted successfully');
+    }
 }

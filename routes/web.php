@@ -56,6 +56,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'home'], function () {
         Route::get('/favorite/{post}/add', [FavoriteController::class, 'add'])->name('post.favorite');
         Route::post('/comment/{post}', [UserCommentController::class, 'Store'])->name('comments.store');
+        
+        Route::get('/comment/delete/{id}', [UserCommentController::class, 'Delete'])->name('comments.delete');
 
         Route::get('/user/profile', [UserProfileController::class, 'index'])->name('user.profile');
         Route::post('user/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update');
