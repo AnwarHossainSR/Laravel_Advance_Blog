@@ -18,7 +18,7 @@
 @section('content')
 	<div class="header-bg">
 		<div class="display-table  center-text">
-			<h1 class="title display-table-cell"><b>Design</b></h1>
+			<h1 class="title display-table-cell"><b>{{ $post->title }}</b></h1>
 		</div>
 	</div><!-- slider -->
 
@@ -213,6 +213,14 @@
 										<a class="name" href="#"><b>{{$comment->user->name}}</b></a>
 										<h6 class="date">{{$comment->created_at->diffForHumans()}}</h6>
 									</div>
+									@if($comment->user_id == Auth::id())
+									<div class="right-area">
+										<a class="name" href="#"><b>Edit</b></a> | 
+										<a class="name" href="{{route('comments.delete', $comment->id)}}"><b>Delete</b></a>
+										
+									</div>
+									@endif
+
 
 								</div><!-- post-info -->
 

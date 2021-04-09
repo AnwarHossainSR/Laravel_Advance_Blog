@@ -19,7 +19,7 @@ class UserProfileController extends Controller
         //$catfilter = Category::where('status','=',1)->take(-3)->get();
         $catfilter = Category::orderBy('id', 'desc')->take(14)->get();
         $author = User::find($id);
-        $authors = User::where('type','=','Author')->where('active','=',1)->get();
+        $authors = User::where('active','=',1)->get()->random(5);
         // return $author;
         $posts=Post::where([['status','=','Publish'],['is_approve','=',1],['user_id','=',$id]])->latest()->get();
          //return $posts->count();
