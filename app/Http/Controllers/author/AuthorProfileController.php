@@ -36,46 +36,32 @@ class AuthorProfileController extends Controller
        
         $user = User::find($id);
 
+        if ($request->hasFile('image')){
 
-        $img=  $request->file('image');
-
-        if(isset($img))
-        {
-            $currentDate= Carbon ::now()->toDateString();
-
-            $imgName='author'.'_'.$currentDate.'_'.uniqid().'.'.$img->getClientOriginalExtension();
-
-
-            //Checking directory existance
-            if(!Storage::disk('public')->exists('author_img'))
-            {
-                Storage::disk('public')->makeDirectory('author_img');
+            $oldPic = '/source/back/profile/'.$user->profileImage;
+            $path = str_replace('\\','/',public_path());
+            if (file_exists($path.$oldPic)) {
+                \unlink($path.$oldPic);
             }
-            //Checking Duplicate filename existance
-
-            if(Storage::disk('public')->exists('author_img/'.$user->profileImage))
-            {
-                Storage::disk('public')->delete('author_img/'.$user->profileImage);
-            }
-
-               
-            $resized_img= Image::make($img)->resize(128,128)->stream();//->save()
-
-             Storage::disk('public')->put('author_img/'.$imgName,$resized_img);
-
-        }
-
-        else
-        {
-            $imgName= $user->profileImage;          // 'default.jpg';
-        }
-
-           // $user = new User();
-
+            $image = $request->file('image');
+            $imgName = time().'.'.$image->extension();
+            $image->move(public_path('source/back/profile'),$imgName);
+			
+			
            $user->name = $request->name;
            $user->email = $request->email;
            $user->profileImage = $imgName;
            $user->save();
+			
+	}
+	
+	else
+	{
+		   $user->name = $request->name;   //will execute when profile image not changed
+           $user->email = $request->email;
+           $user->profileImage = $user->profileImage;
+           $user->save();
+	}
 
            $msg='Profile Updated Successfully';
            Toastr::success($msg, 'Success.!');

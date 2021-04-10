@@ -37,7 +37,7 @@
             <div class="card-body box-profile">
               <div class="text-center">
                <!-- <img class="profile-user-img img-fluid img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture">-->
-                <img class="profile-user-img img-fluid img-circle" src="{{asset('/storage/author_img')}}/{{$author['profileImage']}}" alt="User profile picture">
+                <img class="profile-user-img img-fluid img-circle" src="{{asset('source/back/profile')}}/{{$author['profileImage']}}" alt="User profile picture">
               </div>
 
               <h3 class="profile-username text-center">{{$author['name']}}</h3>
