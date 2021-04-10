@@ -18,7 +18,8 @@ class AuthorPostController extends Controller
     {
        
        // $categories = Category::where('status',1)->get();
-        $categories = Category::all();
+        $categories = Category::where('status',1)->get();
+        //$categories = Category::all();
         $tags= Tag::all();
         return view('author.post.add_post')->with('categories', $categories)
                                             ->with('tags',$tags);
