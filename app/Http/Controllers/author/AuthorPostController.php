@@ -17,7 +17,7 @@ class AuthorPostController extends Controller
     public function add_post()
     {
        
-       // $categories = Category::where('status',1)->get();
+       
         $categories = Category::where('status',1)->get();
         //$categories = Category::all();
         $tags= Tag::all();
