@@ -67,7 +67,7 @@
       {{-- Image --}}
       <td>
         <div style="max-width:70px; max-height:70px; overflow:hidden">
-         <img src="{{asset('/source/back/post/author')}}/{{$value->postImage}}" class="img-fluid" alt="">
+         <img src="{{asset('/source/back/post')}}/{{$value->postImage}}" class="img-fluid" alt="">
          
         {{--{{asset('/storage/author_img')}}/{{$author['profileImage']}}--}} 
 

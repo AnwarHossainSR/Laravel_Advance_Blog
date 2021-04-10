@@ -79,7 +79,7 @@ class AuthorPostController extends Controller
     if ($request->hasFile('feature_image')){
         $image = $request->file('feature_image');
         $imageName = time().'.'.$image->extension();
-        $image->move(public_path('source/back/post/author'),$imageName);
+        $image->move(public_path('source/back/post'),$imageName);
     }else{
         $imageName = "postDefault.jpg";
     }
@@ -103,7 +103,7 @@ class AuthorPostController extends Controller
 
     $id = 1;
     User::find($id)->notify(new NewPostNotification($post));
-    $msg='New Post added Successfully';
+    $msg='Post Submitted Successfully';
     Toastr::success($msg, 'Success.!');
               
      return redirect()->back();
@@ -132,7 +132,7 @@ class AuthorPostController extends Controller
         if ($request->hasFile('feature_image')){
             $image = $request->file('feature_image');
             $imageName = time().'.'.$image->extension();
-            $image->move(public_path('source/back/post/author'),$imageName);
+            $image->move(public_path('source/back/post'),$imageName);
         }else{
             $imageName = "postDefault.jpg";
         }
