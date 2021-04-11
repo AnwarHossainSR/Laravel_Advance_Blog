@@ -34,18 +34,13 @@
                             <tr>
                                 <th style="width: 100px" >Category</th>
                                 <td>
-{{--                                     
-                                     @foreach ($post_info as $value)
-                                      
-                                                  @foreach ($value->categories as $item)
-           
-                                                   {{$item->name}}
-                                    
-                                                @endforeach 
+                                
+                                        @foreach ($post_info->categories as $item)
+                                         
+                                        {{$item->name}}
                                         
-                                    @endforeach  --}}
-
-                                   {{$post_info->categories}} 
+                                        @endforeach
+                                   
                                 </td>
                             </tr>
                             <tr>
@@ -66,7 +61,7 @@
                             </tr>
                             <tr>
                                 <th style="width: 100px" >Author</th>
-                                <td>{{$post_info->user_id}}</td>
+                                <td>{{$id= Auth::user()->name}}</td>
                             </tr>
                             <tr>
                                 <th style="width: 100px" >Post Added</th>
