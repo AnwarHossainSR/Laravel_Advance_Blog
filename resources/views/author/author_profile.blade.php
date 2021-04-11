@@ -111,7 +111,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="inputEmail" class="col-sm-2 col-form-label">Image</label>
+                        <label  class="col-sm-2 col-form-label">Image</label>
                         <div class="col-sm-10">
                           <input type="file" class="form-control" value="{{$author['profileImage']}}" name="image">
                         </div>
@@ -119,6 +119,13 @@
                         <span class="text-danger">{{ $errors->first('profileImage') }}</span> 
                          @endif
                       </div>
+
+                      <div class="form-group">
+                        <label>About You</label>
+                        <textarea name="Info" class="form-control" rows="3" placeholder="Short info on your biography,education,research etc. ..." style="margin-top: 0px; margin-bottom: 0px; height: 87px;">
+                          {{$author->about}} 
+                        </textarea>
+                      </div>  
                    
      
                     <div class="form-group row">

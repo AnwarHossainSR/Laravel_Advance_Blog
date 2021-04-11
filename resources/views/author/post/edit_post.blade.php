@@ -110,7 +110,7 @@
 
     
                             
-                            <div style="max-width:70px; max-height:70px">
+                            <div style="max-width:170px; max-height:170px">
                                         
                               <img src="{{asset('/source/back/post')}}/{{$post->postImage}}" class="img-fluid" alt="">
                         
@@ -121,18 +121,6 @@
                           </div>
 
 
-                          <div class="form-group-file">
-                            {{-- <label >Feature Image</label> --}}
-    
-                            
-                                  <div style="max-width:70px; max-height:70px">
-                                  
-                              
-                     
-                                   </div>
-                          
-
-                          </div>
 
 
                         <div class="form-group-file">

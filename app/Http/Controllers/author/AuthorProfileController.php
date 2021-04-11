@@ -51,6 +51,7 @@ class AuthorProfileController extends Controller
            $user->name = $request->name;
            $user->email = $request->email;
            $user->profileImage = $imgName;
+           $user->about= $request->Info;
            $user->save();
 			
 	}
@@ -60,6 +61,7 @@ class AuthorProfileController extends Controller
 		   $user->name = $request->name;   //will execute when profile image not changed
            $user->email = $request->email;
            $user->profileImage = $user->profileImage;
+           $user->about= $request->Info;
            $user->save();
 	}
 
