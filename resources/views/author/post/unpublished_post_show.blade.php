@@ -61,7 +61,7 @@
         @endif
       </td>
 
-      <td>{{$value->created_at->format('d-M-Y H:i:s A')}}</td>
+      <td>{{$value->created_at}}</td>
       {{-- <td>{{$value->updated_at}}</td> --}}
       
       {{-- Image --}}

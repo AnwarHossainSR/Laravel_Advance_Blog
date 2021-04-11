@@ -31,6 +31,19 @@
                                 <th style="width: 100px" >Excerpt</th>
                                 <td>{{$post_info->excerpt}}</td>
                             </tr>
+
+                            <tr>
+                                <th style="width: 100px" >Tags</th>
+                                <td>
+                                
+                                        @foreach ($post_info->tags as $tg)
+                                         
+                                        <span class="badge bg-cyan">{{$tg->name}}</span>
+                                        
+                                        @endforeach
+                                   
+                                </td>
+                            </tr>
                             <tr>
                                 <th style="width: 100px" >Category</th>
                                 <td>

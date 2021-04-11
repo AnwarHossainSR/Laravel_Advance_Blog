@@ -67,13 +67,13 @@
                             </select>
                           </div>
 
-                          
+
                             <div class="form-group">
                               <label class="mr-sm-2">Tags</label>
                               {{-- tags[] name must be at first position --}}
-                              <select name="tags[]" value="{{old('tags[]')}}" class="select2"   multiple="multiple" data-placeholder="Select a tag" style="width: 100%;">
+                              <select name="tags[]" value="{{old('tags[]')}}" class="select2 select2-hidden-accessible"   multiple="multiple" data-placeholder="Select a tag" data-dropdown-css-class="select2-purple" style="width: 100%;">
                                 @forelse($tags as $tg)
-                                <option value="{{ $tg->id }}"> {{ $tg->name }}</option>
+                                <option class="select2-selection__choice" value="{{ $tg->id }}"> {{ $tg->name }}</option>
                                 @empty
                                 @endforelse
   
@@ -146,6 +146,18 @@
     }
   
   </style>
+
+
+<style>
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+  background-color: #007bff;
+  border-color: #006fe6;
+  color: #ffffff;
+  padding: 0 10px;
+  margin-top: .31rem;
+}
+}
+</style>
   @endsection
 
 @section('script')

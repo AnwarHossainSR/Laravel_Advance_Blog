@@ -127,26 +127,39 @@ class AuthorPostController extends Controller
             'excerpt' => 'required|min:5|max:255',
             'content' => 'required|min:5',
         ]);
-
+        $post_info = Post :: find($id);
 
         if ($request->hasFile('feature_image')){
             $image = $request->file('feature_image');
             $imageName = time().'.'.$image->extension();
             $image->move(public_path('source/back/post'),$imageName);
+
+            $post_info->user_id=$request->user_id;
+            $post_info->title=$request->title;
+            $post_info->excerpt=$request->excerpt;
+            //$post_info->category_id=$request->category_id;
+            $post_info->postImage=$imageName;
+            $post_info->content=$request->content;
+            
+            $post_info->save();
+            $post_info->categories()->sync($request->category_id);
+            $post_info->tags()->sync($request->tags);
         }else{
-            $imageName = "postDefault.jpg";
+            //$imageName = "postDefault.jpg";
+
+            $post_info->user_id=$request->user_id;
+            $post_info->title=$request->title;
+            $post_info->excerpt=$request->excerpt;
+            //$post_info->category_id=$request->category_id;
+            $post_info->postImage=$post_info->postImage;
+            $post_info->content=$request->content;
+            
+            $post_info->save();
+            $post_info->categories()->sync($request->category_id);
+            $post_info->tags()->sync($request->tags);
         }
 
-        $post_info = Post :: find($id);
 
-        $post_info->user_id=$request->user_id;
-        $post_info->title=$request->title;
-        $post_info->excerpt=$request->excerpt;
-        $post_info->category_id=$request->category_id;
-        $post_info->postImage=$imageName;
-        $post_info->content=$request->content;
-        
-        $post_info->save();
         $msg='Post Updated Successfully';
         Toastr::success($msg, 'Success.!'); 
         $id = 1;
