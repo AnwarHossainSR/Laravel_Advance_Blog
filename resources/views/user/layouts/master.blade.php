@@ -39,12 +39,48 @@
 					@auth
 						@if (Auth::user()->type == 'Superadmin')
 								<li><a href="{{ url('dashboard/superadmin') }}">Dashboard</a></li>
+								<li>
+									<a href="{{ route('logout') }}" onclick="event.preventDefault();
+									document.getElementById('logout-form').submit();">
+									{{ __('Logout') }}
+								</a>
+								</li>
+								<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+									@csrf
+								</form>
 							@elseif(Auth::user()->type == 'Admin')
 								<li><a href="{{ url('dashboard/admin') }}">Dashboard</a></li>
+								<li>
+									<a href="{{ route('logout') }}" onclick="event.preventDefault();
+									document.getElementById('logout-form').submit();">
+									{{ __('Logout') }}
+								</a>
+								</li>
+								<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+									@csrf
+								</form>
 							@elseif(Auth::user()->type == 'Author')
 								<li><a href="{{ url('dashboard/author') }}">Dashboard</a></li>
+								<li>
+									<a href="{{ route('logout') }}" onclick="event.preventDefault();
+									document.getElementById('logout-form').submit();">
+									{{ __('Logout') }}
+								</a>
+								</li>
+								<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+									@csrf
+								</form>
 							@else
 								<li><a href="{{ url('dashboard/user') }}">Dashboard</a></li>
+								<li>
+									<a href="{{ route('logout') }}" onclick="event.preventDefault();
+									document.getElementById('logout-form').submit();">
+									{{ __('Logout') }}
+								</a>
+								</li>
+								<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+									@csrf
+								</form>
 							@endif
 						@else
 							<li><a href="{{ route('login') }}">Login</a></li>
