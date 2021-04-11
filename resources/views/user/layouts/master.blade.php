@@ -120,14 +120,13 @@
 							<li><a href="#"><i class="fab fa-twitter"></i></a></li>
 							<li><a href="#"><i class="fab fa-instagram-square"></i></a></li>
 							<li><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
-							<li><a href="#"><i class="fab fa-pinterest"></i></a></li>
 						</ul>
 
 					</div><!-- footer-section -->
 				</div><!-- col-lg-4 col-md-6 -->
 
 				<div class="col-lg-3 col-md-6">
-						<div class="footer-section">
+					<div class="footer-section">
 						<h4 class="title"><b>CATAGORIES</b></h4>
 						<ul>
 							@foreach($catfilter as $key => $cate)
@@ -137,14 +136,14 @@
 					</div><!-- footer-section -->
 				</div><!-- col-lg-4 col-md-6 -->
 				<div class="col-lg-3 col-md-6">
-					<h4>AUTHORS</h4>
-					<ul>
-						@foreach($authors as $key => $author)
-						<li style="list-style: disclosure-closed;
-						display: block;
-						text-align: left; text-align:left;"><a href="{{route('user.single-author', $author->id)}}">{{$author->name}}</a></li>
-						@endforeach
-					</ul>
+					<div class="footer-section">
+						<h4 class="title"><b>AUTHORS</b></h4>
+						<ul>
+							@foreach($authors as $key => $author)
+								<li><a href="{{route('user.single-author', $author->id)}}">{{$author->name}}</a></li>
+							@endforeach
+						</ul>
+					</div><!-- footer-section -->
 				</div>
 				<div class="col-lg-3 col-md-6">
 					<div class="footer-section">
