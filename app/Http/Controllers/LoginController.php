@@ -122,7 +122,16 @@ class LoginController extends Controller
     public function authorDashboard(Request $req)
     {
         $data = User::find(session('loggedUser'));
-        return view('author.include.home')->with('data', $data);
+        $total_post =  Post ::all()->where('user_id',$data->id)->count();
+        $total_view =  Post ::where('user_id',$data->id)->sum('view_count');
+        $total_pending_post = Post:: where('user_id',$data->id)->where('status','Unpublish')->count();
+        $pop_post_info = Post ::orderBy('view_count','DESC')->take(10)->get()->where('user_id',$data->id);
+
+        return view('author.include.home')->with('data', $data)
+                                          ->with('pop_post_info', $pop_post_info)
+                                          ->with('total_post',$total_post)
+                                          ->with('total_view',$total_view)
+                                          ->with('total_pending_post',$total_pending_post);
     }
     public function userDashboard()
     {
