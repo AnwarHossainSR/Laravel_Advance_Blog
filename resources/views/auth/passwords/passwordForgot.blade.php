@@ -28,21 +28,22 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
+      <p class="login-box-msg">Reset password for authentication</p>
         @include('include.alert')
-      <form action="{{ route('login.custom') }}" method="post">
+      <form action="{{ route('passwordForgot.update') }}" method="POST">
         @csrf
         <div class="input-group mb-3">
-          <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
+            <input type="text" name="customtoken" value="{{ $token }}" hidden>
+            <input type="text" name="email" value="{{ $email }}" hidden>
+            <input type="password" name="password" class="form-control" value="{{ old('password') }}"  placeholder="New password">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
             </div>
           </div>
-        </div>
-        <span class="text-danger">@error('email'){{ $message }}@enderror</span>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" name="password" placeholder="Password">
+          <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -53,18 +54,11 @@
         <div class="row">
           <!-- /.col -->
           <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
           </div>
           <!-- /.col -->
         </div>
-      </form><br>
-
-      <p class="mb-1">
-        <a href="{{ route('password.forgot.email') }}">I forgot my password</a>
-      </p>
-      <p class="mb-0">
-        <a href="{{ route('register') }}" class="text-center">Register a new membership</a>
-      </p>
+      </form>
     </div>
     <!-- /.login-card-body -->
   </div>
