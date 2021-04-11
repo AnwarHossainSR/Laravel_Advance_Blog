@@ -59,7 +59,7 @@ class AuthorPostController extends Controller
         $author = User::find(session('loggedUser'));
         
        // return dd($author->id);
-        $post_info = Post ::all()->where('user_id',$author->id)->where('status','Unpublish');
+        $post_info = Post ::all()->where('user_id',$author->id)->where('is_approve',0);
         //$post_info = Post ::all()->where('user_id',$author->id);
        // $post_info = Category :: latest()->get()->where('user_id',$author->id);
         return view('author.post.unpublished_post_show',compact('post_info'));

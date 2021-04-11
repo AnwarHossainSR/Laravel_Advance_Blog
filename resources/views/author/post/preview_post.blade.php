@@ -48,7 +48,7 @@
                                 {{-- <td>{{$post_info->status}}</td> --}}
 
                                 <td>
-                                    @if ($post_info->status=='Unpublish')
+                                    @if ($post_info->is_approve==0)
         
                                     <span class="badge bg-red">Pending</span>
                                         

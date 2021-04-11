@@ -81,11 +81,28 @@
                             </div>
 
 
-                          <div class="form-group-file">
-                            <label >Feature Image</label>
-                            <input type="file" name="feature_image"   value="{{old('feature_image')}}" id="file-upload" class="form-control">
 
-                          </div>
+
+
+                          <div class="form-group row">
+                            <div class="ml-2 col-sm-6">
+                              <div id="msg"></div>
+                            
+                                <input type="file" value="{{old('feature_image')}}" name="feature_image" class="file" accept="image/*">
+                                <div class="input-group my-3">
+                                  <input type="text" class="form-control" disabled placeholder="Upload File" id="file">
+                                  <div class="input-group-append">
+                                    <button type="button" class="browse btn btn-primary">Browse...</button>
+                                  </div>
+                                </div>
+                              
+                            </div>
+                            <div class="ml-2 col-sm-6">
+                              <img src="{{asset('source/back/post/noImage.jpg')}}" id="preview" class="img-thumbnail">
+                            </div>
+        
+                           </div>
+
 
                           <div class="form-group-file">
                           <div class="card-body pad">
@@ -121,7 +138,14 @@
       <!-- Select2 -->
   <link rel="stylesheet" href="{{asset('/source/back/plugins/select2/css/select2.min.css')}}">
   <link rel="stylesheet" href="{{asset('/source/back/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
-
+  <style >
+  
+    .file {
+      visibility: hidden;
+      position: absolute;
+    }
+  
+  </style>
   @endsection
 
 @section('script')
@@ -145,5 +169,28 @@
 </script>
 
 <script src="{{ asset('source/back/plugins/select2/js/select2.full.min.js') }}"></script> 
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+
+
+      <script>
+      $(document).on("click", ".browse", function() {
+  var file = $(this).parents().find(".file");
+  file.trigger("click");
+});
+$('input[type="file"]').change(function(e) {
+  var fileName = e.target.files[0].name;
+  $("#file").val(fileName);
+
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    // get loaded data and render thumbnail.
+    document.getElementById("preview").src = e.target.result;
+  };
+  // read the image file as a data URL.
+  reader.readAsDataURL(this.files[0]);
+});  
+      </script>
 
 @endsection

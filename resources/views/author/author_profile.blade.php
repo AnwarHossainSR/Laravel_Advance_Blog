@@ -110,15 +110,28 @@
                       </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label  class="col-sm-2 col-form-label">Image</label>
-                        <div class="col-sm-10">
-                          <input type="file" class="form-control" value="{{$author['profileImage']}}" name="image">
+
+                   <div class="form-group row">
+                    <div class="ml-2 col-sm-6">
+                      <div id="msg"></div>
+                    
+                        <input type="file" value="{{$author['profileImage']}}" name="image" class="file" accept="image/*">
+                        <div class="input-group my-3">
+                          <input type="text" class="form-control" disabled placeholder="Upload File" id="file">
+                          <div class="input-group-append">
+                            <button type="button" class="browse btn btn-primary">Browse...</button>
+                          </div>
                         </div>
-                        @if ($errors->has('profileImage'))
-                        <span class="text-danger">{{ $errors->first('profileImage') }}</span> 
-                         @endif
-                      </div>
+                      
+                    </div>
+                    <div class="ml-2 col-sm-6">
+                      <img src="{{asset('source/back/profile')}}/{{$author->profileImage}}" id="preview" class="img-thumbnail">
+                    </div>
+
+                   </div>
+
+ 
+
 
                       <div class="form-group">
                         <label>About You</label>
@@ -148,4 +161,47 @@
     </div><!-- /.container-fluid -->
   </section>
 <!-- /.content -->
+  @endsection
+
+  @section('style')
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
+  
+<style >
+  
+  .file {
+    visibility: hidden;
+    position: absolute;
+  }
+
+</style>
+
+      
+  @endsection
+
+
+  @section('script')
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+
+
+      <script>
+      $(document).on("click", ".browse", function() {
+  var file = $(this).parents().find(".file");
+  file.trigger("click");
+});
+$('input[type="file"]').change(function(e) {
+  var fileName = e.target.files[0].name;
+  $("#file").val(fileName);
+
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    // get loaded data and render thumbnail.
+    document.getElementById("preview").src = e.target.result;
+  };
+  // read the image file as a data URL.
+  reader.readAsDataURL(this.files[0]);
+});  
+      </script>
   @endsection

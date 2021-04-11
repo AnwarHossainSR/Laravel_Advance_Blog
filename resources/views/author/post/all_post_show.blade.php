@@ -50,7 +50,7 @@
           @endforeach
       </td>
       <td>
-        @if ($value->status=='Unpublish')
+        @if ($value->is_approve==0)
         
         <span class="badge bg-red">Pending</span>
             
