@@ -65,11 +65,11 @@
                             </tr>
                             <tr>
                                 <th style="width: 100px" >Post Added</th>
-                                <td>{{$post_info->created_at}}</td>
+                                <td>{{$post_info->created_at->format('d-M-Y H:i:s A')}}</td>
                             </tr>
                             <tr>
                                 <th style="width: 100px" >Post Updated</th>
-                                <td>{{$post_info->updated_at}}</td>
+                                <td>{{$post_info->updated_at->format('d-M-Y H:i:s A' )}}</td> 
                             </tr>
 
                             <tr>
@@ -81,7 +81,7 @@
                                 <th style="width: 100px" >Image</th>
                                 <td>
                                     
-                                    <div style="max-width:70px; max-height:70px; overflow:hidden">
+                                    <div style="max-width:270px; max-height:270px; overflow:hidden">
                    
                                         <img src="{{asset('/source/back/post')}}/{{$post_info->postImage}}" class="img-fluid" alt="">
                          

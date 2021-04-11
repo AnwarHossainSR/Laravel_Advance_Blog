@@ -121,17 +121,43 @@ class LoginController extends Controller
     }
     public function authorDashboard(Request $req)
     {
+        
+        
+        $greetings = "";
+
+        $time =  Carbon::now()->format('H');//date("h");
+  
+        //$time = date("e");
+  
+        if ($time<"12" && $time > "6") {
+            $greetings = "Good morning";
+        } else
+
+        if ($time >= "12" && $time < "17") {
+            $greetings = "Good afternoon";
+        } else
+
+        if ($time >= "17" && $time < "19") {
+            $greetings = "Good evening";
+        } else
+    
+        if ($time >= "19" || $time<="6") {
+            $greetings = "Good night";
+        }
+        
         $data = User::find(session('loggedUser'));
         $total_post =  Post ::all()->where('user_id',$data->id)->count();
         $total_view =  Post ::where('user_id',$data->id)->sum('view_count');
-        $total_pending_post = Post:: where('user_id',$data->id)->where('status','Unpublish')->count();
+        $total_pending_post = Post:: where('user_id',$data->id)->where('is_approve',0)->count();
         $pop_post_info = Post ::orderBy('view_count','DESC')->take(10)->get()->where('user_id',$data->id);
 
         return view('author.include.home')->with('data', $data)
                                           ->with('pop_post_info', $pop_post_info)
                                           ->with('total_post',$total_post)
                                           ->with('total_view',$total_view)
-                                          ->with('total_pending_post',$total_pending_post);
+                                          ->with('total_pending_post',$total_pending_post)
+                                          ->with('time',$time)
+                                          ->with('greetings',$greetings);
     }
     public function userDashboard()
     {
