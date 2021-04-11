@@ -72,6 +72,11 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::get('user/request', [UserPostController::class, 'request'])->name('user.request');
         Route::post('user/request/post', [UserPostController::class, 'storeRequest'])->name('user.request.post');
+
+        Route::get('user/favourite-posts', [FavoriteController::class, 'userFavouritePost'])->name('user.favourite');
+        Route::get('user/comments-by-user', [UserCommentController::class, 'commentsByUser'])->name('user.commentsByUser');
+
+
     });
 
     //Redirect Dashboard

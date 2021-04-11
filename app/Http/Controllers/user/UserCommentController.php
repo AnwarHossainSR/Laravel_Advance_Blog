@@ -11,6 +11,7 @@ use App\Models\Comment;
 use App\Models\Category_Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Brian2694\Toastr\Facades\Toastr;
 
 class UserCommentController extends Controller
@@ -37,4 +38,12 @@ class UserCommentController extends Controller
         Toastr::success($msg, 'Success.!');
         return back()->with('success','Comment deleted successfully');
     }
+
+    public function commentsByUser(){
+        $comments = Comment::where('user_id','=',Auth::id())->latest()->get();
+        return view('user.comments-by-user', compact('comments'));
+        
+    }
+
+    
 }
