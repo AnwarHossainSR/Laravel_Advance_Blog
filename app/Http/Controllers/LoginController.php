@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use App\Models\Comment;
 
 class LoginController extends Controller
 {
@@ -128,10 +129,23 @@ class LoginController extends Controller
     }
     public function userDashboard()
     {
+        // $user=User::find(Auth::id());
+        // $posts = $user->favorite_posts;
+        // $data = User::find(session('loggedUser'));
         $user=User::find(Auth::id());
         $posts = $user->favorite_posts;
+
+        $comments = Comment::where('user_id','=',Auth::id())->latest()->get();
+
+        // $weekPosts = $user->favorite_posts->whereDate('created_at', Carbon::now()->subDays(60));
+
+        // return $weekPosts;
+
+        // $weekComments = Comment::where('user_id','=',Auth::id())->latest()->where('created_at', Carbon::now()->subDays(7))->get();
+
+        
         $data = User::find(session('loggedUser'));
-        return view('user.user-dashboard',\compact('posts', $posts));
+        return view('user.user-dashboard')->with('posts', $posts)->with('comments', $comments);
     }
 
     //Forgot Password portion
