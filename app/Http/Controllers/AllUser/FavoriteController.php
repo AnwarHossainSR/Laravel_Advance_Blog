@@ -28,4 +28,17 @@ class FavoriteController extends Controller
             return redirect()->back();
         }
     }
+
+    public function userFavouritePost()
+    {
+        /* $postCount = Post::all()->count();
+        $categoryCount = Category::all()->count();
+        $tagCount = Tag::all()->count();
+        $userCount = User::all()->count(); */
+        $user=User::find(Auth::id());
+        $posts = $user->favorite_posts;
+        $data = User::find(session('loggedUser'));
+        return view('user.favourite-posts',\compact('posts', $posts));
+        // return view('user.user')->with('data', $data);
+    }
 }
