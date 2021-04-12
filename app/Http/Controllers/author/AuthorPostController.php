@@ -47,7 +47,7 @@ class AuthorPostController extends Controller
     {
        
      $post = post:: find($id);
-     $categories = category::all();
+     $categories = category::where('status',1)->get();
      $tags= Tag::all();
      $total_trash_post = Post::onlyTrashed()->where('user_id',Auth::user()->id)->count();
       return view('author.post.edit_post')->with('post',$post)
@@ -120,7 +120,7 @@ class AuthorPostController extends Controller
     public function preview($id)
     {
         $post_info = Post :: find($id);
-        $categories = category::all();
+        $categories = category::where('status',1)->get();
         $tags= Tag::all();
         $total_trash_post = Post::onlyTrashed()->where('user_id',Auth::user()->id)->count();
          

@@ -11,7 +11,9 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h4>{{$greetings}} ! <a href="{{route('AuthorProfileController.view_profile')}}"> {{ $data->name}}</a> {{$time}}</h4>
+          <h4>{{$greetings}} ! <a href="{{route('AuthorProfileController.view_profile')}}"> {{ $data->name}}</a></h4>
+          <h6> {{$clock_time}}</h6>
+          <h6> {{$today_date}}</h6>
         </div>
       </div>
     </div><!-- /.container-fluid -->

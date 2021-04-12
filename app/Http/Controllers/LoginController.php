@@ -126,6 +126,8 @@ class LoginController extends Controller
         $greetings = "";
 
         $time =  Carbon::now()->format('H');//date("h");
+        $clock_time =  Carbon::now()->format('H : i a');//date("h");
+        $today_date =  Carbon::now()->format('D d - M - Y');
   
         //$time = date("e");
   
@@ -157,7 +159,8 @@ class LoginController extends Controller
                                           ->with('total_post',$total_post)
                                           ->with('total_view',$total_view)
                                           ->with('total_pending_post',$total_pending_post)
-                                          ->with('time',$time)
+                                          ->with('clock_time',$clock_time)
+                                          ->with('today_date',$today_date)
                                           ->with('greetings',$greetings)
                                           ->with('total_trash_post',$total_trash_post);
     }
