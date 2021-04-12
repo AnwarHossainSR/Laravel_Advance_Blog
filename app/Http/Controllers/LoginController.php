@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\Auth;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use App\Models\Comment;
 
 class LoginController extends Controller
 {
@@ -166,14 +169,80 @@ class LoginController extends Controller
     }
     public function userDashboard()
     {
-        /* $postCount = Post::all()->count();
-        $categoryCount = Category::all()->count();
-        $tagCount = Tag::all()->count();
-        $userCount = User::all()->count(); */
+        // $user=User::find(Auth::id());
+        // $posts = $user->favorite_posts;
+        // $data = User::find(session('loggedUser'));
         $user=User::find(Auth::id());
         $posts = $user->favorite_posts;
+
+        $comments = Comment::where('user_id','=',Auth::id())->latest()->get();
+
+        // $weekPosts = $user->favorite_posts->whereDate('created_at', Carbon::now()->subDays(60));
+
+        // return $weekPosts;
+
+        // $weekComments = Comment::where('user_id','=',Auth::id())->latest()->where('created_at', Carbon::now()->subDays(7))->get();
+
+        
         $data = User::find(session('loggedUser'));
-        return view('user.user-dashboard',\compact('posts', $posts));
-        // return view('user.user')->with('data', $data);
+        return view('user.user-dashboard')->with('posts', $posts)->with('comments', $comments);
+    }
+
+    //Forgot Password portion
+
+    public function forgotPasswordEmailForm(Request $req)
+    {
+        return \view('auth.passwords.forgotPasswordEmailForm');
+    }
+    public function checkEMail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $user = User::where('email', '=', $request->email)->first();
+        if ($user->count() > 0) {
+
+            $token = Str::random(60);
+            $user->remember_token = $token;
+            $user->save();
+            Mail::send('auth.passwords.verify',['token' => $token,'email' => $user->email], function($message) use ($request) {
+                $message->to($request->email);
+                $message->subject('Reset Password Notification');
+             });
+            $msg='Success!';
+            Toastr::success($msg, 'Password link sent.!');
+            return \back()->with('success','Password confirmation link is sent to your email');
+        } else {
+            $msg='Wrong email!';
+            Toastr::error($msg, 'Error.!');
+            return back()->with('error', 'User does not exist');
+        }
+
+    }
+    public function forgotPassword($token,$email)
+    {
+        return \view('auth.passwords.passwordForgot', ['token' => $token,'email' => $email]);
+    }
+    
+    public function updateForgotPassword(Request $req)
+    {
+        $req->validate([
+            'password' => 'required|min:8|confirmed',
+        ]);
+
+        $user = User::where('email', '=', $req->email)->first();
+        if ($user->remember_token === $req->customtoken) {
+            $user->password = Hash::make($req->password);
+            $user->remember_token = '';
+            $user->save();
+            $msg='Password Changed!';
+            Toastr::success($msg, 'Success.!');
+            return redirect()->route('login')->with('success','Password changed successfully');
+        } else {
+            $msg='Wrong!';
+            Toastr::success($msg, 'Error.!');
+            return back()->with('error','Token is not matched with server');
+        }
     }
 }

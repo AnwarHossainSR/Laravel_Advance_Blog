@@ -23,36 +23,37 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon text-primary class
             with font-awesome or any other icon font library -->
-            {{-- <li class="nav-item">
-                <a href="{{ route('user.dashboard') }}" class="nav-link {{ (request()->is('user/admin')) ? 'active': '' }}">
+            <li class="nav-item">
+                <a href="{{ route('user.dashboard') }}" class="nav-link {{ (request()->is('dashboard/user')) ? 'active': '' }}">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                     Dashboard
                 </p>
                 </a>
-            </li> --}}
-
+            </li>
             <li class="nav-item">
-                <a href="{{ route('user.dashboard') }}" class="nav-link {{ (request()->is('user/admin')) ? 'active': '' }}">
+                <a href="{{ route('user.favourite') }}" class="nav-link {{ (request()->is('home/user/favourite-posts')) ? 'active': '' }}">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
-                    My Favourite Posts
+                    Favourite posts
                 </p>
                 </a>
             </li>
 
-            {{-- <li class="nav-item">
-                <a href="{{ route('user.commentsByMe') }}" class="nav-link {{ (request()->is('user/admin')) ? 'active': '' }}">
+            
+
+            <li class="nav-item">
+                <a href="{{ route('user.commentsByUser') }}" class="nav-link {{ (request()->is('home/user/comments-by-user')) ? 'active': '' }}">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                     Comments By me
                 </p>
                 </a>
-            </li> --}}
+            </li>
         
 
         <li class="nav-item has-treeview {{-- menu-open --}}">
-            <a href="{{ route('user.request') }}" class="nav-link {{ (request()->is('user/request*')) ? 'active': '' }}">
+            <a href="{{ route('user.request') }}" class="nav-link {{ (request()->is('home/user/request')) ? 'active': '' }}">
 
                 <i class="fas fa-at nav-icon"></i>
                 <p>
@@ -62,7 +63,7 @@
         </li>
 
         <li class="nav-item has-treeview {{-- menu-open --}}">
-            <a href="{{ route('user.profile') }}" class="nav-link {{ (request()->is('admin/profile*')) ? 'active': '' }}">
+            <a href="{{ route('user.profile') }}" class="nav-link {{ (request()->is('home/user/profile')) ? 'active': '' }}">
 
             <i class="nav-icon fas fa-user"></i>
                 <p>
