@@ -143,7 +143,7 @@ class LoginController extends Controller
 
         // $weekComments = Comment::where('user_id','=',Auth::id())->latest()->where('created_at', Carbon::now()->subDays(7))->get();
 
-        
+
         $data = User::find(session('loggedUser'));
         return view('user.user-dashboard')->with('posts', $posts)->with('comments', $comments);
     }
@@ -184,7 +184,7 @@ class LoginController extends Controller
     {
         return \view('auth.passwords.passwordForgot', ['token' => $token,'email' => $email]);
     }
-    
+
     public function updateForgotPassword(Request $req)
     {
         $req->validate([
