@@ -88,6 +88,15 @@
         </li>
 
         <li class="nav-item">
+            <a href="{{route('AuthorPostController.recyclebin_post_show')}}" class="nav-link">
+                <i class="fas fa-trash-alt"></i>
+            <p>
+                Recycle Bin <span class="right badge badge-danger">1</span> 
+            </p>
+            </a>
+        </li>
+
+        <li class="nav-item">
             <a href="#" class="nav-link">
                 <i class="fas fa-envelope"></i>
             <p>

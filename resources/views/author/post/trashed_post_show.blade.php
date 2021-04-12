@@ -78,15 +78,17 @@
      <td>{{$value->view_count}}</td>
 
      <td class="text-centre">
-      <a href="{{ route('AuthorPostController.get_edit_post', $value->id)}}" class='btn btn-success' data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"></i></a>
-      
-      <button class="btn btn-danger waves-effect" type="button" onclick="deleteFunc({{$value->id}})">
+
+
+      <a href="{{ route('AuthorPostController.restore_recyclebin_post', $value->id)}}" class='btn btn-info' data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-recycle"></i></a>
+
+      <button class="btn btn-danger waves-effect" type="button" onclick="deleteFunc({{$value->id}}) data-toggle="tooltip" data-placement="top" title="Permanent Delete"">
         
-        <i class="fas fa-trash-alt"></i> 
+        <i class="fas fa-trash"></i>
         
       </button>
 
-      <form method="post" id="delete-form-{{$value->id}}" action="{{route('AuthorPostController.soft_destroy',$value->id)}}" 
+      <form method="post" id="delete-form-{{$value->id}}" action="{{--{{route('AuthorPostController.soft_destroy',$value->id)}}--}}" 
       
       style="display: none;">
       
@@ -96,7 +98,6 @@
 
       </form>
       
-       <a href="{{route('AuthorPostController.preview',$value->id)}}" class='btn btn-info' data-toggle="tooltip" data-placement="top" title="Preview"><i class="far fa-eye"></i></a>
     </td>
     
     </tr>

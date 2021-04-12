@@ -86,7 +86,7 @@
         
       </button>
 
-      <form method="post" id="delete-form-{{$value->id}}" action="{{--{{route('ProductController.destroy_all',[$value['id']])}}--}}" 
+      <form method="post" id="delete-form-{{$value->id}}" action="{{route('AuthorPostController.soft_delete',$value->id)}}" 
       
       style="display: none;">
       
@@ -129,7 +129,48 @@
       "responsive": true,
     });
   });
-</script>  
+</script> 
+
+<script type="text/javascript" >
+
+function deleteFunc(id)
+{
+    
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+    },
+    buttonsStyling: false
+})
+
+swalWithBootstrapButtons.fire({
+    title: 'Are you sure?',
+    text: "Your post will in sent in bin!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, sent to bin!',
+    cancelButtonText: 'No, cancel!',
+    reverseButtons: true
+}).then((result) => {
+    if (result.isConfirmed) {
+        event.preventDefault();
+        document.getElementById('delete-form-'+id).submit();
+    } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+    ) {
+        swalWithBootstrapButtons.fire(
+            'Cancelled',
+            'Your imaginary file is safe :)',
+            'error'
+        )
+    }
+})
+
+}
+
+</script>
 @endsection
 
 

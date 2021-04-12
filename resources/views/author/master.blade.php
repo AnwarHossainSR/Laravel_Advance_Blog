@@ -108,5 +108,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
  
  </script>
 
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.0/dist/sweetalert2.all.min.js" ></script>
+
 </body>
 </html>

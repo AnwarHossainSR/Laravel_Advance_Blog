@@ -168,4 +168,51 @@ class AuthorPostController extends Controller
          
        // return view('author.post.preview_post',compact('post_info'));
     }
+
+
+    public function soft_delete($id)
+    {
+        Post :: find($id)->delete();
+       
+        $msg='Post sent to bin';
+        Toastr::success($msg, 'Success.!');
+        return redirect()->back();
+
+    }
+
+    public function recyclebin_post_show()
+    {
+        $post_info = Post::latest()->onlyTrashed()->get();
+        return view('author.post.trashed_post_show',compact('post_info',$post_info));
+    }
+
+    public function restore_recyclebin_post($id)
+    {
+        Post::onlyTrashed()->find($id)->restore();
+        $msg='Post Restored';
+        Toastr::success($msg, 'Success.!');
+        return redirect()->back();
+    }
+
+
+    public function post_permanent_delete($id)
+    {
+        $post_info = Post::onlyTrashed()->find($id);
+        $image = '/source/back/post/' . $post_info->postImage;
+        $path = str_replace('\\', '/', public_path());
+        if ($image != "postDefault.jpg") {
+            if (file_exists($path . $image)) {
+                \unlink($path . $image);
+            }
+        }
+        $post_info->categories()->detach();
+        $post_info->tags()->detach();
+        $post_info->forceDelete();
+        $msg='Post deleted permanently';
+        Toastr::success($msg, 'Success.!'); 
+        return redirect()->back();
+    }
+
+
+   
 }

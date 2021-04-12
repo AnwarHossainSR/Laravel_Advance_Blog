@@ -192,6 +192,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/view_all_post', [AuthorPostController::class, 'all_post_show'])->name('AuthorPostController.all_post_show');
         Route::get('/view_all_unpublished_post', [AuthorPostController::class, 'view_all_unpublished_post'])->name('AuthorPostController.view_all_unpublished_post');
         Route::get('/preview/post/{id}', [AuthorPostController::class, 'preview'])->name('AuthorPostController.preview');
+        Route::get('/recycled/post', [AuthorPostController::class, 'recyclebin_post_show'])->name('AuthorPostController.recyclebin_post_show');
+        Route::get('/restore/post/{id}', [AuthorPostController::class, 'restore_recyclebin_post'])->name('AuthorPostController.restore_recyclebin_post');
+        Route::delete('/send/{id}/no_post_to_bin', [AuthorPostController::class, 'soft_delete'])->name('AuthorPostController.soft_delete');
     });
 
 });
