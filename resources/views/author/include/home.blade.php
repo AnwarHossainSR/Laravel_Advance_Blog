@@ -78,12 +78,12 @@
                 <!-- small box -->
                 <div class="small-box bg-teal ">
                   <div class="inner">
-                    <h4>150</h4>
+                    <h4>{{Auth::user() ->favorite_posts()->count()}}</h4>
     
-                    <p>Total Post</p>
+                    <p>Favorite Post</p>
                   </div>
                   <div class="icon">
-                    <i class="fas fa-pen-nib"></i>
+                    <i class="far fa-heart"></i>
                   </div>
                   
                 </div>
