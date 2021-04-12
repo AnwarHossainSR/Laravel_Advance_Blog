@@ -150,6 +150,7 @@ class LoginController extends Controller
         $total_view =  Post ::where('user_id',$data->id)->sum('view_count');
         $total_pending_post = Post:: where('user_id',$data->id)->where('is_approve',0)->count();
         $pop_post_info = Post ::orderBy('view_count','DESC')->take(10)->get()->where('user_id',$data->id);
+        $total_trash_post = Post::onlyTrashed()->where('user_id',$data->id)->count();
 
         return view('author.include.home')->with('data', $data)
                                           ->with('pop_post_info', $pop_post_info)
@@ -157,7 +158,8 @@ class LoginController extends Controller
                                           ->with('total_view',$total_view)
                                           ->with('total_pending_post',$total_pending_post)
                                           ->with('time',$time)
-                                          ->with('greetings',$greetings);
+                                          ->with('greetings',$greetings)
+                                          ->with('total_trash_post',$total_trash_post);
     }
     public function userDashboard()
     {

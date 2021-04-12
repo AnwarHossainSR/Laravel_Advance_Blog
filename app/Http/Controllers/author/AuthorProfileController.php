@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\author;
 
 use Carbon\Carbon;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -18,7 +19,9 @@ class AuthorProfileController extends Controller
     {
        //$author= User::all()->where('name');
        $author = User::find(session('loggedUser'));
-        return view('author.author_profile')->with('author',$author);
+       $total_trash_post = Post::onlyTrashed()->where('user_id',Auth::user()->id)->count();
+        return view('author.author_profile')->with('author',$author)
+                                            ->with('total_trash_post',$total_trash_post);
     }    
     
     public function save_profile(Request $request) 

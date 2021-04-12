@@ -195,6 +195,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/recycled/post', [AuthorPostController::class, 'recyclebin_post_show'])->name('AuthorPostController.recyclebin_post_show');
         Route::get('/restore/post/{id}', [AuthorPostController::class, 'restore_recyclebin_post'])->name('AuthorPostController.restore_recyclebin_post');
         Route::delete('/send/{id}/no_post_to_bin', [AuthorPostController::class, 'soft_delete'])->name('AuthorPostController.soft_delete');
+        Route::delete('/permanent_delete/{id}', [AuthorPostController::class, 'post_permanent_delete'])->name('AuthorPostController.post_permanent_delete');
     });
 
 });

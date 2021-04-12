@@ -162,7 +162,7 @@ swalWithBootstrapButtons.fire({
     ) {
         swalWithBootstrapButtons.fire(
             'Cancelled',
-            'Your imaginary file is safe :)',
+            'Your post is safe :)',
             'error'
         )
     }

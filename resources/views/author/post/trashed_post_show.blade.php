@@ -82,13 +82,13 @@
 
       <a href="{{ route('AuthorPostController.restore_recyclebin_post', $value->id)}}" class='btn btn-info' data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-recycle"></i></a>
 
-      <button class="btn btn-danger waves-effect" type="button" onclick="deleteFunc({{$value->id}}) data-toggle="tooltip" data-placement="top" title="Permanent Delete"">
+      <button class="btn btn-danger waves-effect" type="button" onclick="deleteFunc({{$value->id}})">
         
         <i class="fas fa-trash"></i>
         
       </button>
 
-      <form method="post" id="delete-form-{{$value->id}}" action="{{--{{route('AuthorPostController.soft_destroy',$value->id)}}--}}" 
+      <form method="post" id="delete-form-{{$value->id}}" action="{{route('AuthorPostController.post_permanent_delete',$value->id)}}" 
       
       style="display: none;">
       
@@ -132,58 +132,51 @@
       "responsive": true,
     });
   });
-</script>  
+</script> 
 
 {{-- Sweet Alert --}}
 
-<script type="text/javascript">
 
-  function deleteFunc(id){
-   //alert('Hi');
-                             
-   const swalWithBootstrapButtons = Swal.mixin({
-customClass: {
-confirmButton: 'btn btn-success',
-cancelButton: 'btn btn-danger'
-},
-buttonsStyling: false
-})
+<script type="text/javascript" >
 
-swalWithBootstrapButtons.fire({
-title: 'Are you sure?',
-text: "Post will added in Trash.!",
-icon: 'info',
-showCancelButton: true,
-confirmButtonText: 'Yes, delete it!',
-cancelButtonText: 'No, cancel!',
-reverseButtons: true
-}).then((result) => {
-if (result.isConfirmed) {
-
-event.preventDefault();
-
-document.getElementById('delete-form-'+id).submit();
-
-} else if (
-/* Read more about handling dismissals below */
-result.dismiss === Swal.DismissReason.cancel
-) {
-swalWithBootstrapButtons.fire(
- 'Cancelled',
- 'Your Data is safe :)',
- 'error'
-)
-}
-})
+  function deleteFunc(id)
+  {
+      
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+  })
   
-
+  swalWithBootstrapButtons.fire({
+      title: 'Are you sure?',
+      text: "Your post will deleted permanently!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+  }).then((result) => {
+      if (result.isConfirmed) {
+          event.preventDefault();
+          document.getElementById('delete-form-'+id).submit();
+      } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+      ) {
+          swalWithBootstrapButtons.fire(
+              'Cancelled',
+              'Your post is safe :)',
+              'error'
+          )
+      }
+  })
+  
   }
-
-</script>
-
-
-
-
+  
+  </script>
 @endsection
 
 

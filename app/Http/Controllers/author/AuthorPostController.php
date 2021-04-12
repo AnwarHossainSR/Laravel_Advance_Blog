@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\author;
 
+use App\Models\Tag;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\Tag;
-use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Auth;
 use App\Notifications\superAdmin\NewPostNotification;
 
 class AuthorPostController extends Controller
@@ -21,8 +22,10 @@ class AuthorPostController extends Controller
         $categories = Category::where('status',1)->get();
         //$categories = Category::all();
         $tags= Tag::all();
+        $total_trash_post = Post::onlyTrashed()->where('user_id',Auth::user()->id)->count();
         return view('author.post.add_post')->with('categories', $categories)
-                                            ->with('tags',$tags);
+                                            ->with('tags',$tags)
+                                            ->with('total_trash_post',$total_trash_post);
     }  
 
 
@@ -35,7 +38,8 @@ class AuthorPostController extends Controller
         $post_info = Post ::orderBy('created_at','DESC')->get()->where('user_id',$author->id);
        // $post_info = Category :: latest()->get()->where('user_id',$author->id);
           //return dd($post_info->categories);
-       return view('author.post.all_post_show',compact('post_info'));
+        $total_trash_post = Post::onlyTrashed()->where('user_id',Auth::user()->id)->count();
+       return view('author.post.all_post_show',compact('post_info','total_trash_post'));
 
       
     } 
@@ -45,9 +49,11 @@ class AuthorPostController extends Controller
      $post = post:: find($id);
      $categories = category::all();
      $tags= Tag::all();
+     $total_trash_post = Post::onlyTrashed()->where('user_id',Auth::user()->id)->count();
       return view('author.post.edit_post')->with('post',$post)
                                           ->with('categories',$categories)
-                                          ->with('tags',$tags);
+                                          ->with('tags',$tags)
+                                          ->with('total_trash_post',$total_trash_post);
          // dd($request->all());
       
     } 
@@ -62,7 +68,8 @@ class AuthorPostController extends Controller
         $post_info = Post ::all()->where('user_id',$author->id)->where('is_approve',0);
         //$post_info = Post ::all()->where('user_id',$author->id);
        // $post_info = Category :: latest()->get()->where('user_id',$author->id);
-        return view('author.post.unpublished_post_show',compact('post_info'));
+       $total_trash_post = Post::onlyTrashed()->where('user_id',Auth::user()->id)->count();
+        return view('author.post.unpublished_post_show',compact('post_info','total_trash_post'));
 
       
     }    
@@ -115,8 +122,9 @@ class AuthorPostController extends Controller
         $post_info = Post :: find($id);
         $categories = category::all();
         $tags= Tag::all();
+        $total_trash_post = Post::onlyTrashed()->where('user_id',Auth::user()->id)->count();
          
-        return view('author.post.preview_post',compact('post_info','categories','tags'));
+        return view('author.post.preview_post',compact('post_info','categories','tags','total_trash_post'));
     }    
     public function update_post(Request $request,$id)
     {
@@ -183,7 +191,8 @@ class AuthorPostController extends Controller
     public function recyclebin_post_show()
     {
         $post_info = Post::latest()->onlyTrashed()->get();
-        return view('author.post.trashed_post_show',compact('post_info',$post_info));
+        $total_trash_post = Post::onlyTrashed()->where('user_id',Auth::user()->id)->count();
+        return view('author.post.trashed_post_show',compact('post_info','total_trash_post'));
     }
 
     public function restore_recyclebin_post($id)

@@ -80,13 +80,13 @@
      <td class="text-centre">
       <a href="{{ route('AuthorPostController.get_edit_post', $value->id)}}" class='btn btn-success' data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"></i></a>
       
-      <button class="btn btn-danger waves-effect" data-toggle="tooltip" data-placement="top" title="Delete"type="button" onclick="deleteFunc({{$value->id}})"> 
+      <button class="btn btn-danger waves-effect" type="button" onclick="deleteFunc({{$value->id}})">
         
         <i class="fas fa-trash-alt"></i> 
         
       </button>
 
-      <form method="post" id="delete-form-{{$value->id}}" action="{{--{{route('ProductController.destroy_all',[$value['id']])}}--}}" 
+      <form method="post" id="delete-form-{{$value->id}}" action="{{route('AuthorPostController.soft_delete',$value->id)}}" 
       
       style="display: none;">
       
@@ -129,7 +129,48 @@
       "responsive": true,
     });
   });
-</script>  
+</script>
+
+<script type="text/javascript" >
+
+  function deleteFunc(id)
+  {
+      
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+  })
+  
+  swalWithBootstrapButtons.fire({
+      title: 'Are you sure?',
+      text: "Your post will in sent in bin!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, sent to bin!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+  }).then((result) => {
+      if (result.isConfirmed) {
+          event.preventDefault();
+          document.getElementById('delete-form-'+id).submit();
+      } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+      ) {
+          swalWithBootstrapButtons.fire(
+              'Cancelled',
+              'Your post is safe :)',
+              'error'
+          )
+      }
+  })
+  
+  }
+  
+  </script>
 @endsection
 
 

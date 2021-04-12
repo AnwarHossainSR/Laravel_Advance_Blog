@@ -91,7 +91,7 @@
             <a href="{{route('AuthorPostController.recyclebin_post_show')}}" class="nav-link">
                 <i class="fas fa-trash-alt"></i>
             <p>
-                Recycle Bin <span class="right badge badge-danger">1</span> 
+                Recycle Bin <span class="right badge badge-danger">{{$total_trash_post}}</span> 
             </p>
             </a>
         </li>
