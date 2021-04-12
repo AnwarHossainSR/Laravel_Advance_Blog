@@ -80,9 +80,9 @@
      <td class="text-centre">
 
 
-      <a href="{{ route('AuthorPostController.restore_recyclebin_post', $value->id)}}" class='btn btn-info' data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-recycle"></i></a>
+      <a href="{{ route('AuthorPostController.restore_recyclebin_post', $value->id)}}" class='btn btn-info' data-toggle="tooltip" data-placement="top" title="Restore"><i class="fas fa-recycle"></i></a>
 
-      <button class="btn btn-danger waves-effect" type="button" onclick="deleteFunc({{$value->id}})">
+      <button class="btn btn-danger waves-effect" type="button" onclick="deleteFunc({{$value->id}})" data-toggle="tooltip" data-placement="top" title="Permanent Delete">
         
         <i class="fas fa-trash"></i>
         
