@@ -40,7 +40,7 @@ class UserProfileController extends Controller
             'image' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
         if ($validation->fails()) {
-            return redirect()->route('admin.profile')->with('errors', $validation->errors());
+            return redirect()->route('user.profile')->with('errors', $validation->errors());
         }
         $user=User::find(Auth::id());
         if ($req->hasFile('image')) {
