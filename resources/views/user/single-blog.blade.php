@@ -215,8 +215,8 @@
 									</div>
 									@if($comment->user_id == Auth::id())
 									<div class="right-area">
-										<a class="name" href="#"><b>Edit</b></a> | 
-										<a class="name" href="{{route('comments.delete', $comment->id)}}"><b>Delete</b></a>
+										{{-- <a class="name" href="#"><b>Edit</b></a> |  --}}
+										<a class="name" href="{{route('comments.delete', $comment->id)}}"><b><i class="fas fa-trash"></i></b></a>
 										
 									</div>
 									@endif

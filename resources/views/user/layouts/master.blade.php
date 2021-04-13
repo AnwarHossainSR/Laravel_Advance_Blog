@@ -50,7 +50,7 @@
 							<li><a href="{{ route('login') }}">Login</a></li>
 
 							@if (Route::has('register'))
-								<li><a href="{{ route('register') }}">Registrater</a></li>
+								<li><a href="{{ route('register') }}">Registration</a></li>
 							@endif
 					@endauth
                 @endif
