@@ -46,9 +46,17 @@ Route::prefix('home')->group(function () {
 
 });
 
+//Forgot Password
+Route::get('/password/forgot/email', [LoginController::class, 'forgotPasswordEmailForm'])->name('password.forgot.email');
+Route::post('/password/forgot/email', [LoginController::class, 'checkEMail'])->name('passwordForgot.email.post');
+
+Route::get('/password/forgot/{token}/{email}', [LoginController::class, 'forgotPassword'])->name('password.forgot');
+Route::post('/password/forgot', [LoginController::class, 'updateForgotPassword'])->name('passwordForgot.update');
+
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('auth/login', [LoginController::class, 'login'])->name('login.custom');
+
 
 Route::group(['middleware' => ['auth']], function () {
 
@@ -64,6 +72,11 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::get('user/request', [UserPostController::class, 'request'])->name('user.request');
         Route::post('user/request/post', [UserPostController::class, 'storeRequest'])->name('user.request.post');
+
+        Route::get('user/favourite-posts', [FavoriteController::class, 'userFavouritePost'])->name('user.favourite');
+        Route::get('user/comments-by-user', [UserCommentController::class, 'commentsByUser'])->name('user.commentsByUser');
+
+
     });
 
     //Redirect Dashboard

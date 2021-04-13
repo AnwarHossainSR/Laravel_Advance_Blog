@@ -135,7 +135,7 @@
         console.log(<?php echo $datas; ?>);
         Highcharts.chart('chart-container', {
             title: {
-                text: 'New User Growth, 2021'
+                text: 'New Post Growth, 2021'
             },
             subtitle: {
                 text: 'Source: Surfside Media'
@@ -147,7 +147,7 @@
             },
             yAxis: {
                 title: {
-                    text: 'Number of New Users'
+                    text: 'Number of New Post'
                 }
             },
             legend: {
@@ -161,7 +161,7 @@
                 }
             },
             series: [{
-                name: 'New Users',
+                name: 'New Posts',
                 data: datas
             }],
             responsive: {
